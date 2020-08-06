@@ -3,12 +3,12 @@
     <input
       type="text"
       class="tag-edit-input"
+      ref="inputTextRef"
       v-if="editable && editMode"
       v-model="input"
       @blur="handleEscape"
       @keyup.enter="handleSaveEdit"
       @keyup.esc="handleEscape"
-      ref="inputTextRef"
     />
     <span class="tag-name" @dblclick="handleDoubleClick" v-else>{{tagName}}</span>
     <button @click="handleRemove(id)">
@@ -112,6 +112,8 @@ export default defineComponent({
   width: auto;
   outline: 0;
   border: 0;
+  background: rgba(255, 255, 255, 0.45);
+  font-size: 1rem;
 }
 
 button {

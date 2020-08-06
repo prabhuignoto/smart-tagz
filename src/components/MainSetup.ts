@@ -3,14 +3,14 @@ import { computed, nextTick, ref, unref, watch } from "vue";
 import { TagModel } from "../models";
 
 export default function (props) {
+  const { autosuggest, allowPaste, allowDuplicates, maxTags } = props;
   const tagsData = ref<TagModel[]>([]);
   const input = ref("");
-  const pastedInput = ref("");
   const delTagRef = ref<{ id: string }>(null);
-  const { autosuggest, allowPaste, allowDuplicates, maxTags } = props;
   const showSuggestions = ref(false);
   const textInputRef = ref(null);
   const tagsCreated = ref(0);
+  const focusSuggestions = ref(false);
 
   const style = computed(() => ({
     width: props.width,
@@ -31,7 +31,7 @@ export default function (props) {
         return t;
       });
     } else if (newValue) {
-      if (autosuggest && newValue.length > 1) {
+      if (autosuggest && newValue.length > 0) {
         showSuggestions.value = true;
       } else if (autosuggest && newValue.length < 1) {
         showSuggestions.value = false;
@@ -49,6 +49,7 @@ export default function (props) {
     return duplicatesCheck && maxAllowed;
   });
 
+  // handler to add a new tag
   const handleAddTag = (name: string) => {
     if (!canAddTag.value) {
       return;
@@ -66,6 +67,7 @@ export default function (props) {
     }
   };
 
+  // handler to remove a tag
   const handleRemoveTag = (id: string) => {
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
     tagsCreated.value -= 1;
@@ -98,6 +100,7 @@ export default function (props) {
     }
   };
 
+  // handle to manage paste
   const handlePaste = (event: ClipboardEvent) => {
     // cancel the default operation
     event.stopPropagation();
@@ -158,10 +161,19 @@ export default function (props) {
   };
 
   const handleSuggestSelection = (name: string) => {
+    focusSuggestions.value = false;
     handleAddTag(name);
     nextTick(() => {
       (textInputRef.value as HTMLElement).focus();
     });
+  };
+
+  const handleKeydown = () => {
+    const show = unref(showSuggestions);
+
+    if (show) {
+      focusSuggestions.value = true;
+    }
   };
 
   return {
@@ -169,13 +181,15 @@ export default function (props) {
     input,
     style,
     textInputRef,
+    showSuggestions,
+    focusSuggestions,
+    handleKeydown,
     handleAddTag,
     handleRemoveTag,
     handleDelete,
     handleEscape,
     handlePaste,
     handleEditTag,
-    showSuggestions,
     handleSuggestSelection,
   };
 }

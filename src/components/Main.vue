@@ -1,5 +1,5 @@
 <template>
-  <div class="tags-main" :style="style">
+  <div class="tags-main" :style="style" @keyup.ctrl="handleSelectAll($event)">
     <Tags :tags="tagsData" :onRemove="handleRemoveTag" :onEdit="handleEditTag" :editable="editable">
       <div class="input-wrapper">
         <input
@@ -10,6 +10,7 @@
           @keyup.enter="handleAddTag($event.target.value)"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
+          @keyup.down="handleKeydown"
           @paste="handlePaste"
         />
         <div class="suggestion-wrapper">
@@ -18,6 +19,7 @@
             :items="sources"
             :keyword="input"
             :onSelection="handleSuggestSelection"
+            :focus="focusSuggestions"
           />
         </div>
       </div>
@@ -108,7 +110,6 @@ input[type="text"] {
   position: relative;
   align-self: center;
   margin-top: 0.5rem;
-  /* height: rem; */
   height: 100%;
   width: 200px;
 }
@@ -117,5 +118,10 @@ input[type="text"] {
   position: absolute;
   top: 2rem;
   width: 100%;
+  z-index: 100;
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

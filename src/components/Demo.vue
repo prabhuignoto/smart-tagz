@@ -5,7 +5,7 @@
       :sources="sources"
       :allowPaste="{delimiter: ';'}"
       :editable="true"
-      :allowDuplicates="true"
+      :allowDuplicates="false"
       inputPlaceholder="Select Countries ..."
     />
   </div>

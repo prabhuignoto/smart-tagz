@@ -1,18 +1,18 @@
 <template>
-    <div class="tags-container">
-      <Tag
-        v-for="tag of localTags"
-        :key="tag.id"
-        :name="tag.name"
-        :value="tag.value"
-        :highlight="tag.highlight"
-        :id="tag.id"
-        :onRemove="handleRemove"
-        :onEdit="handleEdit"
-        :editable="editable"
-      />
-      <slot></slot>
-    </div>
+  <div class="tags-container">
+    <Tag
+      v-for="tag of localTags"
+      :key="tag.id"
+      :name="tag.name"
+      :value="tag.value"
+      :highlight="tag.highlight"
+      :id="tag.id"
+      :onRemove="handleRemove"
+      :onEdit="handleEdit"
+      :editable="editable"
+    />
+    <slot></slot>
+  </div>
 </template>
 
 <script lang="ts">
@@ -32,20 +32,20 @@ export default defineComponent({
     },
     onRemove: {
       type: Function as PropType<(id: string) => void>,
-      required: true
+      required: true,
     },
     onEdit: {
       type: Function as PropType<(id: string, newValue: string) => void>,
-      required: true
+      required: true,
     },
     editable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props) {
     const { tags } = toRefs(props);
-    const {onRemove, onEdit} = props;
+    const { onRemove, onEdit } = props;
 
     const localTags = ref<TagModel[]>([]);
 
@@ -54,12 +54,12 @@ export default defineComponent({
 
     watch(tags, (newValue) => {
       localTags.value = newValue;
-    })
+    });
 
     return {
       localTags,
       handleRemove,
-      handleEdit
+      handleEdit,
     };
   },
 });
