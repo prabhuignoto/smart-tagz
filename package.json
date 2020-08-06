@@ -1,0 +1,24 @@
+{
+  "name": "tagur",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "nanoid": "^3.1.12",
+    "vue": "^3.0.0-rc.1"
+  },
+  "devDependencies": {
+    "@types/nanoid": "^2.1.0",
+    "@vue/compiler-sfc": "^3.0.0-rc.1",
+    "eslint": "^7.6.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "vite": "^1.0.0-rc.1"
+  }
+}
