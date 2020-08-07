@@ -15,7 +15,7 @@ Smart input tags for Vue 3
 
 smart-tagz is a smart input tags components built for Vue 3.
 
-### Features
+## Features
 
 - **Autocomplete** - Supports autocomplete with easy keyboard selection.
 - **Editable Tags** - Tags can be edited inline by double clicking on the tag. 
@@ -25,13 +25,13 @@ smart-tagz is a smart input tags components built for Vue 3.
 - **Composition API** - Built using the latest Composition API from Vue 3.
 - **Typescript** - Built with Typescript.
 
-### Installation
+## Installation
 
 ```sh
 yarn run install && yarn run dev
 ```
 
-### Getting Started
+## Getting Started
 
 smart-tagz has some great defaults to get you started quickly. Please check the props list for details on all available options.
 
@@ -50,7 +50,7 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 
 ![demo](demo.gif)
 
-### Props
+## Props
 
 | Prop             | Type                  | Description                                                                                    | Default          |
 |------------------|-----------------------|------------------------------------------------------------------------------------------------|------------------|
