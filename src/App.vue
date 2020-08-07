@@ -1,5 +1,7 @@
 <template>
-  <demo msg="test" />
+  <div class="demo-wrapper">
+    <demo />
+  </div>
 </template>
 
 <script lang="ts">
@@ -12,3 +14,13 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss" scoped>
+.demo-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+</style>

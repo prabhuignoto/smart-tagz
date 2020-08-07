@@ -89,18 +89,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tag-container {
   align-items: center;
-  background-color: #99badd;
-  border-radius: 0.25rem;
+  background-color: #6093ca;
+  border-radius: 0.2rem;
   color: #fff;
   display: flex;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
   justify-content: center;
   margin: 0.4rem 0.25rem;
   padding: 0.4rem 0.1rem 0.4rem 0.4rem;
   user-select: none;
 
   &.highlight {
-    background-color: #5b6f84;
+    background-color: #b20000;
   }
 }
 
@@ -112,7 +112,7 @@ export default defineComponent({
   width: auto;
   outline: 0;
   border: 0;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.4);
   font-size: 1rem;
 }
 

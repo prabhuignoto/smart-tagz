@@ -1,25 +1,27 @@
 <template>
   <div :style="{width: '600px'}">
-    <Main
+    <SmartTagz
       :autosuggest="true"
       :sources="sources"
-      :allowPaste="{delimiter: ';'}"
+      :allowPaste="{delimiter: ','}"
       :editable="true"
       :allowDuplicates="false"
+      :maxTags="20"
+      :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
       inputPlaceholder="Select Countries ..."
     />
   </div>
 </template>
 
 <script lang="ts">
-import Main from "./Main.vue";
+import SmartTagz from "./Main.vue";
 import { defineComponent } from "vue";
 import Countries from "./countries";
 
 export default {
   name: "Demo",
   components: {
-    Main,
+    SmartTagz,
   },
   props: {
     msg: String,

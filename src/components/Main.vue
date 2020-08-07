@@ -52,34 +52,46 @@ export default defineComponent({
     SuggestionPane,
   },
   props: {
+    defaultTags: {
+      type: Array as PropType<string[]>,
+      default: [],
+    },
+    // container width
     width: {
       type: String,
       default: "100%",
     },
+    // sources array for autosuggest
     sources: {
       type: Array as PropType<string[]>,
       default: [],
     },
+    // switch to enable autosuggest
     autosuggest: {
       type: Boolean,
       default: false,
     },
+    // prop to enbale text paste
     allowPaste: {
       type: Object as PropType<{ delimiter: string }>,
       default: null,
     },
+    // makes the tag editable
     editable: {
       type: Boolean,
       default: false,
     },
+    // prop to control duplicates in the list
     allowDuplicates: {
       type: Boolean,
       default: true,
     },
+    // maximum number of tags allowed
     maxTags: {
       type: Number,
       default: 10,
     },
+    // placeholder for the input box
     inputPlaceholder: {
       type: String,
       default: "Enter tag...",
@@ -95,35 +107,39 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  padding: 1rem;
+  background: #eaf1f8;
+  border-radius: 0.2rem;
 }
 
 input[type="text"] {
+  border-radius: 0;
   border: 0;
   border-bottom: 1px solid #000;
-  border-radius: 0;
-  position: relative;
-  outline: 0;
   font-size: 1rem;
   height: 100%;
+  outline: 0;
+  position: relative;
+  background: transparent;
 }
 
 .input-wrapper {
-  margin-left: 0.5rem;
-  position: relative;
   align-self: center;
-  margin-top: 0.5rem;
   height: 100%;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  position: relative;
   width: 200px;
 }
 
 .suggestion-wrapper {
+  max-height: 500px;
+  min-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
   position: absolute;
   top: 2rem;
   width: 100%;
   z-index: 100;
-  min-height: 400px;
-  max-height: 500px;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 </style>

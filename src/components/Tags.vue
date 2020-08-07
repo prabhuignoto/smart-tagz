@@ -44,17 +44,20 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { tags } = toRefs(props);
+    // const { tags } = toRefs(props);
     const { onRemove, onEdit } = props;
 
-    const localTags = ref<TagModel[]>([]);
+    const localTags = ref<TagModel[]>(props.tags);
 
     const handleRemove = (id) => onRemove(id);
     const handleEdit = (id: string, newValue: string) => onEdit(id, newValue);
 
-    watch(tags, (newValue) => {
-      localTags.value = newValue;
-    });
+    watch(
+      () => props.tags,
+      (newValue) => {
+        localTags.value = newValue;
+      }
+    );
 
     return {
       localTags,

@@ -3,10 +3,11 @@
     <ul
       class="suggest-pane"
       ref="paneRef"
-      @keyup.down="handleKeydown"
-      @keyup.up="handleKeyup"
+      @keydown.down="handleKeydown($event)"
+      @keydown.up="handleKeyup($event)"
       @keyup.enter="handleEnter"
       @keyup.esc="handleEsc"
+      @blur="handleEsc"
       tabindex="0"
     >
       <li
@@ -90,7 +91,10 @@ export default defineComponent({
       }
     };
 
-    const handleKeyup = () => {
+    const handleKeyup = (event: KeyboardEvent) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
       const items = unref(filteredItems);
       const actvSelection = unref(activeSelection);
 
@@ -101,7 +105,10 @@ export default defineComponent({
       }
     };
 
-    const handleEnter = () => {
+    const handleEnter = (event: KeyboardEvent) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
       const currentSelection = unref(activeSelection);
       const items = unref(filteredItems);
       const item = items[currentSelection];
@@ -118,7 +125,6 @@ export default defineComponent({
     watch(
       () => props.focus,
       (newValue) => {
-        console.log("prop 2");
         if (newValue) {
           (paneRef.value as HTMLElement).focus();
           activeSelection.value = 0;
@@ -155,38 +161,38 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .suggest-pane {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  background: #eaf1f8;
+  background: #6093ca;
   border-radius: 0.2rem;
+  list-style: none;
+  margin: 0;
   outline: none;
+  padding: 0;
+  width: 100%;
 }
 
 .suggest-pane-item {
-  width: 100%;
-  display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0.4rem 0;
-  color: #000;
+  color: #fff;
   cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
   font-size: 0.85rem;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0.4rem 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 
   span {
     padding-left: 0.4rem;
   }
 
   &:hover {
-    background: #d6e3f1;
+    background: #73a0d0;
   }
 
   &.selected {
-    background: #d6e3f1;
+    background: #73a0d0;
   }
 }
 </style>

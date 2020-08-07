@@ -2,12 +2,27 @@ import { nanoid } from "nanoid";
 import { computed, nextTick, ref, unref, watch } from "vue";
 import { TagModel } from "../models";
 
-export default function (props) {
+interface PropModel {
+  autosuggest: boolean;
+  allowPaste: {
+    delimiter: string;
+  };
+  allowDuplicates: boolean;
+  maxTags: number;
+  width: string;
+  defaultTags?: string[];
+}
+
+export default function (props: PropModel) {
   // captured props
-  const { autosuggest, allowPaste, allowDuplicates, maxTags } = props;
+  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags } = props;
   const delTagRef = ref<{ id: string }>(null);
-  // ref to store the tags data
-  const tagsData = ref<TagModel[]>([]);
+  // ref to store the tags data. init with default tags
+  const tagsData = ref<TagModel[]>(defaultTags.map(name => ({
+    id: nanoid(),
+    name,
+    value: name
+  })));
   const textInputRef = ref(null);
   // ref for the input box
   const input = ref("");
@@ -139,7 +154,7 @@ export default function (props) {
           const newSet = items.filter(
             (item) => existingItems.indexOf(item) < 0
           );
-          
+
           // remove the duplicate entries
           items = [...new Set(newSet)] as string[];
         }
