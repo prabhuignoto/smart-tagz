@@ -19,7 +19,7 @@
 <script lang="ts">
 import Tag from "./Tag.vue";
 import { defineComponent, ref, PropType, watch, toRefs } from "vue";
-import { TagModel, TagsPropModel } from "../models";
+import { TagModel } from "../models";
 
 export default defineComponent({
   name: "Tags",

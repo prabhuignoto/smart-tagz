@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import SmartTagz from "./Main.vue";
-import { defineComponent } from "vue";
 import Countries from "./countries";
 
 export default {

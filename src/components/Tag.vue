@@ -23,12 +23,9 @@ import {
   PropType,
   ref,
   toRefs,
-  toRef,
   nextTick,
   computed,
-  readonly,
 } from "vue";
-import { TagPropModel } from "../models";
 import CloseIcon from "./CloseIcon.vue";
 
 export default defineComponent({

@@ -28,11 +28,9 @@ import {
   defineComponent,
   PropType,
   watch,
-  toRef,
   toRefs,
   computed,
   ref,
-  nextTick,
   unref,
 } from "vue";
 
@@ -64,11 +62,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { onSelection, show, onPaneEsc } = props;
+    const { onSelection, onPaneEsc } = props;
     const showPane = ref(false);
-    const { keyword, focus } = toRefs<{
+    const { keyword } = toRefs<{
       keyword: string;
-      focus: boolean;
     }>(props);
     const localItems = ref(props.items.slice(0));
     const handleSelection = (name: string) => onSelection(name);

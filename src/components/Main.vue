@@ -40,16 +40,9 @@
 <script lang="ts">
 import {
   defineComponent,
-  ref,
-  computed,
-  watch,
   PropType,
-  nextTick,
-  unref,
 } from "vue";
 import Tags from "./Tags.vue";
-import { nanoid } from "nanoid";
-import { TagModel } from "../models";
 import SuggestionPane from "./SuggestPane.vue";
 import MainSetup from "./MainSetup";
 
