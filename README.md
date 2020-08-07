@@ -21,6 +21,7 @@ smart-tagz is a smart input tags components built for Vue 3.
 - **Editable Tags** - Tags can be edited inline by double clicking on the tag. 
 - **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
 - **Easy tag deletion** - Delete tags easily with delete or backspace.
+- **Quick delete** - Quickly delete all tags with CTRL + A, DEL or BACKSPACE.
 - **Composition API** - Built using the latest Composition API from Vue 3.
 - **Typescript** - Built with Typescript.
 
