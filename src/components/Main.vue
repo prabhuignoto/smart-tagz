@@ -1,6 +1,12 @@
 <template>
   <div class="tags-main" :style="style" @keyup.ctrl="handleSelectAll($event)">
-    <Tags :tags="tagsData" :onRemove="handleRemoveTag" :onEdit="handleEditTag" :editable="editable">
+    <Tags
+      :tags="tagsData"
+      :onRemove="handleRemoveTag"
+      :onEdit="handleEditTag"
+      :editable="editable"
+      :readOnly="readOnly"
+    >
       <div class="input-wrapper">
         <input
           type="text"
@@ -13,6 +19,7 @@
           @keyup.down="handleKeydown"
           @paste="handlePaste"
           @focus="handleFocus"
+          v-if="!readOnly"
         />
         <div class="suggestion-wrapper">
           <SuggestionPane
@@ -52,6 +59,10 @@ export default defineComponent({
     SuggestionPane,
   },
   props: {
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
     defaultTags: {
       type: Array as PropType<string[]>,
       default: [],

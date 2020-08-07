@@ -1,24 +1,33 @@
 <template>
-  <div class="tag-container" :class="{highlight}">
+  <div class="tag-container" :class="{highlight, 'no-remove': !canShowRemoveBtn}">
     <input
       type="text"
       class="tag-edit-input"
       ref="inputTextRef"
-      v-if="editable && editMode"
+      v-if="canShowInputbox"
       v-model="input"
       @blur="handleEscape"
       @keyup.enter="handleSaveEdit"
       @keyup.esc="handleEscape"
     />
     <span class="tag-name" @dblclick="handleDoubleClick" v-else>{{tagName}}</span>
-    <button @click="handleRemove(id)">
+    <button @click="handleRemove(id)" v-if="canShowRemoveBtn">
       <CloseIcon />
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, toRefs, toRef, nextTick } from "vue";
+import {
+  defineComponent,
+  PropType,
+  ref,
+  toRefs,
+  toRef,
+  nextTick,
+  computed,
+  readonly,
+} from "vue";
 import { TagPropModel } from "../models";
 import CloseIcon from "./CloseIcon.vue";
 
@@ -43,12 +52,16 @@ export default defineComponent({
     },
     id: String,
     highlight: Boolean,
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
     const editMode = ref(false);
     const input = ref(props.name);
     const inputTextRef = ref(null);
-    const { id, onEdit, onRemove, editable } = props;
+    const { id, onEdit, onRemove, editable, readOnly } = props;
     const { name: tagName } = toRefs(props);
 
     const handleRemove = (id: string) => onRemove(id);
@@ -72,6 +85,12 @@ export default defineComponent({
       editMode.value = false;
     };
 
+    const canShowInputbox = computed(
+      () => editable && editMode.value && !readOnly
+    );
+
+    const canShowRemoveBtn = computed(() => !readOnly);
+
     return {
       handleRemove,
       handleDoubleClick,
@@ -81,6 +100,8 @@ export default defineComponent({
       input,
       tagName,
       inputTextRef,
+      canShowInputbox,
+      canShowRemoveBtn,
     };
   },
 });
@@ -101,6 +122,10 @@ export default defineComponent({
 
   &.highlight {
     background-color: #b20000;
+  }
+
+  &.no-remove {
+    padding-right: 0.5rem;
   }
 }
 

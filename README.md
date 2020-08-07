@@ -22,7 +22,7 @@ smart-tagz is a smart input tags components built for Vue 3.
 - **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
 - **Easy tag deletion** - Delete tags easily with delete or backspace.
 - **Composition API** - Built using the latest Composition API from Vue 3.
-- **Typescript** - Written in Typescript
+- **Typescript** - Built with Typescript.
 
 ### Installation
 
@@ -62,6 +62,7 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 | allowDuplicates  | Boolean               | allows/disallows duplicate tag entries while pasted or entered manually                        | true             |
 | maxTags          | Number                | Maximum number of tags allowed                                                                 | 10               |
 | inputPlaceholder | String                | Placeholder for the input box                                                                  | "Enter tag..."   |
+| readOnly         | Boolean               | Makes the whole component readonly. ideal for display only purposes.                           | false            |
 
 ## Built with
 

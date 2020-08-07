@@ -3,6 +3,7 @@ export interface TagModel {
   id: string;
   value: string;
   highlight?: boolean;
+  readOnly?: boolean;
 }
 
 export interface TagsPropModel {

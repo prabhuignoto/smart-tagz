@@ -10,6 +10,7 @@
       :onRemove="handleRemove"
       :onEdit="handleEdit"
       :editable="editable"
+      :readOnly="readOnly"
     />
     <slot></slot>
   </div>
@@ -26,6 +27,10 @@ export default defineComponent({
     Tag,
   },
   props: {
+    readOnly: {
+      type: Boolean,
+      default: false,
+    },
     tags: {
       type: Array as PropType<TagModel[]>,
       required: true,
@@ -44,10 +49,13 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // const { tags } = toRefs(props);
-    const { onRemove, onEdit } = props;
+    const { onRemove, onEdit, readOnly } = props;
 
-    const localTags = ref<TagModel[]>(props.tags);
+    const tags = readOnly
+      ? props.tags.map((tag) => Object.assign({}, tag, { editable: false }))
+      : props.tags;
+
+    const localTags = ref<TagModel[]>(tags);
 
     const handleRemove = (id) => onRemove(id);
     const handleEdit = (id: string, newValue: string) => onEdit(id, newValue);
