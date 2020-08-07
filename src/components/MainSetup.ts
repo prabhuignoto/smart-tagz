@@ -32,6 +32,8 @@ export default function (props: PropModel) {
   const showSuggestions = ref(false);
   // ref to focus the suggestion pane
   const focusSuggestions = ref(false);
+  // ref to track ctrl+a selection
+  const selectAllRef = ref(false);
 
   const style = computed(() => ({
     width: props.width,
@@ -45,6 +47,7 @@ export default function (props: PropModel) {
     });
     // disable autosuggest
     showSuggestions.value = false;
+    selectAllRef.value = false;
   };
 
   watch(input, (newValue) => {
@@ -65,6 +68,14 @@ export default function (props: PropModel) {
       }
     } else {
       showSuggestions.value = false;
+    }
+  });
+
+  watch(selectAllRef, newValue => {
+    if (newValue) {
+      tagsData.value = tagsData.value.map(tag => Object.assign({}, tag, {
+        highlight: true
+      }));
     }
   });
 
@@ -103,6 +114,12 @@ export default function (props: PropModel) {
 
   const handleDelete = () => {
     if (input.value) {
+      return;
+    }
+
+    if (selectAllRef.value) {
+      tagsData.value = [];
+      selectAllRef.value = false;
       return;
     }
 
@@ -220,6 +237,13 @@ export default function (props: PropModel) {
     focusSuggestions.value = false;
   };
 
+  const handleSelectAll = (event: KeyboardEvent) => {
+    if (event.keyCode === 65 && !input.value) {
+      selectAllRef.value = true;
+      delTagRef.value = null;
+    }
+  };
+
   return {
     tagsData,
     input,
@@ -236,6 +260,7 @@ export default function (props: PropModel) {
     handleEditTag,
     handleSuggestSelection,
     handleSuggestEsc,
+    handleSelectAll,
     handleFocus
   };
 }

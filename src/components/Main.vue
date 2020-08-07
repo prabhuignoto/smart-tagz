@@ -17,6 +17,7 @@
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
           @keyup.down="handleKeydown"
+          @keydown.ctrl.exact="handleSelectAll($event)"
           @paste="handlePaste"
           @focus="handleFocus"
           v-if="!readOnly"
