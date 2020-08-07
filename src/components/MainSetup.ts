@@ -3,13 +3,19 @@ import { computed, nextTick, ref, unref, watch } from "vue";
 import { TagModel } from "../models";
 
 export default function (props) {
+  // captured props
   const { autosuggest, allowPaste, allowDuplicates, maxTags } = props;
-  const tagsData = ref<TagModel[]>([]);
-  const input = ref("");
   const delTagRef = ref<{ id: string }>(null);
-  const showSuggestions = ref(false);
+  // ref to store the tags data
+  const tagsData = ref<TagModel[]>([]);
   const textInputRef = ref(null);
+  // ref for the input box
+  const input = ref("");
+  // ref to track the tags created by te user
   const tagsCreated = ref(0);
+  // ref to display the suggestion pane
+  const showSuggestions = ref(false);
+  // ref to focus the suggestion pane
   const focusSuggestions = ref(false);
 
   const style = computed(() => ({
@@ -17,20 +23,26 @@ export default function (props) {
   }));
 
   const reset = () => {
-    tagsData.value = tagsData.value.map((t) => {
+    // remove highlight from all tags
+    tagsData.value = tagsData.value.map(t => {
       delete t.highlight;
       return t;
     });
+    // disable autosuggest
+    showSuggestions.value = false;
   };
 
   watch(input, (newValue) => {
-    if (newValue && delTagRef.value) {
+
+    if (delTagRef.value) {
       delTagRef.value = null;
       tagsData.value = tagsData.value.map((t) => {
         delete t.highlight;
         return t;
       });
-    } else if (newValue) {
+    }
+
+    if (newValue) {
       if (autosuggest && newValue.length > 0) {
         showSuggestions.value = true;
       } else if (autosuggest && newValue.length < 1) {
@@ -41,6 +53,7 @@ export default function (props) {
     }
   });
 
+  // checks if a new tag can be added
   const canAddTag = computed(() => {
     const duplicatesCheck = !allowDuplicates
       ? !tagsData.value.some((tag) => tag.name === input.value)
@@ -110,21 +123,28 @@ export default function (props) {
     const data = event.clipboardData.getData("text");
 
     if (data) {
+      // calculate available slots
       const availableSlots = maxTags - tagsCreated.value;
+
+      // split string to create new tags
       let items = data.split(allowPaste.delimiter);
 
       if (items.length > 1) {
+        // pick the items that can fit in the slot
         items = items.slice(0, Math.min(items.length, availableSlots));
 
+        // check if duplicates are disallowed
         if (!allowDuplicates) {
           const existingItems = unref(tagsData).map((t) => t.name);
           const newSet = items.filter(
             (item) => existingItems.indexOf(item) < 0
           );
-
+          
+          // remove the duplicate entries
           items = [...new Set(newSet)] as string[];
         }
 
+        // update tagsData with new items
         if (items.length) {
           tagsData.value = tagsData.value.concat(
             items.map((name) => ({
@@ -170,10 +190,19 @@ export default function (props) {
 
   const handleKeydown = () => {
     const show = unref(showSuggestions);
-
     if (show) {
       focusSuggestions.value = true;
     }
+  };
+
+  const handleSuggestEsc = () => {
+    (textInputRef.value as HTMLElement).focus();
+    focusSuggestions.value = false;
+    showSuggestions.value = false;
+  }
+
+  const handleFocus = () => {
+    focusSuggestions.value = false;
   };
 
   return {
@@ -191,5 +220,7 @@ export default function (props) {
     handlePaste,
     handleEditTag,
     handleSuggestSelection,
+    handleSuggestEsc,
+    handleFocus
   };
 }

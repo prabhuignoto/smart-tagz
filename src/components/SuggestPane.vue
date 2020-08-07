@@ -1,11 +1,12 @@
 <template>
-  <div class="suggest-pane-container" v-if="show">
+  <div class="suggest-pane-container" v-if="showPane">
     <ul
       class="suggest-pane"
       ref="paneRef"
       @keyup.down="handleKeydown"
       @keyup.up="handleKeyup"
       @keyup.enter="handleEnter"
+      @keyup.esc="handleEsc"
       tabindex="0"
     >
       <li
@@ -26,6 +27,7 @@ import {
   defineComponent,
   PropType,
   watch,
+  toRef,
   toRefs,
   computed,
   ref,
@@ -48,6 +50,9 @@ export default defineComponent({
     onSelection: {
       type: Function as PropType<(name: string) => void>,
     },
+    onPaneEsc: {
+      type: Function as PropType<() => void>,
+    },
     keyword: {
       type: String,
       required: true,
@@ -58,10 +63,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { onSelection } = props;
-    const { keyword, show, focus } = toRefs<{
+    const { onSelection, show, onPaneEsc } = props;
+    const showPane = ref(false);
+    const { keyword, focus } = toRefs<{
       keyword: string;
-      show: boolean;
       focus: boolean;
     }>(props);
     const localItems = ref(props.items.slice(0));
@@ -104,22 +109,44 @@ export default defineComponent({
       handleSelection(item);
     };
 
-    watch(focus, (newValue) => {
-      if (newValue) {
-        (paneRef.value as HTMLElement).focus();
-        activeSelection.value = 0;
+    const handleEsc = () => {
+      activeSelection.value = null;
+      showPane.value = false;
+      onPaneEsc();
+    };
+
+    watch(
+      () => props.focus,
+      (newValue) => {
+        console.log("prop 2");
+        if (newValue) {
+          (paneRef.value as HTMLElement).focus();
+          activeSelection.value = 0;
+        }
       }
-    });
+    );
+
+    watch(
+      () => props.show,
+      (newValue) => {
+        if (newValue) {
+          showPane.value = true;
+        } else {
+          showPane.value = false;
+        }
+      }
+    );
 
     return {
       handleSelection,
       filteredItems,
-      show,
+      showPane,
       paneRef,
       activeSelection,
       handleKeydown,
       handleKeyup,
       handleEnter,
+      handleEsc,
     };
   },
 });

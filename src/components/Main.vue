@@ -12,6 +12,7 @@
           @keyup.esc="handleEscape"
           @keyup.down="handleKeydown"
           @paste="handlePaste"
+          @focus="handleFocus"
         />
         <div class="suggestion-wrapper">
           <SuggestionPane
@@ -19,6 +20,7 @@
             :items="sources"
             :keyword="input"
             :onSelection="handleSuggestSelection"
+            :onPaneEsc="handleSuggestEsc"
             :focus="focusSuggestions"
           />
         </div>
