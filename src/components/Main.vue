@@ -1,11 +1,16 @@
 <template>
-  <div class="tags-main" :style="style" @keyup.ctrl="handleSelectAll($event)">
+  <div
+    class="tags-main"
+    :style="{background: theme.background}"
+    @keyup.ctrl="handleSelectAll($event)"
+  >
     <Tags
       :tags="tagsData"
       :onRemove="handleRemoveTag"
       :onEdit="handleEditTag"
       :editable="editable"
       :readOnly="readOnly"
+      :tagStyle="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
     >
       <div class="input-wrapper">
         <input
@@ -30,6 +35,7 @@
             :onSelection="handleSuggestSelection"
             :onPaneEsc="handleSuggestEsc"
             :focus="focusSuggestions"
+            :paneStyle="{bgColor: theme.primary}"
           />
         </div>
       </div>
@@ -38,10 +44,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-} from "vue";
+import { defineComponent, PropType } from "vue";
 import Tags from "./Tags.vue";
 import SuggestionPane from "./SuggestPane.vue";
 import MainSetup from "./MainSetup";
@@ -101,6 +104,18 @@ export default defineComponent({
       type: String,
       default: "Enter tag...",
     },
+    theme: {
+      type: Object as PropType<{
+        primary: string;
+        secondary: string;
+        tagTextColor: string;
+      }>,
+      default: {
+        primary: "#6093ca",
+        background: "#eaf1f8",
+        tagTextColor: "#fff",
+      },
+    },
   },
   setup: MainSetup,
 });
@@ -113,7 +128,7 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 1rem;
-  background: #eaf1f8;
+  /* background: #eaf1f8; */
   border-radius: 0.2rem;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="tag-container" :class="{highlight, 'no-remove': !canShowRemoveBtn}">
+  <div class="tag-container" :class="{'no-remove': !canShowRemoveBtn}" :style="style">
     <input
       type="text"
       class="tag-edit-input"
@@ -25,6 +25,8 @@ import {
   toRefs,
   nextTick,
   computed,
+  watch,
+  toRef,
 } from "vue";
 import CloseIcon from "./CloseIcon.vue";
 
@@ -53,13 +55,25 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    tagStyle: {
+      type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
+    },
   },
   setup(props) {
     const editMode = ref(false);
     const input = ref(props.name);
     const inputTextRef = ref(null);
-    const { id, onEdit, onRemove, editable, readOnly } = props;
-    const { name: tagName } = toRefs(props);
+    const {
+      id,
+      onEdit,
+      onRemove,
+      editable,
+      readOnly,
+      tagStyle,
+      name
+    } = props;
+    // const { name: tagName } = toRefs(props);
+    const tagHighlight = toRef(props, "highlight");
 
     const handleRemove = (id: string) => onRemove(id);
     const handleDoubleClick = () => {
@@ -88,6 +102,13 @@ export default defineComponent({
 
     const canShowRemoveBtn = computed(() => !readOnly);
 
+    const style = computed(() => {
+      return {
+        background: tagHighlight.value ? "#b20000" : tagStyle.backgroundColor,
+        color: tagStyle.foreColor,
+      };
+    });
+
     return {
       handleRemove,
       handleDoubleClick,
@@ -95,10 +116,11 @@ export default defineComponent({
       handleEscape,
       editMode,
       input,
-      tagName,
+      tagName: name,
       inputTextRef,
       canShowInputbox,
       canShowRemoveBtn,
+      style,
     };
   },
 });
@@ -107,9 +129,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tag-container {
   align-items: center;
-  background-color: #6093ca;
   border-radius: 0.2rem;
-  color: #fff;
   display: flex;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
   justify-content: center;
@@ -131,11 +151,12 @@ export default defineComponent({
 }
 
 .tag-edit-input {
-  width: auto;
+  width: 0;
+  min-width: 100px;
   outline: 0;
   border: 0;
   background: rgba(255, 255, 255, 0.4);
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 
 button {

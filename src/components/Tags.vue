@@ -11,6 +11,7 @@
       :onEdit="handleEdit"
       :editable="editable"
       :readOnly="readOnly"
+      :tagStyle="tagStyle"
     />
     <slot></slot>
   </div>
@@ -46,6 +47,9 @@ export default defineComponent({
     editable: {
       type: Boolean,
       default: false,
+    },
+    tagStyle: {
+      type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
     },
   },
   setup(props) {

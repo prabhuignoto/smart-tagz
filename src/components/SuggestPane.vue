@@ -3,6 +3,7 @@
     <ul
       class="suggest-pane"
       ref="paneRef"
+      :style="{'background-color': paneStyle.bgColor}"
       @keydown.down="handleKeydown($event)"
       @keydown.up="handleKeyup($event)"
       @keyup.enter="handleEnter"
@@ -59,6 +60,9 @@ export default defineComponent({
     focus: {
       type: Boolean,
       required: true,
+    },
+    paneStyle: {
+      type: Object as PropType<{ bgColor: string }>,
     },
   },
   setup(props) {
@@ -158,7 +162,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .suggest-pane {
-  background: #6093ca;
   border-radius: 0.2rem;
   list-style: none;
   margin: 0;
@@ -185,7 +188,7 @@ export default defineComponent({
   }
 
   &:hover {
-    background: #73a0d0;
+    background: rgba($color: #fff, $alpha: 0.2);
   }
 
   &.selected {
