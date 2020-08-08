@@ -1,17 +1,28 @@
 <template>
-  <div class="tag-container" :class="{'no-remove': !canShowRemoveBtn}" :style="style">
+  <div
+    class="tag-container"
+    :class="{'no-remove': !canShowRemoveBtn}"
+    :style="style"
+  >
     <input
+      v-if="canShowInputbox"
+      ref="inputTextRef"
+      v-model="input"
       type="text"
       class="tag-edit-input"
-      ref="inputTextRef"
-      v-if="canShowInputbox"
-      v-model="input"
       @blur="handleEscape"
       @keyup.enter="handleSaveEdit"
       @keyup.esc="handleEscape"
-    />
-    <span class="tag-name" @dblclick="handleDoubleClick" v-else>{{tagName}}</span>
-    <button @click="handleRemove(id)" v-if="canShowRemoveBtn">
+    >
+    <span
+      v-else
+      class="tag-name"
+      @dblclick="handleDoubleClick"
+    >{{ name }}</span>
+    <button
+      v-if="canShowRemoveBtn"
+      @click="handleRemove(id)"
+    >
       <CloseIcon />
     </button>
   </div>
@@ -36,7 +47,10 @@ export default defineComponent({
     CloseIcon,
   },
   props: {
-    name: String,
+    name: {
+      type: String,
+      default: "",
+    },
     onRemove: {
       type: Function as PropType<(id: string) => void>,
       required: true,
@@ -49,7 +63,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    id: String,
+    id: {
+      type: String,
+      default: null,
+    },
     highlight: Boolean,
     readOnly: {
       type: Boolean,
@@ -57,27 +74,21 @@ export default defineComponent({
     },
     tagStyle: {
       type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
+      default: {
+        foreColor: "",
+        backgroundColor: "",
+      },
     },
   },
   setup(props) {
     const editMode = ref(false);
     const input = ref(props.name);
     const inputTextRef = ref(null);
-    const {
-      id,
-      onEdit,
-      onRemove,
-      editable,
-      readOnly,
-      tagStyle,
-      name
-    } = props;
-    // const { name: tagName } = toRefs(props);
     const tagHighlight = toRef(props, "highlight");
 
-    const handleRemove = (id: string) => onRemove(id);
+    const handleRemove = (id: string) => props.onRemove(id);
     const handleDoubleClick = () => {
-      if (!editable) {
+      if (!props.editable) {
         return;
       }
       editMode.value = !editMode.value;
@@ -89,7 +100,7 @@ export default defineComponent({
 
     const handleSaveEdit = () => {
       editMode.value = false;
-      onEdit(id, input.value);
+      props.onEdit(props.id, input.value);
     };
 
     const handleEscape = () => {
@@ -97,15 +108,17 @@ export default defineComponent({
     };
 
     const canShowInputbox = computed(
-      () => editable && editMode.value && !readOnly
+      () => props.editable && editMode.value && !props.readOnly
     );
 
-    const canShowRemoveBtn = computed(() => !readOnly);
+    const canShowRemoveBtn = computed(() => !props.readOnly);
 
     const style = computed(() => {
       return {
-        background: tagHighlight.value ? "#b20000" : tagStyle.backgroundColor,
-        color: tagStyle.foreColor,
+        background: tagHighlight.value
+          ? "#b20000"
+          : props.tagStyle.backgroundColor,
+        color: props.tagStyle.foreColor,
       };
     });
 
@@ -116,7 +129,6 @@ export default defineComponent({
       handleEscape,
       editMode,
       input,
-      tagName: name,
       inputTextRef,
       canShowInputbox,
       canShowRemoveBtn,

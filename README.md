@@ -53,7 +53,7 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 ## Props
 
 | Prop             | Type                  | Description                                                                                    | Default          |
-|------------------|-----------------------|------------------------------------------------------------------------------------------------|------------------|
+| ---------------- | --------------------- | ---------------------------------------------------------------------------------------------- | ---------------- |
 | defaultTags      | Array                 | can be initialized with a default set of tags                                                  | []               |
 | width            | String                | width of the container                                                                         | 100%             |
 | autosuggest      | Boolean               | Enables the autosuggest feature. you also need to set the sources for the autosuggest to work. | false            |
@@ -63,7 +63,7 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 | allowDuplicates  | Boolean               | allows/disallows duplicate tag entries while pasted or entered manually                        | true             |
 | maxTags          | Number                | Maximum number of tags allowed                                                                 | 10               |
 | inputPlaceholder | String                | Placeholder for the input box                                                                  | "Enter tag..."   |
-| readOnly         | Boolean               | Makes the whole component readonly. ideal for display only purposes.                           | false            |
+| readOnly         | Boolean               | Makes the whole component readOnly. ideal for display only purposes.                          | false            |
 
 ## Built with
 

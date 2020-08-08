@@ -2,18 +2,18 @@
   <div class="tags-container">
     <Tag
       v-for="tag of localTags"
+      :id="tag.id"
       :key="tag.id"
+      :highlight="tag.highlight"
       :name="tag.name"
       :value="tag.value"
-      :highlight="tag.highlight"
-      :id="tag.id"
-      :onRemove="handleRemove"
-      :onEdit="handleEdit"
+      :on-remove="handleRemove"
+      :on-edit="handleEdit"
       :editable="editable"
-      :readOnly="readOnly"
-      :tagStyle="tagStyle"
+      :read-only="readOnly"
+      :tag-style="tagStyle"
     />
-    <slot></slot>
+    <slot />
   </div>
 </template>
 
@@ -50,19 +50,18 @@ export default defineComponent({
     },
     tagStyle: {
       type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
+      default: {},
     },
   },
   setup(props) {
-    const { onRemove, onEdit, readOnly } = props;
-
-    const tags = readOnly
+    const tags = props.readOnly
       ? props.tags.map((tag) => Object.assign({}, tag, { editable: false }))
       : props.tags;
 
     const localTags = ref<TagModel[]>(tags);
 
-    const handleRemove = (id) => onRemove(id);
-    const handleEdit = (id: string, newValue: string) => onEdit(id, newValue);
+    const handleRemove = (id) => props.onRemove(id);
+    const handleEdit = (id: string, newValue: string) => props.onEdit(id, newValue);
 
     watch(
       () => props.tags,

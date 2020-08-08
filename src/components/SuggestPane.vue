@@ -1,24 +1,27 @@
 <template>
-  <div class="suggest-pane-container" v-if="showPane">
+  <div
+    v-if="showPane"
+    class="suggest-pane-container"
+  >
     <ul
-      class="suggest-pane"
       ref="paneRef"
-      :style="{'background-color': paneStyle.bgColor}"
+      class="suggest-pane"
+      :style="{'background': paneStyle.bgColor}"
+      tabindex="0"
       @keydown.down="handleKeydown($event)"
       @keydown.up="handleKeyup($event)"
       @keyup.enter="handleEnter"
       @keyup.esc="handleEsc"
       @blur="handleEsc"
-      tabindex="0"
     >
       <li
         v-for="(item, index) of filteredItems"
         :key="item"
-        @click="handleSelection(item)"
         class="suggest-pane-item"
         :class="{selected: index === activeSelection}"
+        @click="handleSelection(item)"
       >
-        <span>{{item}}</span>
+        <span>{{ item }}</span>
       </li>
     </ul>
   </div>
@@ -47,9 +50,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    // eslint-disable-next-line vue/require-default-prop
     onSelection: {
       type: Function as PropType<(name: string) => void>,
     },
+    // eslint-disable-next-line vue/require-default-prop
     onPaneEsc: {
       type: Function as PropType<() => void>,
     },
@@ -61,18 +66,21 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
+    // eslint-disable-next-line vue/require-default-prop
     paneStyle: {
       type: Object as PropType<{ bgColor: string }>,
+      default: {
+        bgColor: ""
+      }
     },
   },
   setup(props) {
-    const { onSelection, onPaneEsc } = props;
     const showPane = ref(false);
     const { keyword } = toRefs<{
       keyword: string;
     }>(props);
     const localItems = ref(props.items.slice(0));
-    const handleSelection = (name: string) => onSelection(name);
+    const handleSelection = (name: string) => props.onSelection(name);
     const activeSelection = ref<number | null>(null);
     const paneRef = ref(null);
 
@@ -120,7 +128,7 @@ export default defineComponent({
     const handleEsc = () => {
       activeSelection.value = null;
       showPane.value = false;
-      onPaneEsc();
+      props.onPaneEsc();
     };
 
     watch(

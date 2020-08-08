@@ -3,27 +3,24 @@
     <SmartTagz
       :autosuggest="true"
       :sources="sources"
-      :allowPaste="{delimiter: ','}"
+      :allow-paste="{delimiter: ','}"
       :editable="true"
-      :allowDuplicates="false"
-      :maxTags="20"
-      :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-      inputPlaceholder="Select Countries ..."
+      :allow-duplicates="false"
+      :max-tags="20"
+      :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+      input-placeholder="Select Countries ..."
     />
   </div>
 </template>
 
 <script lang="ts">
 import SmartTagz from "./Main.vue";
-import Countries from "./countries";
+import Countries from "../test/countries";
 
 export default {
   name: "Demo",
   components: {
     SmartTagz,
-  },
-  props: {
-    msg: String,
   },
   data() {
     return {

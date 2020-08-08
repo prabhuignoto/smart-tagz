@@ -6,17 +6,18 @@
   >
     <Tags
       :tags="tagsData"
-      :onRemove="handleRemoveTag"
-      :onEdit="handleEditTag"
+      :on-remove="handleRemoveTag"
+      :on-edit="handleEditTag"
       :editable="editable"
-      :readOnly="readOnly"
-      :tagStyle="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
+      :read-only="readOnly"
+      :tag-style="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
     >
       <div class="input-wrapper">
         <input
-          type="text"
-          v-model="input"
+          v-if="!readOnly"
           ref="textInputRef"
+          v-model="input"
+          type="text"
           :placeholder="inputPlaceholder"
           @keyup.enter="handleAddTag($event.target.value)"
           @keyup.delete="handleDelete"
@@ -25,17 +26,18 @@
           @keydown.ctrl.exact="handleSelectAll($event)"
           @paste="handlePaste"
           @focus="handleFocus"
-          v-if="!readOnly"
-        />
-        <div class="suggestion-wrapper">
+        >
+        <div
+          class="suggestion-wrapper"
+        >
           <SuggestionPane
             :show="showSuggestions"
             :items="sources"
             :keyword="input"
-            :onSelection="handleSuggestSelection"
-            :onPaneEsc="handleSuggestEsc"
+            :on-selection="handleSuggestSelection"
+            :on-pane-esc="handleSuggestEsc"
             :focus="focusSuggestions"
-            :paneStyle="{bgColor: theme.primary}"
+            :pane-style="{bgColor: theme.primary}"
           />
         </div>
       </div>
@@ -50,7 +52,7 @@ import SuggestionPane from "./SuggestPane.vue";
 import MainSetup from "./MainSetup";
 
 export default defineComponent({
-  name: "Main",
+  name: "SmartTagz",
   components: {
     Tags,
     SuggestionPane,

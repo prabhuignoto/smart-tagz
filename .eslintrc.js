@@ -1,12 +1,15 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2020: true,
-  },
-  extends: ["plugin:vue/essential"],
+  parser: "vue-eslint-parser",
   parserOptions: {
-    ecmaVersion: 11,
-    sourceType: "module",
+    parser: "@typescript-eslint/parser",
   },
-  rules: {},
+  extends: [
+    // add more generic rulesets here, such as:
+    // 'eslint:recommended',
+    "plugin:vue/vue3-recommended",
+  ],
+  rules: {
+    // override/add rules settings here, such as:
+    // 'vue/no-unused-vars': 'error'
+  },
 };
