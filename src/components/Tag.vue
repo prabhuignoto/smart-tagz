@@ -33,10 +33,8 @@ import {
   defineComponent,
   PropType,
   ref,
-  toRefs,
   nextTick,
   computed,
-  watch,
   toRef,
 } from "vue";
 import CloseIcon from "./CloseIcon.vue";
