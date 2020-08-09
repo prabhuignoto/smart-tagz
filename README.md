@@ -17,7 +17,7 @@ smart-tagz is a smart input tags components built for Vue 3.
 
 ## Features
 
-- **Autocomplete** - Supports autocomplete with easy keyboard selection.
+- **Autosuggest** - Supports Autosuggest with easy keyboard selection.
 - **Editable Tags** - Tags can be edited inline by double clicking on the tag. 
 - **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
 - **Easy tag deletion** - Delete tags easily with delete or backspace.
@@ -30,6 +30,10 @@ smart-tagz is a smart input tags components built for Vue 3.
 ```sh
 yarn run install && yarn run dev
 ```
+
+## Demos
+
+[https://smart-tagz.netlify.app/](https://smart-tagz.netlify.app/)
 
 ## Getting Started
 
