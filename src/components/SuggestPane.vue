@@ -8,17 +8,13 @@
       class="suggest-pane"
       :style="{'background': paneStyle.bgColor}"
       tabindex="0"
-      @keydown.down="handleKeydown($event)"
-      @keydown.up="handleKeyup($event)"
       @keyup.enter="handleEnter"
-      @keyup.esc="handleEsc"
-      @blur="handleEsc"
     >
       <li
-        v-for="(item, index) of filteredItems"
-        :key="item"
+        v-for="(item, index) of items"
+        :key="item" 
         class="suggest-pane-item"
-        :class="{selected: index === activeSelection}"
+        :class="{selected: index === selectedIndex}"
         @click="handleSelection(item)"
       >
         <span>{{ item }}</span>
@@ -73,6 +69,10 @@ export default defineComponent({
         bgColor: ""
       }
     },
+    selectedIndex: {
+      type: Number,
+      default: -1
+    }
   },
   setup(props) {
     const showPane = ref(false);
@@ -81,62 +81,21 @@ export default defineComponent({
     }>(props);
     const localItems = ref(props.items.slice(0));
     const handleSelection = (name: string) => props.onSelection(name);
-    const activeSelection = ref<number | null>(null);
     const paneRef = ref(null);
-
-    const filteredItems = computed(() => {
-      const reg = new RegExp("^" + keyword.value, "i");
-      return localItems.value.filter((f) => reg.test(f));
-    });
-
-    const handleKeydown = () => {
-      const items = unref(filteredItems);
-      const actvSelection = unref(activeSelection);
-
-      if (items.length - 1 > actvSelection) {
-        activeSelection.value += 1;
-      } else {
-        activeSelection.value = 0;
-      }
-    };
-
-    const handleKeyup = (event: KeyboardEvent) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      const items = unref(filteredItems);
-      const actvSelection = unref(activeSelection);
-
-      if (actvSelection > 0) {
-        activeSelection.value -= 1;
-      } else {
-        activeSelection.value = items.length - 1;
-      }
-    };
 
     const handleEnter = (event: KeyboardEvent) => {
       event.preventDefault();
       event.stopImmediatePropagation();
+      debugger;
 
-      const currentSelection = unref(activeSelection);
-      const items = unref(filteredItems);
-      const item = items[currentSelection];
-      activeSelection.value = null;
+      const item = props.items[props.selectedIndex];
       handleSelection(item);
-    };
-
-    const handleEsc = () => {
-      activeSelection.value = null;
-      showPane.value = false;
-      props.onPaneEsc();
     };
 
     watch(
       () => props.focus,
       (newValue) => {
         if (newValue) {
-          (paneRef.value as HTMLElement).focus();
-          activeSelection.value = 0;
         }
       }
     );
@@ -154,14 +113,9 @@ export default defineComponent({
 
     return {
       handleSelection,
-      filteredItems,
       showPane,
       paneRef,
-      activeSelection,
-      handleKeydown,
-      handleKeyup,
       handleEnter,
-      handleEsc,
     };
   },
 });

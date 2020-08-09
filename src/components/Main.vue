@@ -22,22 +22,23 @@
           @keyup.enter="handleAddTag($event.target.value)"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
-          @keyup.down="handleKeydown"
+          @keydown.down="handleKeydown"
+          @keydown.up="handleKeyUp"
           @keydown.ctrl.exact="handleSelectAll($event)"
           @paste="handlePaste"
-          @focus="handleFocus"
+          @blur="handleEscape"
         >
         <div
           class="suggestion-wrapper"
         >
           <SuggestionPane
             :show="showSuggestions"
-            :items="sources"
+            :items="filteredItems"
             :keyword="input"
             :on-selection="handleSuggestSelection"
             :on-pane-esc="handleSuggestEsc"
-            :focus="focusSuggestions"
             :pane-style="{bgColor: theme.primary}"
+            :selected-index="selectedIndex"
           />
         </div>
       </div>

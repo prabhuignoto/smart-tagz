@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { computed, nextTick, ref, unref, watch } from "vue";
 import { TagModel } from "../models";
+import HandlePaste from "./HandlePaste";
 
 interface PropModel {
   autosuggest: boolean;
@@ -11,11 +12,12 @@ interface PropModel {
   maxTags: number;
   width: string;
   defaultTags?: string[];
+  sources: string[];
 }
 
 export default function (props: PropModel) {
   // captured props
-  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags } = props;
+  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags, sources } = props;
   const delTagRef = ref<{ id: string }>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.map(name => ({
@@ -27,17 +29,21 @@ export default function (props: PropModel) {
   // ref for the input box
   const input = ref("");
   // ref to track the tags created by te user
-  const tagsCreated = ref(0);
+  const tagsCreated = ref(defaultTags.length ? defaultTags.length : 0);
   // ref to display the suggestion pane
   const showSuggestions = ref(false);
-  // ref to focus the suggestion pane
-  const focusSuggestions = ref(false);
   // ref to track ctrl+a selection
   const selectAllRef = ref(false);
+  const selectedIndex = ref(-1);
 
   const style = computed(() => ({
     width: props.width,
   }));
+
+  const filteredItems = computed(() => {
+    const reg = new RegExp("^" + input.value, "i");
+    return sources.filter((f) => reg.test(f));
+  });
 
   const reset = () => {
     // remove highlight from all tags
@@ -93,17 +99,26 @@ export default function (props: PropModel) {
     if (!canAddTag.value) {
       return;
     }
+    let newTag = null;
 
-    if (name) {
-      tagsData.value = tagsData.value.concat({
-        name,
-        id: nanoid(),
-        value: name,
-      });
-      input.value = "";
-      showSuggestions.value = false;
-      tagsCreated.value += 1;
+    if (showSuggestions.value && selectedIndex.value > -1) {
+      newTag = filteredItems.value[selectedIndex.value]
+    } else {
+      newTag = name;
     }
+
+    if (newTag) {
+      tagsData.value = tagsData.value.concat({
+        name: newTag,
+        id: nanoid(),
+        value: newTag,
+      });
+    }
+
+    input.value = "";
+    showSuggestions.value = false;
+    tagsCreated.value += 1;
+    selectedIndex.value = -1;
   };
 
   // handler to remove a tag
@@ -154,46 +169,11 @@ export default function (props: PropModel) {
     // get the clipboard data
     const data = event.clipboardData.getData("text");
 
-    if (data) {
-      // calculate available slots
-      const availableSlots = maxTags - tagsCreated.value;
+    const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste.delimiter, allowDuplicates);
 
-      // split string to create new tags
-      let items = data.split(allowPaste.delimiter);
-
-      if (items.length > 1) {
-        // pick the items that can fit in the slot
-        items = items.slice(0, Math.min(items.length, availableSlots));
-
-        // check if duplicates are disallowed
-        if (!allowDuplicates) {
-          const existingItems = unref(tagsData).map((t) => t.name);
-          const newSet = items.filter(
-            (item) => existingItems.indexOf(item) < 0
-          );
-
-          // remove the duplicate entries
-          items = [...new Set(newSet)] as string[];
-        }
-
-        // update tagsData with new items
-        if (items.length) {
-          tagsData.value = tagsData.value.concat(
-            items.map((name) => ({
-              name,
-              value: name,
-              id: nanoid(),
-            }))
-          );
-          tagsCreated.value += items.length;
-        }
-      } else {
-        tagsData.value = tagsData.value.concat({
-          name: data,
-          value: data,
-          id: nanoid(),
-        });
-      }
+    if (pasteResult && pasteResult.newData) {
+      tagsData.value = pasteResult.newData;
+      tagsCreated.value = pasteResult.tagsCreated;
     }
   };
 
@@ -213,7 +193,6 @@ export default function (props: PropModel) {
   };
 
   const handleSuggestSelection = (name: string) => {
-    focusSuggestions.value = false;
     handleAddTag(name);
     nextTick(() => {
       (textInputRef.value as HTMLElement).focus();
@@ -221,21 +200,29 @@ export default function (props: PropModel) {
   };
 
   const handleKeydown = () => {
-    const show = unref(showSuggestions);
-    if (show) {
-      focusSuggestions.value = true;
+    const curSelIndex = unref(selectedIndex);
+
+    if (curSelIndex < unref(filteredItems).length - 1) {
+      selectedIndex.value = selectedIndex.value + 1;
+    } else {
+      selectedIndex.value = 0;
+    }
+  };
+
+  const handleKeyUp = () => {
+    const curSelIndex = unref(selectedIndex);
+
+    if (curSelIndex > 0) {
+      selectedIndex.value = selectedIndex.value - 1;
+    } else {
+      selectedIndex.value = unref(filteredItems).length - 1;
     }
   };
 
   const handleSuggestEsc = () => {
     (textInputRef.value as HTMLElement).focus();
-    focusSuggestions.value = false;
     showSuggestions.value = false;
   }
-
-  const handleFocus = () => {
-    focusSuggestions.value = false;
-  };
 
   const handleSelectAll = (event: KeyboardEvent) => {
     if (event.keyCode === 65 && !input.value) {
@@ -250,7 +237,9 @@ export default function (props: PropModel) {
     style,
     textInputRef,
     showSuggestions,
-    focusSuggestions,
+    selectedIndex,
+    filteredItems,
+    handleKeyUp,
     handleKeydown,
     handleAddTag,
     handleRemoveTag,
@@ -261,6 +250,5 @@ export default function (props: PropModel) {
     handleSuggestSelection,
     handleSuggestEsc,
     handleSelectAll,
-    handleFocus
   };
 }
