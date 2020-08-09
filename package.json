@@ -18,6 +18,7 @@
     "@vue/compiler-sfc": "^3.0.0-rc.1",
     "eslint": "^7.6.0",
     "eslint-plugin-vue": "^6.2.2",
+    "rollup-plugin-external-globals": "^0.5.0",
     "sass": "^1.26.10",
     "typescript": "^3.9.7",
     "vite": "^1.0.0-rc.1"

@@ -1023,7 +1023,7 @@ estree-walker@^0.6.1:
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
   integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
 
-estree-walker@^1.0.1:
+estree-walker@^1.0.0, estree-walker@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
   integrity sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==
@@ -1438,7 +1438,7 @@ is-number@^7.0.0:
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
-is-reference@^1.1.2:
+is-reference@^1.1.2, is-reference@^1.1.4:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/is-reference/-/is-reference-1.2.1.tgz#8b2dac0b371f4bc994fdeaba9eb542d03002d0b7"
   integrity sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==
@@ -1661,7 +1661,7 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-magic-string@^0.25.2, magic-string@^0.25.7:
+magic-string@^0.25.2, magic-string@^0.25.4, magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
   integrity sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==
@@ -2122,6 +2122,16 @@ rollup-plugin-dynamic-import-variables@^1.0.1:
     estree-walker "^2.0.1"
     globby "^11.0.0"
     magic-string "^0.25.7"
+
+rollup-plugin-external-globals@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-external-globals/-/rollup-plugin-external-globals-0.5.0.tgz#1662cacfb240a6e4e0618db2b79e9feae0134603"
+  integrity sha512-v3qjync/2wcqdSesNP3qPnYeOnnV39ydCU+2fTxjlmux8uA1VqM4cUVffkgzoDh3TBOEhN8JWAHrN7Hs9ZD0Sg==
+  dependencies:
+    estree-walker "^1.0.0"
+    is-reference "^1.1.4"
+    magic-string "^0.25.4"
+    rollup-pluginutils "^2.8.2"
 
 rollup-plugin-terser@^5.3.0:
   version "5.3.0"
