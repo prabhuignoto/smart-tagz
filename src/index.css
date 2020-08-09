@@ -4,10 +4,12 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 300px;
+  margin-top: 50px;
   height: 100%;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
+

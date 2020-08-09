@@ -1,0 +1,40 @@
+<template>
+  <div class="example">
+    <header>
+      <h3>Default Tags</h3>
+    </header>
+    <p>We can initialize smart-tagz with some default tags. This setting will mostly be used along with the readonly prop to create tags for display only purposes.</p>
+    <pre data-line="3-3">
+      <code class="lang-html">{{code}}</code>
+    </pre>
+    <div class="sample-view">
+      <SmartTagz
+        input-placeholder="Select Countries ..."
+        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+      />
+    </div>
+  </div>
+</template>
+
+
+<script lang="ts">
+import SmartTagz from "../components/Main.vue";
+
+import { defineComponent } from "vue";
+const html = `  <SmartTagz
+    input-placeholder="Select Countries ..."
+    :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+  />`;
+
+export default defineComponent({
+  name: "defaults",
+  components: {
+    SmartTagz,
+  },
+  data() {
+    return {
+      code: html,
+    };
+  },
+});
+</script>

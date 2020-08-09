@@ -12,7 +12,7 @@
       :read-only="readOnly"
       :tag-style="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
     >
-      <div class="input-wrapper">
+      <div class="input-wrapper" v-if="tagsData.length < maxTags">
         <input
           v-if="!readOnly"
           ref="textInputRef"
@@ -27,10 +27,8 @@
           @keydown.ctrl.exact="handleSelectAll($event)"
           @paste="handlePaste"
           @blur="handleEscape"
-        >
-        <div
-          class="suggestion-wrapper"
-        >
+        />
+        <div class="suggestion-wrapper" :class="{hidden: !showSuggestions}">
           <SuggestionPane
             :show="showSuggestions"
             :items="filteredItems"
@@ -100,7 +98,7 @@ export default defineComponent({
     // maximum number of tags allowed
     maxTags: {
       type: Number,
-      default: 10,
+      default: 20,
     },
     // placeholder for the input box
     inputPlaceholder: {
@@ -164,5 +162,10 @@ input[type="text"] {
   top: 2rem;
   width: 100%;
   z-index: 100;
+  filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.4));
+
+  &.hidden {
+    visibility: hidden;
+  }
 }
 </style>

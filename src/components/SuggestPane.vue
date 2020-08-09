@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="showPane"
-    class="suggest-pane-container"
-  >
+  <div v-if="showPane" class="suggest-pane-container">
     <ul
       ref="paneRef"
       class="suggest-pane"
@@ -12,7 +9,7 @@
     >
       <li
         v-for="(item, index) of items"
-        :key="item" 
+        :key="item"
         class="suggest-pane-item"
         :class="{selected: index === selectedIndex}"
         @mousedown="handleSelection(item)"
@@ -24,12 +21,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  watch,
-  ref,
-} from "vue";
+import { defineComponent, PropType, watch, ref } from "vue";
 
 export default defineComponent({
   name: "SuggestPane",
@@ -63,13 +55,13 @@ export default defineComponent({
     paneStyle: {
       type: Object as PropType<{ bgColor: string }>,
       default: {
-        bgColor: ""
-      }
+        bgColor: "",
+      },
     },
     selectedIndex: {
       type: Number,
-      default: -1
-    }
+      default: -1,
+    },
   },
   setup(props) {
     const showPane = ref(false);

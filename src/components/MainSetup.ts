@@ -20,7 +20,7 @@ export default function (props: PropModel) {
   const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags, sources } = props;
   const delTagRef = ref<{ id: string }>(null);
   // ref to store the tags data. init with default tags
-  const tagsData = ref<TagModel[]>(defaultTags.map(name => ({
+  const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
     id: nanoid(),
     name,
     value: name
@@ -29,7 +29,7 @@ export default function (props: PropModel) {
   // ref for the input box
   const input = ref("");
   // ref to track the tags created by te user
-  const tagsCreated = ref(defaultTags.length ? defaultTags.length : 0);
+  const tagsCreated = ref(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0);
   // ref to display the suggestion pane
   const showSuggestions = ref(false);
   // ref to track ctrl+a selection
@@ -101,6 +101,7 @@ export default function (props: PropModel) {
 
   // handler to add a new tag
   const handleAddTag = (name: string) => {
+    debugger;
     if (!canAddTag.value) {
       return;
     }

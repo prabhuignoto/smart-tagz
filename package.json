@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "nanoid": "^3.1.12",
-    "vue": "^3.0.0-rc.1"
+    "vue": "^3.0.0-rc.1",
+    "vue-feather-icons": "^5.1.0"
   },
   "devDependencies": {
     "@types/nanoid": "^2.1.0",
+    "@types/vue-feather-icons": "^5.0.0",
     "@typescript-eslint/parser": "^3.8.0",
     "@vue/compiler-sfc": "^3.0.0-rc.1",
     "eslint": "^7.6.0",
