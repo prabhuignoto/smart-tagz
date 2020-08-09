@@ -9,8 +9,6 @@ export default function (
   delimiter: string,
   allowDuplicates: boolean
 ) {
-  debugger;
-
   if (pasteData) {
     // calculate available slots
     const availableSlots = maxTags - tagsCreated;

@@ -54,6 +54,7 @@ export default function (props: PropModel) {
     // disable autosuggest
     showSuggestions.value = false;
     selectAllRef.value = false;
+    selectedIndex.value = -1;
   };
 
   watch(input, (newValue) => {
@@ -67,6 +68,8 @@ export default function (props: PropModel) {
     }
 
     if (newValue) {
+      selectAllRef.value = false;
+
       if (autosuggest && newValue.length > 0) {
         showSuggestions.value = true;
       } else if (autosuggest && newValue.length < 1) {
@@ -78,11 +81,9 @@ export default function (props: PropModel) {
   });
 
   watch(selectAllRef, newValue => {
-    if (newValue) {
-      tagsData.value = tagsData.value.map(tag => Object.assign({}, tag, {
-        highlight: true
-      }));
-    }
+    tagsData.value = tagsData.value.map(tag => Object.assign({}, tag, {
+      highlight: newValue
+    }));
   });
 
   // checks if a new tag can be added
@@ -193,8 +194,9 @@ export default function (props: PropModel) {
   };
 
   const handleSuggestSelection = (name: string) => {
-    handleAddTag(name);
+    showSuggestions.value = false;
     nextTick(() => {
+      handleAddTag(name);
       (textInputRef.value as HTMLElement).focus();
     });
   };

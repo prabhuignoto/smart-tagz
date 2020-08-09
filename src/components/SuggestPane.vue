@@ -15,7 +15,7 @@
         :key="item" 
         class="suggest-pane-item"
         :class="{selected: index === selectedIndex}"
-        @click="handleSelection(item)"
+        @mousedown="handleSelection(item)"
       >
         <span>{{ item }}</span>
       </li>
@@ -28,10 +28,7 @@ import {
   defineComponent,
   PropType,
   watch,
-  toRefs,
-  computed,
   ref,
-  unref,
 } from "vue";
 
 export default defineComponent({
@@ -76,29 +73,16 @@ export default defineComponent({
   },
   setup(props) {
     const showPane = ref(false);
-    const { keyword } = toRefs<{
-      keyword: string;
-    }>(props);
-    const localItems = ref(props.items.slice(0));
     const handleSelection = (name: string) => props.onSelection(name);
     const paneRef = ref(null);
 
     const handleEnter = (event: KeyboardEvent) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      debugger;
 
       const item = props.items[props.selectedIndex];
       handleSelection(item);
     };
-
-    watch(
-      () => props.focus,
-      (newValue) => {
-        if (newValue) {
-        }
-      }
-    );
 
     watch(
       () => props.show,

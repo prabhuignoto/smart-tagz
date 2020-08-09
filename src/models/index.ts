@@ -11,5 +11,5 @@ export interface TagsPropModel {
 }
 
 export interface TagPropModel extends TagModel {
-  onremove: (id: string) => void;
+  onRemove: (id: string) => void;
 }
