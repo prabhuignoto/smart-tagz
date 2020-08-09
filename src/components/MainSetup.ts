@@ -45,6 +45,10 @@ export default function (props: PropModel) {
     return sources.filter((f) => reg.test(f));
   });
 
+  const focus = () => {
+    (textInputRef.value as HTMLElement).focus()
+  };
+
   const reset = () => {
     // remove highlight from all tags
     tagsData.value = tagsData.value.map(t => {
@@ -120,6 +124,8 @@ export default function (props: PropModel) {
     showSuggestions.value = false;
     tagsCreated.value += 1;
     selectedIndex.value = -1;
+
+    nextTick(() => focus());
   };
 
   // handler to remove a tag
@@ -136,6 +142,7 @@ export default function (props: PropModel) {
     if (selectAllRef.value) {
       tagsData.value = [];
       selectAllRef.value = false;
+      tagsCreated.value = 0;
       return;
     }
 
@@ -197,11 +204,12 @@ export default function (props: PropModel) {
     showSuggestions.value = false;
     nextTick(() => {
       handleAddTag(name);
-      (textInputRef.value as HTMLElement).focus();
     });
   };
 
-  const handleKeydown = () => {
+  const handleKeydown = (event: KeyboardEvent) => {
+    event.preventDefault();
+
     const curSelIndex = unref(selectedIndex);
 
     if (curSelIndex < unref(filteredItems).length - 1) {
@@ -211,7 +219,9 @@ export default function (props: PropModel) {
     }
   };
 
-  const handleKeyUp = () => {
+  const handleKeyUp = (event: KeyboardEvent) => {
+    event.preventDefault();
+
     const curSelIndex = unref(selectedIndex);
 
     if (curSelIndex > 0) {
@@ -222,7 +232,7 @@ export default function (props: PropModel) {
   };
 
   const handleSuggestEsc = () => {
-    (textInputRef.value as HTMLElement).focus();
+    focus();
     showSuggestions.value = false;
   }
 

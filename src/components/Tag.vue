@@ -86,7 +86,7 @@ export default defineComponent({
 
     const handleRemove = (id: string) => props.onRemove(id);
     const handleDoubleClick = () => {
-      if (!props.editable) {
+      if (!props.editable || props.readOnly) {
         return;
       }
       editMode.value = !editMode.value;

@@ -5,10 +5,11 @@
       :sources="sources"
       :allow-paste="{delimiter: ','}"
       :editable="true"
-      :allow-duplicates="false"
+      :allow-duplicates="true"
       :max-tags="20"
       :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
       input-placeholder="Select Countries ..."
+      :read-only="false"
     />
   </div>
 </template>
