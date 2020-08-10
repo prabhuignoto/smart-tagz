@@ -1,7 +1,7 @@
 <template>
   <div class="main-container">
     <header>
-      <h1>smart-tagz</h1>
+      <img src="../assets/logo.png"/>
       <a href="https://github.com/prabhuignoto/smart-tagz" class="github" target="_new">
         <span>
           <img src="../assets/github.svg" />
