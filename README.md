@@ -11,6 +11,8 @@ Smart input tags for Vue 3
 
 ![app-home](app-home.png)
 
+![logo](src/assets/logo.png)
+
 ## About
 
 smart-tagz is a smart input tags components built for Vue 3.
