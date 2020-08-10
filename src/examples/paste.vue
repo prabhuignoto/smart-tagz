@@ -3,11 +3,13 @@
     <header>
       <h3>Paste</h3>
     </header>
-    <p>The component can parse strings and automatically create tags for you. The default delimiter is "," but you can change this setting by manually setting the delimiter option.
-      Try pasting the following delimited string into the input box.</p>
+    <p>
+      The component can parse strings and automatically create tags for you. The default delimiter is "," but you can change this setting by manually setting the delimiter option.
+      Try pasting the following delimited string into the input box.
+    </p>
     <code class="lang-html">France;Germany;Poland</code>
     <pre data-line="7">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -39,7 +41,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "paste",
+  name: "Paste",
   components: {
     SmartTagz,
   },

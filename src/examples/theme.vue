@@ -10,7 +10,7 @@
       <li>tagTextColor - targets the forecolor of the tag.</li>
     </ul>
     <pre data-line="9-13">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -53,7 +53,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "maxtags",
+  name: "Maxtags",
   components: {
     SmartTagz,
   },

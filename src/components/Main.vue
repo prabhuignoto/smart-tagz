@@ -12,7 +12,10 @@
       :read-only="readOnly"
       :tag-style="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
     >
-      <div class="input-wrapper" v-if="tagsData.length < maxTags">
+      <div
+        v-if="tagsData.length < maxTags"
+        class="input-wrapper"
+      >
         <input
           v-if="!readOnly"
           ref="textInputRef"
@@ -27,8 +30,11 @@
           @keydown.ctrl.exact="handleSelectAll($event)"
           @paste="handlePaste"
           @blur="handleEscape"
-        />
-        <div class="suggestion-wrapper" :class="{hidden: !showSuggestions}">
+        >
+        <div
+          class="suggestion-wrapper"
+          :class="{hidden: !showSuggestions}"
+        >
           <SuggestionPane
             :show="showSuggestions"
             :items="filteredItems"
@@ -104,6 +110,10 @@ export default defineComponent({
     inputPlaceholder: {
       type: String,
       default: "Enter tag...",
+    },
+    quickDelete: {
+      type: Boolean,
+      default: false
     },
     theme: {
       type: Object as PropType<{

@@ -5,7 +5,7 @@
     </header>
     <p>You can decide how to manage duplicate tags by either allowing or disallowing them completely. When set to false no duplicate values are allowed.</p>
     <pre data-line="7">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -38,7 +38,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "dplicates",
+  name: "Dplicates",
   components: {
     SmartTagz,
   },

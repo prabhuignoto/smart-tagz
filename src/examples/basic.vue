@@ -5,7 +5,7 @@
     </header>
     <p>smart-tags comes with some great defaults to get you started quickly. Following is a very basic variant that takes a custom placeholder message.</p>
     <pre>
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz input-placeholder="Select Countries ..." />
@@ -20,7 +20,7 @@ import SmartTagz from "../components/Main.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "basic",
+  name: "Basic",
   components: {
     SmartTagz,
   },

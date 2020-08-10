@@ -5,7 +5,7 @@
     </header>
     <p>The component can also be configured to accept the Maximum number of tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.</p>
     <pre data-line="3">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -40,7 +40,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "maxtags",
+  name: "Maxtags",
   components: {
     SmartTagz,
   },

@@ -5,7 +5,7 @@
     </header>
     <p>The Tags are not editable by default, but you can change this setting with the editable prop. Simply double click a tag, make the changes and hit enter to save.</p>
     <pre data-line="4">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -29,7 +29,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "editable",
+  name: "Editable",
   components: {
     SmartTagz,
   },

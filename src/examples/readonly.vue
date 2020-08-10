@@ -5,7 +5,7 @@
     </header>
     <p>You can turn the component into readonly mode by setting the readonly prop to true.</p>
     <pre data-line="6">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -36,7 +36,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "readonly",
+  name: "Readonly",
   components: {
     SmartTagz,
   },

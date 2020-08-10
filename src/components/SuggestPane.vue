@@ -1,5 +1,8 @@
 <template>
-  <div v-if="showPane" class="suggest-pane-container">
+  <div
+    v-if="showPane"
+    class="suggest-pane-container"
+  >
     <ul
       ref="paneRef"
       class="suggest-pane"

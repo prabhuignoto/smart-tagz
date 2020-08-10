@@ -5,7 +5,7 @@
     </header>
     <p>Whe set to true, the autosuggest prop suggests values in a dropdown. You also need to set the sources prop for this to work. The sources prop should be an Array of strings.</p>
     <pre data-line="3-4">
-    <code class="lang-html">{{code}}</code>
+    <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -34,7 +34,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "autocomplete",
+  name: "Autocomplete",
   components: {
     SmartTagz,
   },

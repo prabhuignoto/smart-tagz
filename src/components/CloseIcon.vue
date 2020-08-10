@@ -1,8 +1,8 @@
 <template>
   <div class="icon-wrapper">
     <svg
-      version="1.1"
       id="Capa_1"
+      version="1.1"
       x="0px"
       y="0px"
       viewBox="0 0 512.001 512.001"

@@ -5,7 +5,7 @@
     </header>
     <p>We can initialize smart-tagz with some default tags. This setting will mostly be used along with the readonly prop to create tags for display only purposes.</p>
     <pre data-line="3-3">
-      <code class="lang-html">{{code}}</code>
+      <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <SmartTagz
@@ -27,7 +27,7 @@ const html = `  <SmartTagz
   />`;
 
 export default defineComponent({
-  name: "defaults",
+  name: "Defaults",
   components: {
     SmartTagz,
   },
