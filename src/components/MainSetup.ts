@@ -13,11 +13,12 @@ interface PropModel {
   width: string;
   defaultTags?: string[];
   sources: string[];
+  quickDelete?: boolean;
 }
 
 export default function (props: PropModel) {
   // captured props
-  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags, sources } = props;
+  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags, sources, quickDelete } = props;
   const delTagRef = ref<{ id: string }>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
@@ -238,6 +239,9 @@ export default function (props: PropModel) {
   }
 
   const handleSelectAll = (event: KeyboardEvent) => {
+    if (!quickDelete) {
+      return;
+    }
     if (event.keyCode === 65 && !input.value) {
       selectAllRef.value = true;
       delTagRef.value = null;

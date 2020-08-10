@@ -15,7 +15,9 @@
     <section>
       <p>
         A Smart input tags component built for
-        <a href="https://v3.vuejs.org/guide/introduction.html">Vue 3</a>.
+        <a
+          href="https://v3.vuejs.org/guide/introduction.html"
+        >Vue 3</a>.
       </p>
     </section>
     <div>
@@ -46,6 +48,9 @@
       <div class="example-block">
         <Theme />
       </div>
+      <div class="example-block">
+        <QuickDelete />
+      </div>
     </div>
     <footer>
       <a
@@ -68,6 +73,7 @@ import ReadOnly from "../examples/readonly.vue";
 import Duplicates from "../examples/duplicates.vue";
 import Maxtags from "../examples/maxtags.vue";
 import Theme from "../examples/theme.vue";
+import QuickDelete from "../examples/quickdelete.vue";
 
 export default {
   name: "Demo",
@@ -81,6 +87,7 @@ export default {
     Duplicates,
     Maxtags,
     Theme,
+    QuickDelete,
   },
   data() {
     return {
