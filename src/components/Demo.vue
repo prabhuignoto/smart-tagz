@@ -9,7 +9,10 @@
       </a>
     </header>
     <section>
-      <p>A Smart input tags component built for <a href="https://v3.vuejs.org/guide/introduction.html">Vue 3</a>.</p>
+      <p>
+        A Smart input tags component built for
+        <a href="https://v3.vuejs.org/guide/introduction.html">Vue 3</a>.
+      </p>
     </section>
     <div>
       <div class="example-block">
@@ -36,6 +39,9 @@
       <div class="example-block">
         <Maxtags />
       </div>
+      <div class="example-block">
+        <Theme />
+      </div>
     </div>
     <footer>
       <a href="https://www.prabhumurthy.com" class="github" target="_new">www.prabhumurthy.com</a>
@@ -53,6 +59,7 @@ import Paste from "../examples/paste.vue";
 import ReadOnly from "../examples/readonly.vue";
 import Duplicates from "../examples/duplicates.vue";
 import Maxtags from "../examples/maxtags.vue";
+import Theme from "../examples/theme.vue";
 
 export default {
   name: "Demo",
@@ -65,6 +72,7 @@ export default {
     ReadOnly,
     Duplicates,
     Maxtags,
+    Theme,
   },
   data() {
     return {
@@ -123,7 +131,7 @@ header {
 
 section {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
 .main-container {
