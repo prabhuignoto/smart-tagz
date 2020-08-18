@@ -8,7 +8,7 @@
     <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
-      <SmartTagz
+      <smart-tagz
         input-placeholder="Select Countries ..."
         :autosuggest="true"
         :sources="sources"
@@ -25,7 +25,7 @@ import SmartTagz from "../components/Main.vue";
 import Countries from "../test/countries";
 import { defineComponent } from "vue";
 
-const html = `  <SmartTagz
+const html = `  <smart-tagz
     input-placeholder="Select Countries ..."
     :autosuggest="true"
     :sources="sources"

@@ -43,7 +43,7 @@ yarn run install && yarn run dev
 smart-tagz has some great defaults to get you started quickly. Please check the props list for details on all available options.
 
 ```sh
-  <SmartTagz
+  <smart-tagz
     :autosuggest="true"
     :sources="sources"
     :allowPaste="{delimiter: ','}"

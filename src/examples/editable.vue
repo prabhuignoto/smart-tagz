@@ -8,7 +8,7 @@
       <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
-      <SmartTagz
+      <smart-tagz
         input-placeholder="Select Countries ..."
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
         :editable="true"
@@ -22,7 +22,7 @@
 import SmartTagz from "../components/Main.vue";
 
 import { defineComponent } from "vue";
-const html = `  <SmartTagz
+const html = `  <smart-tagz
     input-placeholder="Select Countries ..."
     :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
     :editable="true"

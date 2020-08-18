@@ -8,7 +8,7 @@
       <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
-      <SmartTagz input-placeholder="Select Countries ..." />
+      <smart-tagz input-placeholder="Select Countries ..." />
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default defineComponent({
   },
   data() {
     return {
-      code: '<SmartTagz input-placeholder="Select Countries ..." />',
+      code: '<smart-tagz input-placeholder="Select Countries ..." />',
     };
   },
 });
