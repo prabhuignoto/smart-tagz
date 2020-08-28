@@ -1,10 +1,12 @@
 {
-  "name": "tagur",
-  "version": "0.0.0",
+  "name": "smart-tagz",
+  "version": "0.1.0",
   "license": "MIT",
+  "description": "smart input tags component for Vue 3",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "npm": "rimraf ./dist && rollup -c"
   },
   "dependencies": {
     "nanoid": "^3.1.12",
@@ -12,14 +14,28 @@
     "vue-feather-icons": "^5.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-beep": "^0.2.0",
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-sucrase": "^3.1.0",
     "@types/nanoid": "^2.1.0",
     "@types/vue-feather-icons": "^5.0.0",
     "@typescript-eslint/parser": "^3.10.1",
     "@vue/compiler-sfc": "^3.0.0-rc.8",
     "eslint": "^7.7.0",
     "eslint-plugin-vue": "^7.0.0-beta.2",
+    "rollup": "^2.26.6",
+    "rollup-plugin-scss": "^2.6.0",
+    "rollup-plugin-vue": "^6.0.0-beta.8",
     "sass": "^1.26.10",
     "typescript": "^4.0.2",
-    "vite": "^1.0.0-rc.1"
-  }
+    "vite": "^1.0.0-rc.1",
+    "vue-template-compiler": "2.6.12"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/smart-tagz.js",
+  "module": "dist/smart-tagz.esm.js",
+  "umd": "dist/smart-tagz.umd.js"
 }
