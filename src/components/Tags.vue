@@ -60,7 +60,7 @@ export default defineComponent({
 
     const localTags = ref<TagModel[]>(tags);
 
-    const handleRemove = (id) => props.onRemove(id);
+    const handleRemove = (id: string) => props.onRemove(id);
     const handleEdit = (id: string, newValue: string) => props.onEdit(id, newValue);
 
     watch(

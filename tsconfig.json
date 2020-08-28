@@ -4,8 +4,8 @@
     "module": "esnext",
     "strict": true,
     "declaration": true,
-    "declarationDir": "dist",
-    "outDir": "dist",
+    "declarationDir": "./dist",
+    "outDir": "./dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "importHelpers": true,
@@ -15,31 +15,11 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "node",
-      "vue"
-    ],
+    "jsx": "preserve",
+    "types": ["node", "vue"],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "rollup.config.js"
-  ],
-  "include": [
-    "src"
-  ],
-  "files": [
-    "src/index.js"
-  ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+  }
 }

@@ -16,10 +16,8 @@ interface PropModel {
   quickDelete?: boolean;
 }
 
-export default function (props: PropModel) {
-  // captured props
-  const { autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags, sources, quickDelete } = props;
-  const delTagRef = ref<{ id: string }>(null);
+export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width }: PropModel) {
+  const delTagRef = ref<{ id: string } | null>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
     id: nanoid(),
@@ -38,7 +36,7 @@ export default function (props: PropModel) {
   const selectedIndex = ref(-1);
 
   const style = computed(() => ({
-    width: props.width,
+    width,
   }));
 
   const filteredItems = computed(() => {
@@ -47,7 +45,7 @@ export default function (props: PropModel) {
   });
 
   const focus = () => {
-    (textInputRef.value as HTMLElement).focus()
+    (textInputRef.value as unknown as HTMLElement).focus()
   };
 
   const reset = () => {
@@ -177,14 +175,17 @@ export default function (props: PropModel) {
     event.preventDefault();
 
     // get the clipboard data
-    const data = event.clipboardData.getData("text");
+    const data = event.clipboardData && event.clipboardData.getData("text");
 
-    const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste.delimiter, allowDuplicates);
+    if (data) {
+      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste.delimiter, allowDuplicates);
 
-    if (pasteResult && pasteResult.newData) {
-      tagsData.value = pasteResult.newData;
-      tagsCreated.value = pasteResult.tagsCreated;
+      if (pasteResult && pasteResult.newData) {
+        tagsData.value = pasteResult.newData;
+        tagsCreated.value = pasteResult.tagsCreated;
+      }
     }
+
   };
 
   const handleEscape = () => reset();

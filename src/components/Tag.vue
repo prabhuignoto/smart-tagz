@@ -81,7 +81,7 @@ export default defineComponent({
   setup(props) {
     const editMode = ref(false);
     const input = ref(props.name);
-    const inputTextRef = ref(null);
+    const inputTextRef = ref<HTMLInputElement>();
     const tagHighlight = toRef(props, "highlight");
 
     const handleRemove = (id: string) => props.onRemove(id);
@@ -141,7 +141,7 @@ export default defineComponent({
   align-items: center;
   border-radius: 0.2rem;
   display: flex;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(2px 2px 4px rgba(26, 15, 15, 0.25));
   justify-content: center;
   margin: 0.4rem 0.25rem;
   padding: 0.4rem 0.1rem 0.4rem 0.4rem;

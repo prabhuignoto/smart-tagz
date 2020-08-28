@@ -2,7 +2,7 @@
   <div
     class="tags-main"
     :style="{background: theme.background}"
-    @keyup.ctrl="handleSelectAll($event)"
+    @keyup.ctrl="handleSelectAll"
   >
     <Tags
       :tags="tagsData"
@@ -25,9 +25,9 @@
           @keyup.enter="handleAddTag($event.target.value)"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
-          @keydown.down="handleKeydown($event)"
-          @keydown.up="handleKeyUp($event)"
-          @keydown.ctrl.exact="handleSelectAll($event)"
+          @keydown.down="handleKeydown"
+          @keydown.up="handleKeyUp"
+          @keydown.ctrl.exact="handleSelectAll"
           @paste="handlePaste"
           @blur="handleEscape"
         >

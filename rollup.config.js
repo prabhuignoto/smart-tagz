@@ -47,6 +47,7 @@ export default {
   plugins: [
     vue({
       target: "browser",
+      css: true,
     }),
     scss(),
     sucrase({
@@ -56,6 +57,7 @@ export default {
     common(),
     buble(),
     beep(),
+    // eslint(),
   ],
   external: ["vue", "nanoid", "vue-feather-icons"],
 };

@@ -68,7 +68,7 @@ export default defineComponent({
   },
   setup(props) {
     const showPane = ref(false);
-    const handleSelection = (name: string) => props.onSelection(name);
+    const handleSelection = (name: string) => props.onSelection && props.onSelection(name);
     const paneRef = ref(null);
 
     const handleEnter = (event: KeyboardEvent) => {

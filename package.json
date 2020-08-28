@@ -17,6 +17,7 @@
     "@rollup/plugin-beep": "^0.2.0",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-sucrase": "^3.1.0",
     "@types/nanoid": "^2.1.0",
     "@types/vue-feather-icons": "^5.0.0",
@@ -33,7 +34,8 @@
     "vue-template-compiler": "2.6.12"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "dist/smart-tagz.js",
   "module": "dist/smart-tagz.esm.js",
