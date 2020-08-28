@@ -70,7 +70,7 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 | inputPlaceholder | String                | `Placeholder` for the input box                                                                  | "Enter tag..."   |
 | readOnly         | Boolean               | Makes the whole component `readOnly`. ideal for display only purposes.                           | false            |
 
-### defaultTags
+### Default Tags
 
 We can initialize smart-tagz with some default tags. This setting will mostly be used along with the readonly prop to create tags for display only purposes.
 
@@ -78,7 +78,7 @@ We can initialize smart-tagz with some default tags. This setting will mostly be
 <smart-tagz :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan']" />
 ```
 
-### duplicates
+### Duplicates
 
 You can decide how to manage duplicate tags by either allowing or disallowing them completely. When set to false no duplicate values are allowed.
 
@@ -86,7 +86,7 @@ You can decide how to manage duplicate tags by either allowing or disallowing th
 <smart-tagz :allow-duplicates="false" />
 ```
 
-### AutoSuggest
+### Auto Suggest
 
 Whe set to true, the autosuggest prop suggests values in a dropdown. You also need to set the sources prop for this to work. The sources prop can be an Array of strings.
 
@@ -97,7 +97,7 @@ Whe set to true, the autosuggest prop suggests values in a dropdown. You also ne
   />
 ```
 
-### maxTags
+### Max Tags
 
 The component can also be configured to accept the Maximum number of tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.
 
@@ -105,7 +105,7 @@ The component can also be configured to accept the Maximum number of tags that c
 <smart-tagz :max-tags="3" />
 ```
 
-### paste
+### Paste
 
 The component can parse strings and automatically create tags for you. The default delimiter is "," but you can change this setting by manually setting the delimiter option.
 
@@ -113,7 +113,7 @@ The component can parse strings and automatically create tags for you. The defau
 <smart-tagz :allow-paste="{delimiter: ';'}" />
 ```
 
-### editable
+### Editable Tags
 
 The Tags are not editable by default, but you can change this setting with the editable prop. Simply double click a tag, make the changes and hit enter to save.
 
@@ -121,7 +121,7 @@ The Tags are not editable by default, but you can change this setting with the e
 <smart-tagz :editable="true" />
 ```
 
-### readonly
+### Readonly Tags
 
 You can turn the component into readonly mode by setting the readonly prop to true.
 
@@ -129,7 +129,7 @@ You can turn the component into readonly mode by setting the readonly prop to tr
 <smart-tagz :read-only="true" />
 ```
 
-### theme
+### Theme
 
 The components color scheme can be customized by passing a custom theme prop.
 
