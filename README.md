@@ -31,7 +31,7 @@ smart-tagz is a smart input tags components built for Vue 3.
 ## Installation
 
 ```sh
-yarn run install && yarn run dev
+yarn install smart-tagz
 ```
 
 ## Demos
