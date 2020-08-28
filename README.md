@@ -9,7 +9,7 @@
 
 ![app-home](app-home.png)
 
-![logo](src/assets/logo.png)
+![logo](logo.png)
 
 ## About
 
