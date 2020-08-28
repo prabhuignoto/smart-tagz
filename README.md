@@ -5,11 +5,11 @@
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/13324/branches/220204/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=13324&bid=220204)
 [![Depfu](https://badges.depfu.com/badges/d21407f97842c6a8247d973f016cea62/overview.svg)](https://depfu.com/github/prabhuignoto/boxd?project_id=13611)
 
+![logo](logo.png)
 > Smart input tags for Vue 3
 
 ![app-home](app-home.png)
 
-![logo](logo.png)
 
 ## About
 
