@@ -1,5 +1,3 @@
-# smart-tagz
-
 <!-- [![NPM Version][npm-image]][npm-url]-->
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 [![Build Status](https://dev.azure.com/prabhummurthy/smart-tagz/_apis/build/status/prabhuignoto.smart-tagz?branchName=master)](https://dev.azure.com/prabhummurthy/smart-tagz/_build/latest?definitionId=4&branchName=master)
@@ -7,7 +5,7 @@
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/13324/branches/220204/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=13324&bid=220204)
 [![Depfu](https://badges.depfu.com/badges/d21407f97842c6a8247d973f016cea62/overview.svg)](https://depfu.com/github/prabhuignoto/boxd?project_id=13611)
 
-Smart input tags for Vue 3
+> Smart input tags for Vue 3
 
 ![app-home](app-home.png)
 
@@ -36,7 +34,7 @@ yarn install smart-tagz
 
 ## Demos
 
-[https://smart-tagz.netlify.app/](https://smart-tagz.netlify.app/)
+[https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
 
 ## Getting Started
 
@@ -59,18 +57,91 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 
 ## Props
 
-| Prop             | Type                  | Description                                                                                    | Default          |
-| ---------------- | --------------------- | ---------------------------------------------------------------------------------------------- | ---------------- |
-| defaultTags      | Array                 | can be initialized with a default set of tags                                                  | []               |
-| width            | String                | width of the container                                                                         | 100%             |
-| autosuggest      | Boolean               | Enables the autosuggest feature. you also need to set the sources for the autosuggest to work. | false            |
-| sources          | Array                 | Works  as the datasource for the autosuggest feature                                           | []               |
-| allowPaste       | { delimiter: String } | Parses the pasted string based on the passed delimiter string and creates tags automatically   | {delimiter: ","} |
-| editable         | Boolean               | makes the tags editable                                                                        | false            |
-| allowDuplicates  | Boolean               | allows/disallows duplicate tag entries while pasted or entered manually                        | true             |
-| maxTags          | Number                | Maximum number of tags allowed                                                                 | 10               |
-| inputPlaceholder | String                | Placeholder for the input box                                                                  | "Enter tag..."   |
-| readOnly         | Boolean               | Makes the whole component readOnly. ideal for display only purposes.                          | false            |
+| Prop             | Type                  | Description                                                                                      | Default          |
+| ---------------- | --------------------- | ------------------------------------------------------------------------------------------------ | ---------------- |
+| defaultTags      | Array                 | can be initialized with a `default` set of tags                                                  | []               |
+| width            | String                | `width` of the container                                                                         | 100%             |
+| autosuggest      | Boolean               | Enables the `autosuggest` feature. you also need to set the sources for the autosuggest to work. | false            |
+| sources          | Array                 | Works as the `datasource` for the autosuggest feature                                            | []               |
+| allowPaste       | { delimiter: String } | Parses the pasted string based on the passed delimiter string and creates tags automatically     | {delimiter: ","} |
+| editable         | Boolean               | makes the tags `editable`                                                                        | false            |
+| allowDuplicates  | Boolean               | allows/disallows `duplicate` tag entries while pasted or entered manually                        | true             |
+| maxTags          | Number                | `Maximum` number of tags allowed                                                                 | 10               |
+| inputPlaceholder | String                | `Placeholder` for the input box                                                                  | "Enter tag..."   |
+| readOnly         | Boolean               | Makes the whole component `readOnly`. ideal for display only purposes.                           | false            |
+
+### defaultTags
+
+We can initialize smart-tagz with some default tags. This setting will mostly be used along with the readonly prop to create tags for display only purposes.
+
+```sh
+<smart-tagz :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan']" />
+```
+
+### duplicates
+
+You can decide how to manage duplicate tags by either allowing or disallowing them completely. When set to false no duplicate values are allowed.
+
+```sh
+<smart-tagz :allow-duplicates="false" />
+```
+
+### AutoSuggest
+
+Whe set to true, the autosuggest prop suggests values in a dropdown. You also need to set the sources prop for this to work. The sources prop can be an Array of strings.
+
+```sh
+ <smart-tagz
+    :autosuggest="true"
+    :sources="sources"
+  />
+```
+
+### maxTags
+
+The component can also be configured to accept the Maximum number of tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.
+
+```sh
+<smart-tagz :max-tags="3" />
+```
+
+### paste
+
+The component can parse strings and automatically create tags for you. The default delimiter is "," but you can change this setting by manually setting the delimiter option.
+
+```sh
+<smart-tagz :allow-paste="{delimiter: ';'}" />
+```
+
+### editable
+
+The Tags are not editable by default, but you can change this setting with the editable prop. Simply double click a tag, make the changes and hit enter to save.
+
+```sh
+<smart-tagz :editable="true" />
+```
+
+### readonly
+
+You can turn the component into readonly mode by setting the readonly prop to true.
+
+```sh
+<smart-tagz :read-only="true" />
+```
+
+### theme
+
+The components color scheme can be customized by passing a custom theme prop.
+
+```sh
+  <smart-tagz
+    :theme="{
+      primary: '#545454',
+      background: '#bdbdbd',
+      tagTextColor: '#fff',
+    }"
+  />
+```
 
 ## Built with
 
