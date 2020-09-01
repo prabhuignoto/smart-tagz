@@ -1,5 +1,8 @@
 <template>
-  <div class="main-container">
+  <div
+    v-show="fontsLoaded"
+    class="main-container"
+  >
     <header>
       <img src="../assets/logo.png">
       <a
@@ -13,7 +16,7 @@
       </a>
     </header>
     <section>
-      <p>
+      <p class="intro">
         A Smart input tags component built for
         <a
           href="https://v3.vuejs.org/guide/introduction.html"
@@ -74,8 +77,10 @@ import Duplicates from "../examples/duplicates.vue";
 import Maxtags from "../examples/maxtags.vue";
 import Theme from "../examples/theme.vue";
 import QuickDelete from "../examples/quickdelete.vue";
+import { defineComponent, onMounted, ref } from "vue";
+import fontLoader from "webfontloader";
 
-export default {
+export default defineComponent({
   name: "Demo",
   components: {
     Basic,
@@ -89,13 +94,31 @@ export default {
     Theme,
     QuickDelete,
   },
+  setup() {
+    const fontsLoaded = ref(false);
+
+    onMounted(() => {
+      fontLoader.load({
+        google: {
+          families: ["Nunito:300,400,500"],
+        },
+        active: () => {
+          fontsLoaded.value = true;
+        },
+      });
+    });
+
+    return {
+      fontsLoaded,
+    };
+  },
   data() {
     return {
       count: 0,
       sources: Countries,
     };
   },
-};
+});
 </script>
 
 <style lang="scss">
@@ -106,6 +129,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    font-weight: 400;
+
+    text-transform: uppercase;
+    font-size: 0.85rem;
   }
 
   pre {
@@ -118,6 +145,7 @@ export default {
     align-items: center;
     justify-content: flex-start;
     text-align: left;
+    font-weight: 400;
   }
 }
 
@@ -132,6 +160,7 @@ export default {
 header {
   display: flex;
   align-items: center;
+  height: 3rem;
 
   h1 {
     color: #6093ca;
@@ -142,6 +171,10 @@ header {
     height: 2rem;
     margin-left: auto;
   }
+}
+
+.intro {
+  font-weight: 500;
 }
 
 section {
