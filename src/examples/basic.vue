@@ -3,7 +3,7 @@
     <header>
       <h3>Getting started</h3>
     </header>
-    <p>smart-tags comes with some great defaults to get you started quickly. Following is a very basic variant that takes a custom placeholder message.</p>
+    <p>smart-tagz has some great defaults for starters. Following is a very basic variant that takes a custom placeholder message.</p>
     <pre>
       <code class="lang-html">{{ code }}</code>
     </pre>

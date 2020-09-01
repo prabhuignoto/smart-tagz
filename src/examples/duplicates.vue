@@ -1,7 +1,7 @@
 <template>
   <div class="example">
     <header>
-      <h3>Allow/Disallow Duplicate Tags</h3>
+      <h3>Allow / Disallow Duplicate Tags</h3>
     </header>
     <p>You can decide how to manage duplicate tags by either allowing or disallowing them completely. When set to false no duplicate values are allowed.</p>
     <pre data-line="7">

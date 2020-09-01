@@ -3,7 +3,7 @@
     <header>
       <h3>Readonly Tags</h3>
     </header>
-    <p>You can turn the component into readonly mode by setting the readonly prop to true.</p>
+    <p>Use the readonly prop to make the component readonly.</p>
     <pre data-line="7">
       <code class="lang-html">{{ code }}</code>
     </pre>

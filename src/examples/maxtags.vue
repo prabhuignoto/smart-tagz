@@ -3,7 +3,7 @@
     <header>
       <h3>MaxTags</h3>
     </header>
-    <p>The component can also be configured to accept the Maximum number of tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.</p>
+    <p>The component can be configured to accept the maximum tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.</p>
     <pre data-line="3">
       <code class="lang-html">{{ code }}</code>
     </pre>

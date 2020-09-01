@@ -3,7 +3,10 @@
     <header>
       <h3>Editable Tags</h3>
     </header>
-    <p>The Tags are not editable by default, but you can change this setting with the editable prop. Simply double click a tag, make the changes and hit enter to save.</p>
+    <p>
+      The tags are not editable by default, but this setting can be changed with the
+      editable prop. Double click the tag to get into edit mode, make your changes and hit enter to save.
+    </p>
     <pre data-line="4">
       <code class="lang-html">{{ code }}</code>
     </pre>
@@ -35,7 +38,7 @@ export default defineComponent({
   },
   data() {
     return {
-      code:html,
+      code: html,
     };
   },
 });
