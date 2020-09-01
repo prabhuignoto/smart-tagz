@@ -1,18 +1,20 @@
 <template>
   <div class="tags-container">
-    <Tag
-      v-for="tag of localTags"
-      :id="tag.id"
-      :key="tag.id"
-      :highlight="tag.highlight"
-      :name="tag.name"
-      :value="tag.value"
-      :on-remove="handleRemove"
-      :on-edit="handleEdit"
-      :editable="editable"
-      :read-only="readOnly"
-      :tag-style="tagStyle"
-    />
+    <transition-group name="tags-list">
+      <Tag
+        v-for="tag of localTags"
+        :id="tag.id"
+        :key="tag.id"
+        :highlight="tag.highlight"
+        :name="tag.name"
+        :value="tag.value"
+        :on-remove="handleRemove"
+        :on-edit="handleEdit"
+        :editable="editable"
+        :read-only="readOnly"
+        :tag-style="tagStyle"
+      />
+    </transition-group>
     <slot />
   </div>
 </template>
@@ -61,7 +63,8 @@ export default defineComponent({
     const localTags = ref<TagModel[]>(tags);
 
     const handleRemove = (id: string) => props.onRemove(id);
-    const handleEdit = (id: string, newValue: string) => props.onEdit(id, newValue);
+    const handleEdit = (id: string, newValue: string) =>
+      props.onEdit(id, newValue);
 
     watch(
       () => props.tags,
@@ -85,5 +88,15 @@ export default defineComponent({
   align-items: flex-start;
   justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+.tags-list-enter-active,
+.tags-list-leave-active {
+  transition: all 0.2s;
+}
+
+.tags-list-enter,
+.tags-list-leave-to {
+  opacity: 0;
 }
 </style>

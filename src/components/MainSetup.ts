@@ -91,7 +91,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
 
   // checks if a new tag can be added
   const canAddTag = (name: string) => {
-    const tester = new RegExp(name, "ig");
+    const tester = new RegExp(`^${name}$`, "ig");
     const duplicatesCheck = !allowDuplicates
       ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
       : allowDuplicates;
@@ -105,7 +105,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     const selIndex = unref(selectedIndex);
 
     if (selIndex > -1) {
-      nameToUse = sources[selIndex];
+      nameToUse = filteredItems.value[selIndex];
     } else {
       nameToUse = name;
     }

@@ -22,7 +22,7 @@
           v-model="input"
           type="text"
           :placeholder="inputPlaceholder"
-          @keyup.enter="handleAddTag($event.target.value)"
+          @keyup.enter="handleAddTag($event.target.value.trim())"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
           @keydown.down="handleKeydown"
