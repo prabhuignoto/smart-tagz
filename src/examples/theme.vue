@@ -15,10 +15,10 @@
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
-        :autosuggest="true"
+        autosuggest
+        editable
         :sources="sources"
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-        :editable="true"
         :allow-duplicates="false"
         :allow-paste="{delimiter: ','}"
         :theme="{
@@ -37,20 +37,20 @@ import SmartTagz from "../components/Main.vue";
 import Countries from "../test/countries";
 
 import { defineComponent } from "vue";
-const html = `  <smart-tagz
-    input-placeholder="Select Countries ..."
-    :autosuggest="true"
-    :sources="sources"
-    :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-    :editable="true"
-    :allow-duplicates="false"
-    :allow-paste="{delimiter: ','}"
-    :theme="{
-      primary: '#545454',
-      background: '#bdbdbd',
-      tagTextColor: '#fff',
-    }"
-  />`;
+const html = `<smart-tagz
+  input-placeholder="Select Countries ..."
+  autosuggest
+  editable
+  :sources="sources"
+  :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+  :allow-duplicates="false"
+  :allow-paste="{delimiter: ','}"
+  :theme="{
+    primary: '#545454',
+    background: '#bdbdbd',
+    tagTextColor: '#fff',
+  }"
+/>`;
 
 export default defineComponent({
   name: "Maxtags",

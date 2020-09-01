@@ -4,17 +4,17 @@
       <h3>Readonly Tags</h3>
     </header>
     <p>You can turn the component into readonly mode by setting the readonly prop to true.</p>
-    <pre data-line="6">
+    <pre data-line="7">
       <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <smart-tagz
-        input-placeholder="Select Countries ..."
-        :autosuggest="true"
         :sources="sources"
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-        :editable="true"
-        :read-only="true"
+        input-placeholder="Select Countries ..."
+        autosuggest
+        editable
+        read-only
       />
     </div>
   </div>
@@ -26,14 +26,14 @@ import SmartTagz from "../components/Main.vue";
 import Countries from "../test/countries";
 
 import { defineComponent } from "vue";
-const html = `  <smart-tagz
-    input-placeholder="Select Countries ..."
-    :autosuggest="true"
-    :sources="sources"
-    :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-    :editable="true"
-    :read-only="true"
-  />`;
+const html = `<smart-tagz
+  :sources="sources"
+  :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+  input-placeholder="Select Countries ..."
+  autosuggest
+  editable
+  read-only
+/>`;
 
 export default defineComponent({
   name: "Readonly",

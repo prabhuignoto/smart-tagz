@@ -9,14 +9,14 @@
     </pre>
     <div class="sample-view">
       <smart-tagz
-        input-placeholder="Select Countries ..."
+        :allow-paste="{delimiter: ','}"
         :max-tags="3"
-        :autosuggest="true"
         :sources="sources"
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-        :editable="true"
-        :allow-duplicates="false"
-        :allow-paste="{delimiter: ','}"
+        input-placeholder="Select Countries ..."
+        autosuggest
+        editable
+        allow-duplicates
       />
     </div>
   </div>
@@ -29,14 +29,14 @@ import Countries from "../test/countries";
 
 import { defineComponent } from "vue";
 const html = `  <smart-tagz
-    input-placeholder="Select Countries ..."
+    :allow-paste="{delimiter: ','}"
     :max-tags="3"
-    :autosuggest="true"
     :sources="sources"
     :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-    :editable="true"
-    :allow-duplicates="false"
-    :allow-paste="{delimiter: ','}"
+    input-placeholder="Select Countries ..."
+    autosuggest
+    editable
+    allow-duplicates
   />`;
 
 export default defineComponent({

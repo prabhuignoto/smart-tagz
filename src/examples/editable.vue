@@ -11,7 +11,7 @@
       <smart-tagz
         input-placeholder="Select Countries ..."
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-        :editable="true"
+        editable
       />
     </div>
   </div>
@@ -25,7 +25,7 @@ import { defineComponent } from "vue";
 const html = `  <smart-tagz
     input-placeholder="Select Countries ..."
     :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-    :editable="true"
+    editable
   />`;
 
 export default defineComponent({

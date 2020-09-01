@@ -42,14 +42,14 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
 
 ```sh
   <smart-tagz
-    :autosuggest="true"
+    autosuggest
+    editable
+    inputPlaceholder="Select Countries ..."
     :sources="sources"
     :allowPaste="{delimiter: ','}"
-    :editable="true"
     :allowDuplicates="false"
     :maxTags="20"
     :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan']"
-    inputPlaceholder="Select Countries ..."
   />
 ```
 
@@ -91,10 +91,7 @@ You can decide how to manage `duplicate` tags by either allowing or disallowing 
 Whe set to `true`, the `autosuggest` prop suggests values in a dropdown. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
 
 ```sh
- <smart-tagz
-    :autosuggest="true"
-    :sources="sources"
-  />
+ <smart-tagz autosuggest :sources="sources" />
 ```
 
 ### Max Tags
@@ -118,7 +115,7 @@ The component can parse strings and automatically create tags for you. The defau
 The Tags are not `editable` by default, but you can change this setting with the `editable` prop. Simply double click a tag, make the changes and hit enter to save.
 
 ```sh
-<smart-tagz :editable="true" />
+<smart-tagz editable />
 ```
 
 ### Readonly Tags
@@ -126,7 +123,7 @@ The Tags are not `editable` by default, but you can change this setting with the
 You can turn the component into `readonly` mode by setting the readonly prop to true.
 
 ```sh
-<smart-tagz :read-only="true" />
+<smart-tagz read-only />
 ```
 
 ### Theme

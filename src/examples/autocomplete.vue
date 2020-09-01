@@ -3,17 +3,17 @@
     <header>
       <h3>Autosuggest</h3>
     </header>
-    <p>Whe set to true, the autosuggest prop suggests values in a dropdown. You also need to set the sources prop for this to work. The sources prop should be an Array of strings.</p>
-    <pre data-line="3-4">
+    <p>When set to true, the autosuggest prop suggests values in the dropdown as you type. You also need to set the sources prop for this to work. The sources prop should be an Array of strings.</p>
+    <pre data-line="3-3">
     <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
-        :autosuggest="true"
+        autosuggest
+        editable
         :sources="sources"
         :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-        :editable="true"
       />
     </div>
   </div>
@@ -26,12 +26,12 @@ import Countries from "../test/countries";
 import { defineComponent } from "vue";
 
 const html = `  <smart-tagz
-    input-placeholder="Select Countries ..."
-    :autosuggest="true"
-    :sources="sources"
-    :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-    :editable="true"
-  />`;
+  input-placeholder="Select Countries ..."
+  autosuggest
+  editable
+  :sources="sources"
+  :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+/>`;
 
 export default defineComponent({
   name: "Autocomplete",
