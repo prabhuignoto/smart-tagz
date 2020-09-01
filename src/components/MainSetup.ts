@@ -90,26 +90,36 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   });
 
   // checks if a new tag can be added
-  const canAddTag = computed(() => {
+  const canAddTag = (name: string) => {
+    const tester = new RegExp(name, "ig");
     const duplicatesCheck = !allowDuplicates
-      ? !tagsData.value.some((tag) => tag.name === input.value)
+      ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
       : allowDuplicates;
     const maxAllowed = tagsCreated.value < maxTags;
     return duplicatesCheck && maxAllowed;
-  });
+  };
 
   // handler to add a new tag
   const handleAddTag = (name: string) => {
-    debugger;
-    if (!canAddTag.value) {
+    let nameToUse = '';
+    const selIndex = unref(selectedIndex);
+
+    if (selIndex > -1) {
+      nameToUse = sources[selIndex];
+    } else {
+      nameToUse = name;
+    }
+
+    if (!canAddTag(nameToUse)) {
       return;
     }
+
     let newTag = null;
 
     if (showSuggestions.value && selectedIndex.value > -1) {
       newTag = filteredItems.value[selectedIndex.value]
     } else {
-      newTag = name;
+      newTag = nameToUse;
     }
 
     if (newTag) {

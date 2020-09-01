@@ -8,7 +8,6 @@
       class="suggest-pane"
       :style="{'background': paneStyle.bgColor}"
       tabindex="0"
-      @keyup.enter="handleEnter"
     >
       <li
         v-for="(item, index) of items"
@@ -133,7 +132,7 @@ export default defineComponent({
   }
 
   &.selected {
-    background: #73a0d0;
+    background: rgba($color: #fff, $alpha: 0.2);
   }
 }
 </style>
