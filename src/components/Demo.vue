@@ -122,6 +122,22 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+header {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+
+  h1 {
+    color: #6093ca;
+  }
+
+  a {
+    width: 2rem;
+    height: 2rem;
+    margin-left: auto;
+  }
+}
+
 .example {
   width: 100%;
 
@@ -130,7 +146,6 @@ export default defineComponent({
     align-items: center;
     justify-content: flex-start;
     font-weight: 400;
-
     text-transform: uppercase;
     font-size: 0.85rem;
   }
@@ -155,22 +170,6 @@ export default defineComponent({
 
 .sample-view {
   width: 750px;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  height: 3rem;
-
-  h1 {
-    color: #6093ca;
-  }
-
-  a {
-    width: 2rem;
-    height: 2rem;
-    margin-left: auto;
-  }
 }
 
 .intro {

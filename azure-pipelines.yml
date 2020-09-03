@@ -18,4 +18,12 @@ steps:
 - script: |
     npm install
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'Install and Build'
+
+- script: |
+    npm run rollup
+  displayName: 'Rollup Build'
+
+- script: |
+    npm run lint:css
+  displayName: 'Lint Styles'

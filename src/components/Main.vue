@@ -139,7 +139,6 @@ export default defineComponent({
   flex-wrap: wrap;
   justify-content: flex-start;
   padding: 1rem;
-  /* background: #eaf1f8; */
   border-radius: 0.2rem;
 }
 

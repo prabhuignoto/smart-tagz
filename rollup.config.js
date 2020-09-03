@@ -57,7 +57,6 @@ export default {
     common(),
     buble(),
     beep(),
-    // eslint(),
   ],
   external: ["vue", "nanoid", "vue-feather-icons"],
 };

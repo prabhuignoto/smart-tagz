@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "npm": "rimraf ./dist && rollup -c"
+    "rollup": "rimraf ./dist && rollup -c",
+    "lint:css": "stylelint src/**/*.vue"
   },
   "dependencies": {
     "nanoid": "^3.1.12",
@@ -31,6 +32,8 @@
     "rollup-plugin-scss": "^2.6.0",
     "rollup-plugin-vue": "^6.0.0-beta.10",
     "sass": "^1.26.10",
+    "stylelint": "^13.7.0",
+    "stylelint-config-standard": "^20.0.0",
     "typescript": "^4.0.2",
     "vite": "^1.0.0-rc.1",
     "vue-template-compiler": "2.6.12"
