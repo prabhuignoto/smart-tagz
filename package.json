@@ -34,7 +34,7 @@
     "sass": "^1.26.11",
     "stylelint": "^13.7.1",
     "stylelint-config-standard": "^20.0.0",
-    "typescript": "^4.0.2",
+    "typescript": "^4.0.3",
     "vite": "^1.0.0-rc.1",
     "vue-template-compiler": "2.6.12"
   },
@@ -42,6 +42,11 @@
     "dist",
     "types"
   ],
+  "peerDependencies": {
+    "nanoid": "^3.1.12",
+    "vue": "^3.0.0",
+    "vue-feather-icons": "^5.1.0"
+  },
   "main": "dist/smart-tagz.js",
   "module": "dist/smart-tagz.esm.js",
   "umd": "dist/smart-tagz.umd.js"
