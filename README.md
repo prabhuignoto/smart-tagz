@@ -151,6 +151,30 @@ The components color scheme can be customized by passing a custom theme prop.
 
 - [Vue.JS](vue) - The Component is written in Vue + [Typescript](typescript).
 
+## Build Setup
+
+``` bash
+# install dependencies
+yarn install
+
+# start dev
+yarn run dev
+
+# package lib
+npm run rollup
+
+# run css linting
+yarn run lint:css
+```
+
+## Contributing
+
+1. Fork it ( [https://github.com/prabhuignoto/smart-tagz/fork](https://github.com/prabhuignoto/smart-tagz/fork) )
+2. Create your feature branch (`git checkout -b new-feature`)
+3. Commit your changes (`git commit -am 'Add feature'`)
+4. Push to the branch (`git push origin new-feature`)
+5. Create a new Pull Request
+
 ## Notes
 
 - The component is built using the RC version of Vue 3 and heavily relies on the composition API.

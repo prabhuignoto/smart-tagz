@@ -52,7 +52,7 @@ export default defineComponent({
     },
     tagStyle: {
       type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
-      default: {},
+      default: () => ({}),
     },
   },
   setup(props) {

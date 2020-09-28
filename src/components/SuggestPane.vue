@@ -30,7 +30,7 @@ export default defineComponent({
   props: {
     items: {
       type: Array as PropType<string[]>,
-      default: [],
+      default: () => [],
       required: true,
     },
     show: {
@@ -56,9 +56,9 @@ export default defineComponent({
     // eslint-disable-next-line vue/require-default-prop
     paneStyle: {
       type: Object as PropType<{ bgColor: string }>,
-      default: {
+      default: () => ({
         bgColor: "",
-      },
+      }),
     },
     selectedIndex: {
       type: Number,

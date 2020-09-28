@@ -79,7 +79,7 @@ export default defineComponent({
     // sources array for autosuggest
     sources: {
       type: Array as PropType<string[]>,
-      default: [],
+      default: () => [],
     },
     // switch to enable autosuggest
     autosuggest: {
@@ -121,11 +121,11 @@ export default defineComponent({
         secondary: string;
         tagTextColor: string;
       }>,
-      default: {
+      default: () => ({
         primary: "#6093ca",
         background: "#eaf1f8",
         tagTextColor: "#fff",
-      },
+      }),
     },
   },
   setup: MainSetup,
