@@ -69,7 +69,7 @@ export default defineComponent({
     },
     defaultTags: {
       type: Array as PropType<string[]>,
-      default: [],
+      default: () => [],
     },
     // container width
     width: {

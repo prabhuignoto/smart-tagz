@@ -12,20 +12,22 @@
 
 ![app-home](app-home.png)
 
+[![Edit smart-tagz](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/smart-tagz-pd32g?fontsize=14&hidenavigation=1&theme=dark)
+
 ## About
 
 smart-tagz is a smart input tags components built for Vue 3.
 
 ## Features
 
-- **Autosuggest** - Supports Autosuggest with easy keyboard selection.
-- **Editable Tags** - Tags can be edited inline by double clicking on the tag.
-- **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
-- **Easy tag deletion** - Delete tags easily with delete or backspace.
-- **Quick delete** - Quickly delete all tags with CTRL + A, DEL or BACKSPACE.
-- **Support for custom color schemes** - easy color scheme customization.
-- **Composition API** - Built using the latest Composition API from Vue 3.
-- **Typescript** - Built with Typescript.
+✅ **Autosuggest** - Supports Autosuggest with easy keyboard selection.
+✅ **Editable Tags** - Tags can be edited inline by double clicking on the tag.
+✅ **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
+✅ **Easy tag deletion** - Delete tags easily with delete or backspace.
+✅ **Quick delete** - Quickly delete all tags with CTRL + A, DEL or BACKSPACE.
+✅ **Support for custom color schemes** - easy color scheme customization.
+✅ **Composition API** - Built using the latest Composition API from Vue 3.
+✅ **Typescript** - Built with Typescript.
 
 ## Installation
 
@@ -45,9 +47,10 @@ npm install smart-tagz
 
 ## Getting Started
 
-smart-tagz has some great defaults to get you started quickly. Please check the props list for details on all available options.
+smart-tagz has some great defaults to get you started quickly. Please check the props list for all options.
 
 ```sh
+<template>
   <smart-tagz
     autosuggest
     editable
@@ -58,6 +61,21 @@ smart-tagz has some great defaults to get you started quickly. Please check the 
     :maxTags="20"
     :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan']"
   />
+</template>
+
+<script>
+import { SmartTagz } from "smart-tagz";
+import "smart-tagz/dist/smart-tagz.css";
+
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "Basic",
+  components: {
+    SmartTagz,
+  }
+});
+</script>
 ```
 
 ![demo](demo.gif)
@@ -177,7 +195,6 @@ yarn run lint:css
 
 ## Notes
 
-- The component is built using the RC version of Vue 3 and heavily relies on the composition API.
 - The project uses [vite](vite) instead of @vue/cli. I choose vite for speed and i also believe [vite](vite) will be the future.
 
 ## Meta
