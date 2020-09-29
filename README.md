@@ -7,10 +7,10 @@
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/prabhuignoto/smart-tagz)
 [![Depfu](https://badges.depfu.com/badges/d21407f97842c6a8247d973f016cea62/overview.svg)](https://depfu.com/github/prabhuignoto/boxd?project_id=13611)
 
-![logo](logo.png)
+![logo](social-slide-small.png)
 > Smart input tags for Vue 3
 
-![app-home](app-home.png)
+![demo](demo.gif)
 
 [![Edit smart-tagz](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/smart-tagz-pd32g?fontsize=14&hidenavigation=1&theme=dark)
 
@@ -84,8 +84,6 @@ export default defineComponent({
 });
 </script>
 ```
-
-![demo](demo.gif)
 
 ## Props
 
