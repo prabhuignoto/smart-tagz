@@ -14,27 +14,23 @@
 
 [![Edit smart-tagz](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/smart-tagz-pd32g?fontsize=14&hidenavigation=1&theme=dark)
 
-## About
-
-smart-tagz is a smart input tags components built for Vue 3.
-
 ## Features
 
-✅ **Autosuggest** - Supports Autosuggest with easy keyboard selection.
+✅ **Autosuggest** - Autosuggest with support for keyboard selection.
 
-✅ **Editable Tags** - Tags can be edited inline by double clicking on the tag.
+✅ **Editable Tags** - Edit the tags inline by double clicking them.
 
-✅ **Create tags on Paste** - Paste string with delimiters of your choice and the component will auto create the tags for you.
+✅ **Create tags on Paste** - Paste strings with delimiters of your choice and the component will create the tags for you.
 
-✅ **Easy tag deletion** - Delete tags easily with delete or backspace.
+✅ **Easy tag deletion** - Quickly delete the tags with a visual confirmation before removing a tag.
 
-✅ **Quick delete** - Quickly delete all tags with CTRL + A, DEL or BACKSPACE.
+✅ **Quick Clear** - Quickly clear all tags with `quick-delete` mode.
 
-✅ **Support for custom color schemes** - easy color scheme customization.
+✅ **Readonly mode** - Lock the component using the `readonly` mode.
 
-✅ **Composition API** - Built using the latest Composition API from Vue 3.
+✅ **Max tags & Duplicates** - Restrict the number of tags. Handle duplicates gracefully.
 
-✅ **Typescript** - Built with Typescript.
+✅ **Support for custom color schemes** - Customize the colors using the [theme](#Theme) prop.
 
 ## Installation
 
@@ -47,10 +43,6 @@ or
 ```sh
 npm install smart-tagz
 ```
-
-## Demos
-
-[https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
 
 ## Getting Started
 
@@ -89,23 +81,24 @@ export default defineComponent({
 
 | Prop             | Type                  | Description                                                                                      | Default          |
 | ---------------- | --------------------- | ------------------------------------------------------------------------------------------------ | ---------------- |
-| defaultTags      | Array                 | can be initialized with a `default` set of tags                                                  | []               |
+| defaultTags      | Array                 | initialize with a `default` set of tags                                                          | []               |
 | width            | String                | `width` of the container                                                                         | 100%             |
 | autosuggest      | Boolean               | Enables the `autosuggest` feature. you also need to set the sources for the autosuggest to work. | false            |
 | sources          | Array                 | Works as the `datasource` for the autosuggest feature                                            | []               |
-| allowPaste       | { delimiter: String } | Parses the pasted string based on the passed delimiter string and creates tags automatically     | {delimiter: ","} |
+| allowPaste       | { delimiter: String } | Parses the pasted string based on the passed delimiter and creates tags automatically            | {delimiter: ","} |
 | editable         | Boolean               | makes the tags `editable`                                                                        | false            |
-| allowDuplicates  | Boolean               | allows/disallows `duplicate` tag entries while pasted or entered manually                        | true             |
-| maxTags          | Number                | `Maximum` number of tags allowed                                                                 | 10               |
-| inputPlaceholder | String                | `Placeholder` for the input box                                                                  | "Enter tag..."   |
+| allowDuplicates  | Boolean               | allows/disallows `duplicate` tag entries while pasted or entered manually.                       | true             |
+| maxTags          | Number                | sets the `Maximum` number of tags                                                                | 10               |
+| inputPlaceholder | String                | `Placeholder` for the input box.                                                                 | "Enter tag..."   |
 | readOnly         | Boolean               | Makes the whole component `readOnly`. ideal for display only purposes.                           | false            |
+| quick-delete     | Boolean               | When enabled all the tags can be cleared by <kbd>CTRL</kbd> + <kbd>A</kbd>, <kbd>DEL</kbd>       | false            |
 
 ### Default Tags
 
 We can initialize smart-tagz with some `default` tags. This setting will mostly be used along with the `readonly` prop to create tags for display only purposes.
 
 ```sh
-<smart-tagz :defaultTags="['United Kingdom', 'Uruguay', 'Uzbekistan']" />
+<smart-tagz :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan']" />
 ```
 
 ### Duplicates
@@ -121,12 +114,14 @@ You can decide how to manage `duplicate` tags by either allowing or disallowing 
 Whe set to `true`, the `autosuggest` prop suggests values in a dropdown. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
 
 ```sh
- <smart-tagz autosuggest :sources="sources" />
+ <smart-tagz autosuggest :sources="['India', 'Brazil', 'China', 'United Kingdom']" />
 ```
 
 ### Max Tags
 
-The component can also be configured to accept the `Maximum` number of tags that can be created. Once the threshold is reached, the textbox input will be `hidden` from the user.
+The component can also be configured to accept the `Maximum` number of tags that can be created. Once the threshold is reached, the input will be `hidden` from the user.
+
+Here we restrict the tags to `3`
 
 ```sh
 <smart-tagz :max-tags="3" />
@@ -134,7 +129,7 @@ The component can also be configured to accept the `Maximum` number of tags that
 
 ### Paste
 
-The component can parse strings and automatically create tags for you. The default delimiter is `","` but you can change this setting by manually setting the `delimiter` option.
+The component can parse strings and automatically create tags for you. The default delimiter is `","` but you can override this setting by manually setting the `delimiter` option.
 
 ```sh
 <smart-tagz :allow-paste="{delimiter: ';'}" />
@@ -150,7 +145,7 @@ The Tags are not `editable` by default, but you can change this setting with the
 
 ### Readonly Tags
 
-You can turn the component into `readonly` mode by setting the readonly prop to true.
+You can lock the component with `readonly` mode. All interactions are disabled in `read-only` mode.
 
 ```sh
 <smart-tagz read-only />
@@ -169,6 +164,12 @@ The components color scheme can be customized by passing a custom theme prop.
     }"
   />
 ```
+
+## Demos
+
+Head to our demo page for examples showcasing all the features.
+
+[https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
 
 ## Built with
 
@@ -200,7 +201,7 @@ yarn run lint:css
 
 ## Notes
 
-- The project uses [vite](vite) instead of @vue/cli. I choose vite for speed and i also believe [vite](vite) will be the future.
+The project uses [vite](vite) instead of @vue/cli. I choose vite for speed and i also believe [vite](vite) will be the future.
 
 ## Meta
 
