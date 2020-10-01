@@ -1,50 +1,56 @@
 <!-- [![NPM Version][npm-image]][npm-url]-->
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
+
 [![Build Status](https://dev.azure.com/prabhummurthy/smart-tagz/_apis/build/status/prabhuignoto.smart-tagz?branchName=master)](https://dev.azure.com/prabhummurthy/smart-tagz/_build/latest?definitionId=4&branchName=master)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ece87afeb05c431fa375a8b98223290d)](https://www.codacy.com/manual/prabhuignoto/smart-tagz?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=prabhuignoto/smart-tagz&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ece87afeb05c431fa375a8b98223290d)](https://www.codacy.com/manual/prabhuignoto/smart-tagz?utm_source=github.com&utm_medium=referral&utm_content=prabhuignoto/smart-tagz&utm_campaign=Badge_Grade)
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/13324/branches/220204/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=13324&bid=220204)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/prabhuignoto/smart-tagz.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/prabhuignoto/smart-tagz/context:javascript)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/prabhuignoto/smart-tagz)
 [![Depfu](https://badges.depfu.com/badges/d21407f97842c6a8247d973f016cea62/overview.svg)](https://depfu.com/github/prabhuignoto/boxd?project_id=13611)
 
 ![logo](social-slide-small.png)
-> Smart input tags for Vue 3
 
 ![demo](demo.gif)
 
 [![Edit smart-tagz](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/smart-tagz-pd32g?fontsize=14&hidenavigation=1&theme=dark)
 
-## Features
+<h2>✨ Features</h2>
 
-✅ **Autosuggest** - Autosuggest with support for keyboard selection.
+- ⚡ [Autosuggest](#auto-suggest) with support for keyboard selection.
+- ✏️ [Edit](#editable-tags) the tags inline by double clicking them.
+- 🏷️ [Paste](#paste) strings with delimiters of your choice and the component will create the tags for you.
+- 🗑️ Quickly delete the tags with a visual confirmation before removing a tag.
+- 🧹 Quickly clear all tags with `quick-delete` mode.
+- 🔒 &nbsp;[Lock the component](#readonly-tags) using the `readonly` mode.
+- ✋ &nbsp;[Restrict](#max-tags) the number of tags and Handle duplicates gracefully.
+- 🌈&nbsp;[Customize](#theme) the colors.
 
-✅ **Editable Tags** - Edit the tags inline by double clicking them.
+### Table of Contents
 
-✅ **Create tags on Paste** - Paste strings with delimiters of your choice and the component will create the tags for you.
+- [⚡ Installation](#-installation)
+- [🚀 Getting Started](#-getting-started)
+- [🍬 Demos](#-demos)
+- [Props](#props)
+  - [Default Tags](#default-tags)
+  - [Duplicates](#duplicates)
+  - [Auto Suggest](#auto-suggest)
+  - [Max Tags](#max-tags)
+  - [Paste](#paste)
+  - [Editable Tags](#editable-tags)
+  - [Readonly Tags](#readonly-tags)
+  - [Theme](#theme)
+- [📦 Build Setup](#-build-setup)
+- [🔨 Contributing](#-contributing)
+- [Notes](#notes)
+- [Meta](#meta)
 
-✅ **Easy tag deletion** - Quickly delete the tags with a visual confirmation before removing a tag.
-
-✅ **Quick Clear** - Quickly clear all tags with `quick-delete` mode.
-
-✅ **Readonly mode** - Lock the component using the `readonly` mode.
-
-✅ **Max tags & Duplicates** - Restrict the number of tags. Handle duplicates gracefully.
-
-✅ **Support for custom color schemes** - Customize the colors using the [theme](#Theme) prop.
-
-## Installation
+## ⚡ Installation
 
 ```sh
 yarn install smart-tagz
 ```
 
-or
-
-```sh
-npm install smart-tagz
-```
-
-## Getting Started
+## 🚀 Getting Started
 
 smart-tagz has some great defaults to get you started quickly. Please check the props list for all options.
 
@@ -76,6 +82,12 @@ export default defineComponent({
 });
 </script>
 ```
+
+## 🍬 Demos
+
+Head to our demo page for examples showcasing all the features.
+
+[https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
 
 ## Props
 
@@ -165,19 +177,9 @@ The components color scheme can be customized by passing a custom theme prop.
   />
 ```
 
-## Demos
+## 📦 Build Setup
 
-Head to our demo page for examples showcasing all the features.
-
-[https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
-
-## Built with
-
-- [Vue.JS](vue) - The Component is written in Vue + [Typescript](typescript).
-
-## Build Setup
-
-``` bash
+```bash
 # install dependencies
 yarn install
 
@@ -191,7 +193,7 @@ npm run rollup
 yarn run lint:css
 ```
 
-## Contributing
+## 🔨 Contributing
 
 1. Fork it ( [https://github.com/prabhuignoto/smart-tagz/fork](https://github.com/prabhuignoto/smart-tagz/fork) )
 2. Create your feature branch (`git checkout -b new-feature`)
