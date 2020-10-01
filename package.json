@@ -2,13 +2,21 @@
   "name": "smart-tagz",
   "version": "0.1.7",
   "license": "MIT",
-  "description": "smart input tags component for Vue 3",
+  "description": "A Smart input tags component for Vue 3",
+  "author": {
+    "name": "Prabhu Murthy",
+    "url": "https://www.prabhumurthy.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "rollup": "rimraf ./dist && rollup -c",
     "lint:css": "stylelint src/**/*.vue",
     "lint": "eslint src/**/*.vue"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prabhuignoto/smart-tagz"
   },
   "husky": {
     "hooks": {
