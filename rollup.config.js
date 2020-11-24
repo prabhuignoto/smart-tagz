@@ -1,11 +1,11 @@
+import beep from "@rollup/plugin-beep";
+import buble from "@rollup/plugin-buble";
+import common from "@rollup/plugin-commonjs";
+import resolve from "@rollup/plugin-node-resolve";
 import sucrase from "@rollup/plugin-sucrase";
 import scss from "rollup-plugin-scss";
 import vue from "rollup-plugin-vue";
 import pkg from "./package.json";
-import common from "@rollup/plugin-commonjs";
-import buble from "@rollup/plugin-buble";
-import beep from "@rollup/plugin-beep";
-import resolve from "@rollup/plugin-node-resolve";
 
 const banner = `/*
  * ${pkg.name}
@@ -58,7 +58,8 @@ export default {
     common(),
     buble(),
     beep(),
-    resolve()
+    resolve(),
+    terser()
   ],
   external: ["vue", "nanoid", "vue-feather-icons"],
 };
