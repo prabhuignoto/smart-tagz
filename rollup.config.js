@@ -6,6 +6,7 @@ import sucrase from "@rollup/plugin-sucrase";
 import scss from "rollup-plugin-scss";
 import vue from "rollup-plugin-vue";
 import pkg from "./package.json";
+import  {terser} from  "rollup-plugin-terser";
 
 const banner = `/*
  * ${pkg.name}
