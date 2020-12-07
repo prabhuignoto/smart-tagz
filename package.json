@@ -1,6 +1,6 @@
 {
   "name": "smart-tagz",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "license": "MIT",
   "description": "A Smart input tags component for Vue 3",
   "author": {
@@ -13,7 +13,7 @@
     "rollup": "rimraf ./dist && rollup -c",
     "lint:css": "stylelint src/**/*.vue",
     "lint": "eslint src/**/*.vue",
-    "lint:all":  "yarn lint:css && yarn lint"
+    "lint:all": "yarn lint:css && yarn lint"
   },
   "repository": {
     "type": "git",
