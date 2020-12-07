@@ -49,10 +49,6 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    focus: {
-      type: Boolean,
-      required: true,
-    },
     // eslint-disable-next-line vue/require-default-prop
     paneStyle: {
       type: Object as PropType<{ bgColor: string }>,

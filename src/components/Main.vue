@@ -43,6 +43,7 @@
             :on-pane-esc="handleSuggestEsc"
             :pane-style="{bgColor: theme.primary}"
             :selected-index="selectedIndex"
+            :focus="false"
           />
         </div>
       </div>

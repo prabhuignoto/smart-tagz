@@ -12,7 +12,8 @@
     "build": "vite build",
     "rollup": "rimraf ./dist && rollup -c",
     "lint:css": "stylelint src/**/*.vue",
-    "lint": "eslint src/**/*.vue"
+    "lint": "eslint src/**/*.vue",
+    "lint:all":  "yarn lint:css && yarn lint"
   },
   "repository": {
     "type": "git",
