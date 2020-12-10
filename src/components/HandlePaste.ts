@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { TagModel } from "../models";
 
 export default function (
@@ -37,7 +36,7 @@ export default function (
           items.map((name) => ({
             name,
             value: name,
-            id: nanoid(),
+            id: Math.random().toString(16).slice(2),
           }))
         );
         return {
@@ -49,7 +48,7 @@ export default function (
       const newData = tagsData.concat({
         name: pasteData,
         value: pasteData,
-        id: nanoid(),
+        id: Math.random().toString(16).slice(2),
       });
 
       return {

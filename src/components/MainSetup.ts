@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { computed, nextTick, ref, unref, watch } from "vue";
 import { TagModel } from "../models";
 import HandlePaste from "./HandlePaste";
@@ -20,7 +19,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   const delTagRef = ref<{ id: string } | null>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
-    id: nanoid(),
+    id: Math.random().toString(16).slice(2),
     name,
     value: name
   })));
@@ -125,7 +124,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     if (newTag) {
       tagsData.value = tagsData.value.concat({
         name: newTag,
-        id: nanoid(),
+        id: Math.random().toString(16).slice(2),
         value: newTag,
       });
     }
