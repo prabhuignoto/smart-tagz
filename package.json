@@ -61,7 +61,7 @@
     "stylelint-config-standard": "^20.0.0",
     "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.13",
-    "vue": "^2.6.12",
+    "vue": "^3.0.4",
     "vue-template-compiler": "2.6.12",
     "webfontloader": "^1.6.28"
   },
@@ -70,7 +70,6 @@
     "types"
   ],
   "peerDependencies": {
-    "vue": "^3.0.0",
     "vue-feather-icons": "^5.1.0"
   },
   "main": "dist/smart-tagz.js",
