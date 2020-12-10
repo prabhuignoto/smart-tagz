@@ -1,6 +1,10 @@
 <!-- [![NPM Version][npm-image]][npm-url]-->
 <!-- [![Downloads Stats][npm-downloads]][npm-url] -->
 
+<div align="center">
+  <img src="./social-slide-small.png" />
+</div>
+
 [![Build Status](https://dev.azure.com/prabhummurthy/smart-tagz/_apis/build/status/prabhuignoto.smart-tagz?branchName=master)](https://dev.azure.com/prabhummurthy/smart-tagz/_build/latest?definitionId=4&branchName=master)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ece87afeb05c431fa375a8b98223290d)](https://www.codacy.com/manual/prabhuignoto/smart-tagz?utm_source=github.com&utm_medium=referral&utm_content=prabhuignoto/smart-tagz&utm_campaign=Badge_Grade)
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/13324/branches/220204/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=13324&bid=220204)
@@ -9,9 +13,9 @@
 [![DeepSource](https://deepsource.io/gh/prabhuignoto/smart-tagz.svg/?label=active+issues)](https://deepsource.io/gh/prabhuignoto/smart-tagz/?ref=repository-badge)
 [![Depfu](https://badges.depfu.com/badges/b07de06e0726ec1cdfec6c7a12967582/overview.svg)](https://depfu.com/github/prabhuignoto/smart-tagz?project_id=18158)
 
-![logo](social-slide-small.png)
-
-![demo](demo.gif)
+<div align="center">
+  <img src="./demo.gif"/>
+</div>
 
 [![Edit smart-tagz](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/smart-tagz-pd32g?fontsize=14&hidenavigation=1&theme=dark)
 
