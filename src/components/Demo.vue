@@ -1,6 +1,5 @@
 <template>
   <div
-    v-show="fontsLoaded"
     class="main-container"
   >
     <header>
@@ -77,8 +76,7 @@ import Duplicates from "../examples/duplicates.vue";
 import Maxtags from "../examples/maxtags.vue";
 import Theme from "../examples/theme.vue";
 import QuickDelete from "../examples/quickdelete.vue";
-import { defineComponent, onMounted, ref } from "vue";
-import fontLoader from "webfontloader";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Demo",
@@ -93,24 +91,6 @@ export default defineComponent({
     Maxtags,
     Theme,
     QuickDelete,
-  },
-  setup() {
-    const fontsLoaded = ref(false);
-
-    onMounted(() => {
-      fontLoader.load({
-        google: {
-          families: ["Nunito:300,400,500"],
-        },
-        active: () => {
-          fontsLoaded.value = true;
-        },
-      });
-    });
-
-    return {
-      fontsLoaded,
-    };
   },
   data() {
     return {
