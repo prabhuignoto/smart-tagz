@@ -12,18 +12,18 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '12.x'
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
-    npm run build
+    yarn install
   displayName: 'Install and Build'
 
 - script: |
-    npm run rollup
+    yarn run rollup
   displayName: 'Rollup Build'
 
 - script: |
-    npm run lint:css
-  displayName: 'Lint Styles'
+    yarn run lint:css
+    yarn run lint
+  displayName: 'Lint Styles & Scripts'
