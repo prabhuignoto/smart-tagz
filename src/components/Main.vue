@@ -1,7 +1,7 @@
 <template>
   <div
     class="tags-main"
-    :style="{background: theme.background}"
+    :style="{ background: theme.background }"
     @keyup.ctrl="handleSelectAll"
   >
     <Tags
@@ -10,7 +10,10 @@
       :on-edit="handleEditTag"
       :editable="editable"
       :read-only="readOnly"
-      :tag-style="{foreColor: theme.tagTextColor, backgroundColor: theme.primary}"
+      :tag-style="{
+        foreColor: theme.tagTextColor,
+        backgroundColor: theme.primary,
+      }"
     >
       <div
         v-if="tagsData.length < maxTags"
@@ -33,7 +36,7 @@
         >
         <div
           class="suggestion-wrapper"
-          :class="{hidden: !showSuggestions}"
+          :class="{ hidden: !showSuggestions }"
         >
           <SuggestionPane
             :show="showSuggestions"
@@ -41,7 +44,7 @@
             :keyword="input"
             :on-selection="handleSuggestSelection"
             :on-pane-esc="handleSuggestEsc"
-            :pane-style="{bgColor: theme.primary}"
+            :pane-style="{ bgColor: theme.primary }"
             :selected-index="selectedIndex"
             :focus="false"
           />
@@ -114,7 +117,11 @@ export default defineComponent({
     },
     quickDelete: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    onChanged: {
+      type: Function as PropType<(res: string[]) => void>,
+      default: null,
     },
     theme: {
       type: Object as PropType<{

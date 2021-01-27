@@ -1,25 +1,27 @@
 <template>
-  <div
-    class="main-container"
-  >
+  <div class="main-container">
     <header>
-      <img src="../assets/logo.png">
+      <img
+        src="../assets/logo.png"
+        alt="logo"
+      >
       <a
         href="https://github.com/prabhuignoto/smart-tagz"
         class="github"
         target="_new"
       >
         <span>
-          <img src="../assets/github.svg">
+          <img
+            src="../assets/github.svg"
+            alt="github"
+          >
         </span>
       </a>
     </header>
     <section>
       <p class="intro">
         A Smart input tags component built for
-        <a
-          href="https://v3.vuejs.org/guide/introduction.html"
-        >Vue 3</a>.
+        <a href="https://v3.vuejs.org/guide/introduction.html">Vue 3</a>.
       </p>
     </section>
     <div>

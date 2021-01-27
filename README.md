@@ -111,6 +111,7 @@ Head to our demo page for examples showcasing all the features.
 | inputPlaceholder | String                | `Placeholder` for the input box.                                                                 | "Enter tag..."   |
 | readOnly         | Boolean               | Makes the whole component `readOnly`. ideal for display only purposes.                           | false            |
 | quick-delete     | Boolean               | When enabled all the tags can be cleared by <kbd>CTRL</kbd> + <kbd>A</kbd>, <kbd>DEL</kbd>       | false            |
+| on-changed       | Function              | `callback` that gets called when a new tag is added or an existing tag is deleted                | false            |
 
 ### Default Tags
 
