@@ -55,6 +55,9 @@
       <div class="example-block">
         <QuickDelete />
       </div>
+      <div class="example-block">
+        <WithEvent />
+      </div>
     </div>
     <footer>
       <a
@@ -78,6 +81,7 @@ import Duplicates from "../examples/duplicates.vue";
 import Maxtags from "../examples/maxtags.vue";
 import Theme from "../examples/theme.vue";
 import QuickDelete from "../examples/quickdelete.vue";
+import WithEvent from "../examples/withevent.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -93,6 +97,7 @@ export default defineComponent({
     Maxtags,
     Theme,
     QuickDelete,
+    WithEvent,
   },
   data() {
     return {
