@@ -16,7 +16,7 @@ interface PropModel {
   onChanged?: (result: string[]) => void;
 }
 
-export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel) {
+export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel, context) {
   const delTagRef = ref<{ id: string } | null>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
@@ -132,6 +132,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
 
 
     onChanged && onChanged(tagsData.value.map(item => item.value));
+    context.emit('update:modelValue', tagsData.value.map(item => item.value)); 
 
     input.value = "";
     showSuggestions.value = false;
@@ -146,6 +147,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
     tagsCreated.value -= 1;
     onChanged && onChanged(tagsData.value.map(item => item.value));
+    context.emit('update:modelValue', tagsData.value.map(item => item.value)); 
   };
 
   const handleDelete = () => {

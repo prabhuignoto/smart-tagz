@@ -136,6 +136,7 @@ export default defineComponent({
       }),
     },
   },
+  emit:['update:modelValue'], 
   setup: MainSetup,
 });
 </script>
