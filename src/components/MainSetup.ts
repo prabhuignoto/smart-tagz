@@ -1,4 +1,5 @@
 import { computed, nextTick, ref, unref, watch } from "vue";
+import escapeStringRegexp from "escape-string-regexp";
 import { TagModel } from "../models";
 import HandlePaste from "./HandlePaste";
 
@@ -40,7 +41,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   }));
 
   const filteredItems = computed(() => {
-    const reg = new RegExp("^" + input.value, "i");
+    const reg = new RegExp("^" + escapeStringRegexp(input.value), "i");
     return sources.filter((f) => reg.test(f));
   });
 
@@ -91,7 +92,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
 
   // checks if a new tag can be added
   const canAddTag = (name: string) => {
-    const tester = new RegExp(`^${name}$`, "ig");
+    const tester = new RegExp(`^${escapeStringRegexp(name)}$`, "ig");
     const duplicatesCheck = !allowDuplicates
       ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
       : allowDuplicates;
