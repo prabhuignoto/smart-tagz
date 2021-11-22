@@ -4,7 +4,7 @@
     :style="{ background: theme.background }"
     @keyup.ctrl="handleSelectAll"
   >
-    <Tags
+    <SmartTags
       :tags="tagsData"
       :on-remove="handleRemoveTag"
       :on-edit="handleEditTag"
@@ -50,20 +50,20 @@
           />
         </div>
       </div>
-    </Tags>
+    </SmartTags>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import Tags from "./Tags.vue";
+import SmartTags from "./Tags.vue";
 import SuggestionPane from "./SuggestPane.vue";
 import MainSetup from "./MainSetup";
 
 export default defineComponent({
   name: "SmartTagz",
   components: {
-    Tags,
+    SmartTags,
     SuggestionPane,
   },
   props: {
@@ -179,7 +179,7 @@ input[type="text"] {
   top: 2rem;
   width: 100%;
   z-index: 100;
-  filter: drop-shadow(2px 2px 10px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(2px 2px 10px rgb(0 0 0 / 40%));
 
   &.hidden {
     visibility: hidden;

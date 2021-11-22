@@ -13,7 +13,8 @@ export default function (
     const availableSlots = maxTags - tagsCreated;
 
     // split string to create new tags
-    let items = pasteData.split(delimiter);
+    let items = delimiter ? pasteData.split(delimiter) : [];
+
 
     if (items.length > 1) {
       // pick the items that can fit in the slot

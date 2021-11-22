@@ -16,7 +16,7 @@ interface PropModel {
   onChanged?: (result: string[]) => void;
 }
 
-export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel) {
+export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel) {
   const delTagRef = ref<{ id: string } | null>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
@@ -59,6 +59,10 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     selectAllRef.value = false;
     selectedIndex.value = -1;
   };
+
+  watch(() => tagsData.value.length, () => {
+    onChanged && onChanged(tagsData.value.map(item => item.value));
+  });
 
   watch(input, (newValue) => {
 
@@ -131,8 +135,6 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     }
 
 
-    onChanged && onChanged(tagsData.value.map(item => item.value));
-
     input.value = "";
     showSuggestions.value = false;
     tagsCreated.value += 1;
@@ -145,7 +147,6 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   const handleRemoveTag = (id: string) => {
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
     tagsCreated.value -= 1;
-    onChanged && onChanged(tagsData.value.map(item => item.value));
   };
 
   const handleDelete = () => {
@@ -192,7 +193,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     const data = event.clipboardData && event.clipboardData.getData("text");
 
     if (data) {
-      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste.delimiter, allowDuplicates);
+      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste && allowPaste.delimiter, allowDuplicates);
 
       if (pasteResult && pasteResult.newData) {
         tagsData.value = pasteResult.newData;

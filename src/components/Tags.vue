@@ -1,7 +1,7 @@
 <template>
   <div class="tags-container">
     <transition-group name="tags-list">
-      <Tag
+      <SmartTag
         v-for="tag of localTags"
         :id="tag.id"
         :key="tag.id"
@@ -20,14 +20,14 @@
 </template>
 
 <script lang="ts">
-import Tag from "./Tag.vue";
+import SmartTag from "./Tag.vue";
 import { defineComponent, ref, PropType, watch } from "vue";
 import { TagModel } from "../models";
 
 export default defineComponent({
-  name: "Tags",
+  name: "SmartTags",
   components: {
-    Tag,
+    SmartTag,
   },
   props: {
     readOnly: {

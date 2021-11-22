@@ -40,7 +40,7 @@ import {
 import CloseIcon from "./CloseIcon.vue";
 
 export default defineComponent({
-  name: "Tag",
+  name: "SmartTag",
   components: {
     CloseIcon,
   },
@@ -141,7 +141,7 @@ export default defineComponent({
   align-items: center;
   border-radius: 0.2rem;
   display: flex;
-  filter: drop-shadow(2px 2px 4px rgba(26, 15, 15, 0.25));
+  filter: drop-shadow(2px 2px 4px rgb(26 15 15 / 25%));
   justify-content: center;
   margin: 0.4rem 0.25rem;
   padding: 0.4rem 0.1rem 0.4rem 0.4rem;
@@ -165,7 +165,7 @@ export default defineComponent({
   min-width: 100px;
   outline: 0;
   border: 0;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgb(255 255 255 / 40%);
   font-size: 0.85rem;
 }
 
