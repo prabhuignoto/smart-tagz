@@ -3,7 +3,11 @@
     <header>
       <h3>Autosuggest</h3>
     </header>
-    <p>When set to true, the autosuggest prop suggests values in the dropdown as you type. You also need to set the sources prop for this to work. The sources prop should be an Array of strings.</p>
+    <p>
+      When set to true, the autosuggest prop suggests values in the dropdown as
+      you type. You also need to set the sources prop for this to work. The
+      sources prop should be an Array of strings.
+    </p>
     <pre data-line="3-3">
     <code class="lang-html">{{ code }}</code>
     </pre>
@@ -13,7 +17,18 @@
         autosuggest
         editable
         :sources="sources"
-        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+        :on-changed="logResult"
+        :default-tags="[
+          'United Kingdom',
+          'Uruguay',
+          'Uzbekistan',
+          'Venezuela',
+          'Vietnam',
+          'Virgin Islands (US)',
+          'Yemen',
+          'Zambia',
+          'Zimbabwe',
+        ]"
       />
     </div>
   </div>
@@ -37,6 +52,13 @@ export default defineComponent({
   name: "Autocomplete",
   components: {
     SmartTagz,
+  },
+  setup() {
+    const logResult = (result: string[]) => console.log(result);
+
+    return {
+      logResult,
+    };
   },
   data() {
     return {

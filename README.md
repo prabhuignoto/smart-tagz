@@ -12,7 +12,6 @@
 [![DeepScan grade](https://deepscan.io/api/teams/10074/projects/13324/branches/220204/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10074&pid=13324&bid=220204)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/prabhuignoto/smart-tagz.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/prabhuignoto/smart-tagz/context:javascript)
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/prabhuignoto/smart-tagz)
-[![DeepSource](https://deepsource.io/gh/prabhuignoto/smart-tagz.svg/?label=active+issues)](https://deepsource.io/gh/prabhuignoto/smart-tagz/?ref=repository-badge)
 [![Depfu](https://badges.depfu.com/badges/b07de06e0726ec1cdfec6c7a12967582/overview.svg)](https://depfu.com/github/prabhuignoto/smart-tagz?project_id=18158)
 
 <div align="center">
