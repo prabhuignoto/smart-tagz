@@ -24,7 +24,7 @@ export default function (
       if (!allowDuplicates) {
         const existingItems = tagsData.map((t) => t.name);
         const newSet = items.filter(
-          (item) => existingItems.indexOf(item) < 0
+          (item) => existingItems.includes(item) === false
         );
 
         // remove the duplicate entries

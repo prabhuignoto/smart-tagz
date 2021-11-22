@@ -48,7 +48,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     (textInputRef.value as unknown as HTMLElement).focus()
   };
 
-  const reset = () => {
+  const reset: () => void = () => {
     // remove highlight from all tags
     tagsData.value = tagsData.value.map(t => {
       delete t.highlight;
@@ -94,7 +94,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   });
 
   // checks if a new tag can be added
-  const canAddTag = (name: string) => {
+  const canAddTag: (name: string) => boolean = (name) => {
     const tester = new RegExp(`^${name}$`, "ig");
     const duplicatesCheck = !allowDuplicates
       ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
@@ -104,7 +104,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   };
 
   // handler to add a new tag
-  const handleAddTag = (name: string) => {
+  const handleAddTag: (name: string) => void = (name) => {
     let nameToUse = '';
     const selIndex = unref(selectedIndex);
 
@@ -144,12 +144,12 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   };
 
   // handler to remove a tag
-  const handleRemoveTag = (id: string) => {
+  const handleRemoveTag: (id: string) => void = (id) => {
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
     tagsCreated.value = (+tagsCreated.value) - 1;
   };
 
-  const handleDelete = () => {
+  const handleDelete: () => void = () => {
     if (input.value) {
       return;
     }
@@ -184,7 +184,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   };
 
   // handle to manage paste
-  const handlePaste = (event: ClipboardEvent) => {
+  const handlePaste: (event: ClipboardEvent) => void = (event) => {
     // cancel the default operation
     event.stopPropagation();
     event.preventDefault();
@@ -205,7 +205,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
 
   const handleEscape = () => reset();
 
-  const handleEditTag = (id: string, newValue: string) => {
+  const handleEditTag: (id: string, newValue: string) => void = (id, newValue) => {
     tagsData.value = tagsData.value.map((tag) => {
       if (tag.id === id) {
         return Object.assign({}, tag, {
@@ -218,14 +218,14 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     });
   };
 
-  const handleSuggestSelection = (name: string) => {
+  const handleSuggestSelection: (name: string) => void = (name) => {
     showSuggestions.value = false;
     nextTick(() => {
       handleAddTag(name);
     });
   };
 
-  const handleKeydown = (event: KeyboardEvent) => {
+  const handleKeydown: (event: KeyboardEvent) => void = (event) => {
     event.preventDefault();
 
     const curSelIndex = unref(selectedIndex);
@@ -237,7 +237,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     }
   };
 
-  const handleKeyUp = (event: KeyboardEvent) => {
+  const handleKeyUp: (event: KeyboardEvent) => void = (event) => {
     event.preventDefault();
 
     const curSelIndex = unref(selectedIndex);
@@ -249,12 +249,12 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     }
   };
 
-  const handleSuggestEsc = () => {
+  const handleSuggestEsc: () => void = () => {
     focus();
     showSuggestions.value = false;
   }
 
-  const handleSelectAll = (event: KeyboardEvent) => {
+  const handleSelectAll: (event: KeyboardEvent) => void = (event) => {
     if (!quickDelete) {
       return;
     }
