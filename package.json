@@ -37,6 +37,7 @@
     ]
   },
   "dependencies": {
+    "escape-string-regexp": "^5.0.0",
     "vue-feather-icons": "^5.1.0"
   },
   "devDependencies": {
