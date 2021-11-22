@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="showPane"
-    class="suggest-pane-container"
-  >
+  <div v-if="showPane" class="suggest-pane-container">
     <ul
       ref="paneRef"
       class="suggest-pane"
@@ -125,11 +122,11 @@ export default defineComponent({
   }
 
   &:hover {
-    background: rgb($color: #fff $alpha: 20%);
+    background: rgba(#fff, 20%);
   }
 
   &.selected {
-    background: rgb($color: #fff $alpha: 20%);
+    background: rgba(#fff, 20%);
   }
 }
 </style>
