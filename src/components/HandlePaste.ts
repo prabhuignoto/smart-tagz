@@ -1,13 +1,13 @@
 import { TagModel } from "../models";
 
-export default function (
+const HandlePaste = (
   tagsData: TagModel[],
   pasteData: string,
   maxTags: number,
   tagsCreated: number,
   delimiter: string,
   allowDuplicates: boolean
-) {
+) => {
   if (pasteData) {
     // calculate available slots
     const availableSlots = maxTags - tagsCreated;
@@ -59,3 +59,5 @@ export default function (
     }
   }
 };
+
+export default HandlePaste;
