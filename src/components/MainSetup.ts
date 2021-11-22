@@ -216,6 +216,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
         return tag;
       }
     });
+    onChanged?.(tagsData.value.map(item => item.value));
   };
 
   const handleSuggestSelection: (name: string) => void = (name) => {
