@@ -17,7 +17,7 @@ interface PropModel {
   onChanged?: (result: string[]) => void;
 }
 
-export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel) {
+export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDuplicates, maxTags, defaultTags = [], sources, quickDelete, width, onChanged }: PropModel) {
   const delTagRef = ref<{ id: string } | null>(null);
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(defaultTags.slice(0, maxTags).map(name => ({
@@ -29,7 +29,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   // ref for the input box
   const input = ref("");
   // ref to track the tags created by te user
-  const tagsCreated = ref(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0);
+  const tagsCreated = ref<Number>(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0);
   // ref to display the suggestion pane
   const showSuggestions = ref(false);
   // ref to track ctrl+a selection
@@ -49,7 +49,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     (textInputRef.value as unknown as HTMLElement).focus()
   };
 
-  const reset = () => {
+  const reset: () => void = () => {
     // remove highlight from all tags
     tagsData.value = tagsData.value.map(t => {
       delete t.highlight;
@@ -60,6 +60,10 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     selectAllRef.value = false;
     selectedIndex.value = -1;
   };
+
+  watch(() => tagsData.value.length, () => {
+    onChanged?.(tagsData.value.map(item => item.value));
+  });
 
   watch(input, (newValue) => {
 
@@ -101,7 +105,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   };
 
   // handler to add a new tag
-  const handleAddTag = (name: string) => {
+  const handleAddTag: (name: string) => void = (name) => {
     let nameToUse = '';
     const selIndex = unref(selectedIndex);
 
@@ -132,24 +136,21 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     }
 
 
-    onChanged && onChanged(tagsData.value.map(item => item.value));
-
     input.value = "";
     showSuggestions.value = false;
-    tagsCreated.value += 1;
+    tagsCreated.value = (+tagsCreated.value) + 1;
     selectedIndex.value = -1;
 
     nextTick(() => focus());
   };
 
   // handler to remove a tag
-  const handleRemoveTag = (id: string) => {
+  const handleRemoveTag: (id: string) => void = (id) => {
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
-    tagsCreated.value -= 1;
-    onChanged && onChanged(tagsData.value.map(item => item.value));
+    tagsCreated.value = (+tagsCreated.value) - 1;
   };
 
-  const handleDelete = () => {
+  const handleDelete: () => void = () => {
     if (input.value) {
       return;
     }
@@ -165,7 +166,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
       const tag = delTagRef.value;
       tagsData.value = tagsData.value.filter((t) => t.id !== tag.id);
       delTagRef.value = null;
-      tagsCreated.value -= 1;
+      tagsCreated.value = (+tagsCreated.value) - 1;
     } else if (tagsData.value.length) {
       const tag = tagsData.value[tagsData.value.length - 1];
       delTagRef.value = {
@@ -184,18 +185,18 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
   };
 
   // handle to manage paste
-  const handlePaste = (event: ClipboardEvent) => {
+  const handlePaste: (event: ClipboardEvent) => void = (event) => {
     // cancel the default operation
     event.stopPropagation();
     event.preventDefault();
 
     // get the clipboard data
-    const data = event.clipboardData && event.clipboardData.getData("text");
+    const data = event.clipboardData?.getData("text");
 
     if (data) {
-      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste.delimiter, allowDuplicates);
+      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, +unref(tagsCreated), allowPaste?.delimiter, allowDuplicates);
 
-      if (pasteResult && pasteResult.newData) {
+      if (pasteResult?.newData) {
         tagsData.value = pasteResult.newData;
         tagsCreated.value = pasteResult.tagsCreated;
       }
@@ -205,7 +206,7 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
 
   const handleEscape = () => reset();
 
-  const handleEditTag = (id: string, newValue: string) => {
+  const handleEditTag: (id: string, newValue: string) => void = (id, newValue) => {
     tagsData.value = tagsData.value.map((tag) => {
       if (tag.id === id) {
         return Object.assign({}, tag, {
@@ -216,28 +217,29 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
         return tag;
       }
     });
+    onChanged?.(tagsData.value.map(item => item.value));
   };
 
-  const handleSuggestSelection = (name: string) => {
+  const handleSuggestSelection: (name: string) => void = (name) => {
     showSuggestions.value = false;
     nextTick(() => {
       handleAddTag(name);
     });
   };
 
-  const handleKeydown = (event: KeyboardEvent) => {
+  const handleKeydown: (event: KeyboardEvent) => void = (event) => {
     event.preventDefault();
 
     const curSelIndex = unref(selectedIndex);
 
     if (curSelIndex < unref(filteredItems).length - 1) {
-      selectedIndex.value = selectedIndex.value + 1;
+      selectedIndex.value = +selectedIndex.value + 1;
     } else {
       selectedIndex.value = 0;
     }
   };
 
-  const handleKeyUp = (event: KeyboardEvent) => {
+  const handleKeyUp: (event: KeyboardEvent) => void = (event) => {
     event.preventDefault();
 
     const curSelIndex = unref(selectedIndex);
@@ -249,12 +251,12 @@ export default function ({ autosuggest, allowPaste, allowDuplicates, maxTags, de
     }
   };
 
-  const handleSuggestEsc = () => {
+  const handleSuggestEsc: () => void = () => {
     focus();
     showSuggestions.value = false;
   }
 
-  const handleSelectAll = (event: KeyboardEvent) => {
+  const handleSelectAll: (event: KeyboardEvent) => void = (event) => {
     if (!quickDelete) {
       return;
     }

@@ -1,19 +1,20 @@
 import { TagModel } from "../models";
 
-export default function (
+const HandlePaste = (
   tagsData: TagModel[],
   pasteData: string,
   maxTags: number,
   tagsCreated: number,
   delimiter: string,
   allowDuplicates: boolean
-) {
+) => {
   if (pasteData) {
     // calculate available slots
     const availableSlots = maxTags - tagsCreated;
 
     // split string to create new tags
-    let items = pasteData.split(delimiter);
+    let items = delimiter ? pasteData.split(delimiter) : [];
+
 
     if (items.length > 1) {
       // pick the items that can fit in the slot
@@ -23,7 +24,7 @@ export default function (
       if (!allowDuplicates) {
         const existingItems = tagsData.map((t) => t.name);
         const newSet = items.filter(
-          (item) => existingItems.indexOf(item) < 0
+          (item) => existingItems.includes(item) === false
         );
 
         // remove the duplicate entries
@@ -58,3 +59,5 @@ export default function (
     }
   }
 };
+
+export default HandlePaste;

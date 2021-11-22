@@ -6,14 +6,14 @@
     <ul
       ref="paneRef"
       class="suggest-pane"
-      :style="{'background': paneStyle.bgColor}"
+      :style="{ background: paneStyle.bgColor }"
       tabindex="0"
     >
       <li
         v-for="(item, index) of items"
         :key="item"
         class="suggest-pane-item"
-        :class="{selected: index === selectedIndex}"
+        :class="{ selected: index === selectedIndex }"
         @mousedown="handleSelection(item)"
       >
         <span>{{ item }}</span>
@@ -63,7 +63,8 @@ export default defineComponent({
   },
   setup(props) {
     const showPane = ref(false);
-    const handleSelection = (name: string) => props.onSelection && props.onSelection(name);
+    const handleSelection = (name: string) =>
+      props.onSelection && props.onSelection(name);
     const paneRef = ref(null);
 
     const handleEnter = (event: KeyboardEvent) => {
@@ -124,11 +125,11 @@ export default defineComponent({
   }
 
   &:hover {
-    background: rgba($color: #fff, $alpha: 0.2);
+    background: rgba(#fff, 20%);
   }
 
   &.selected {
-    background: rgba($color: #fff, $alpha: 0.2);
+    background: rgba(#fff, 20%);
   }
 }
 </style>
