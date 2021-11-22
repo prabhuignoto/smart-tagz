@@ -28,7 +28,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   // ref for the input box
   const input = ref("");
   // ref to track the tags created by te user
-  const tagsCreated = ref(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0);
+  const tagsCreated = ref<Number>(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0);
   // ref to display the suggestion pane
   const showSuggestions = ref(false);
   // ref to track ctrl+a selection
@@ -61,7 +61,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   };
 
   watch(() => tagsData.value.length, () => {
-    onChanged && onChanged(tagsData.value.map(item => item.value));
+    onChanged?.(tagsData.value.map(item => item.value));
   });
 
   watch(input, (newValue) => {
@@ -137,7 +137,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
 
     input.value = "";
     showSuggestions.value = false;
-    tagsCreated.value += 1;
+    tagsCreated.value = (+tagsCreated.value) + 1;
     selectedIndex.value = -1;
 
     nextTick(() => focus());
@@ -146,7 +146,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
   // handler to remove a tag
   const handleRemoveTag = (id: string) => {
     tagsData.value = tagsData.value.filter((t) => t.id !== id);
-    tagsCreated.value -= 1;
+    tagsCreated.value = (+tagsCreated.value) - 1;
   };
 
   const handleDelete = () => {
@@ -165,7 +165,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
       const tag = delTagRef.value;
       tagsData.value = tagsData.value.filter((t) => t.id !== tag.id);
       delTagRef.value = null;
-      tagsCreated.value -= 1;
+      tagsCreated.value = (+tagsCreated.value) - 1;
     } else if (tagsData.value.length) {
       const tag = tagsData.value[tagsData.value.length - 1];
       delTagRef.value = {
@@ -190,12 +190,12 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     event.preventDefault();
 
     // get the clipboard data
-    const data = event.clipboardData && event.clipboardData.getData("text");
+    const data = event.clipboardData?.getData("text");
 
     if (data) {
-      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, unref(tagsCreated), allowPaste && allowPaste.delimiter, allowDuplicates);
+      const pasteResult = HandlePaste(unref(tagsData), data, maxTags, +unref(tagsCreated), allowPaste?.delimiter, allowDuplicates);
 
-      if (pasteResult && pasteResult.newData) {
+      if (pasteResult?.newData) {
         tagsData.value = pasteResult.newData;
         tagsCreated.value = pasteResult.tagsCreated;
       }
@@ -231,7 +231,7 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     const curSelIndex = unref(selectedIndex);
 
     if (curSelIndex < unref(filteredItems).length - 1) {
-      selectedIndex.value = selectedIndex.value + 1;
+      selectedIndex.value = +selectedIndex.value + 1;
     } else {
       selectedIndex.value = 0;
     }
