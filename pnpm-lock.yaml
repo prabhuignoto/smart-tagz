@@ -19,6 +19,7 @@ specifiers:
   postcss: ^8.4.14
   postcss-html: ^1.5.0
   postcss-scss: ^4.0.4
+  rimraf: ^3.0.2
   rollup: ^2.77.0
   rollup-plugin-scss: ^3.0.0
   rollup-plugin-terser: ^7.0.2
@@ -55,6 +56,7 @@ devDependencies:
   postcss: 8.4.14
   postcss-html: 1.5.0
   postcss-scss: 4.0.4_postcss@8.4.14
+  rimraf: 3.0.2
   rollup: 2.77.0
   rollup-plugin-scss: 3.0.0
   rollup-plugin-terser: 7.0.2_rollup@2.77.0
