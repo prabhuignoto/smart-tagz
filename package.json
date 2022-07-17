@@ -15,7 +15,8 @@
     "lint": "eslint src/**/*.vue",
     "lint:all": "yarn lint:css && yarn lint",
     "prepare": "husky install",
-    "snyk": "snyk test"
+    "snyk": "snyk test",
+    "format": "prettier --write src/**/*.{vue,js}"
   },
   "repository": {
     "type": "git",
@@ -55,6 +56,7 @@
     "eslint-plugin-vue": "^9.2.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
+    "postcss": "^8.4.14",
     "postcss-html": "^1.5.0",
     "postcss-scss": "^4.0.4",
     "rollup": "^2.77.0",

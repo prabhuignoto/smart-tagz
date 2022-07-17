@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="showPane"
-    class="suggest-pane-container"
-  >
+  <div v-if="showPane" class="suggest-pane-container">
     <ul
       ref="paneRef"
       class="suggest-pane"
@@ -95,7 +92,6 @@ export default defineComponent({
   },
 });
 </script>
-
 
 <style lang="scss" scoped>
 .suggest-pane {

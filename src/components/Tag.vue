@@ -1,7 +1,7 @@
 <template>
   <div
     class="tag-container"
-    :class="{'no-remove': !canShowRemoveBtn}"
+    :class="{ 'no-remove': !canShowRemoveBtn }"
     :style="style"
   >
     <input
@@ -13,30 +13,18 @@
       @blur="handleEscape"
       @keyup.enter="handleSaveEdit"
       @keyup.esc="handleEscape"
-    >
-    <span
-      v-else
-      class="tag-name"
-      @dblclick="handleDoubleClick"
-    >{{ name }}</span>
-    <button
-      v-if="canShowRemoveBtn"
-      @click="handleRemove(id)"
-    >
+    />
+    <span v-else class="tag-name" @dblclick="handleDoubleClick">{{
+      name
+    }}</span>
+    <button v-if="canShowRemoveBtn" @click="handleRemove(id)">
       <CloseIcon />
     </button>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  ref,
-  nextTick,
-  computed,
-  toRef,
-} from "vue";
+import { defineComponent, PropType, ref, nextTick, computed, toRef } from "vue";
 import CloseIcon from "./CloseIcon.vue";
 
 export default defineComponent({
