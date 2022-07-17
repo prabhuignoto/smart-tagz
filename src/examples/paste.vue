@@ -27,7 +27,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";
 import Countries from "../test/countries";

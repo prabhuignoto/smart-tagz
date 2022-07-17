@@ -3,9 +3,15 @@
     <header>
       <h3>Custom Color Scheme</h3>
     </header>
-    <p>The components color scheme can be customized by passing a custom theme prop.</p>
+    <p>
+      The components color scheme can be customized by passing a custom theme
+      prop.
+    </p>
     <ul>
-      <li>primary - targets the background color of the tag and the background of the autosuggest dropdown.</li>
+      <li>
+        primary - targets the background color of the tag and the background of
+        the autosuggest dropdown.
+      </li>
       <li>background - targets the background of the main container.</li>
       <li>tagTextColor - targets the forecolor of the tag.</li>
     </ul>
@@ -18,9 +24,19 @@
         autosuggest
         editable
         :sources="sources"
-        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+        :default-tags="[
+          'United Kingdom',
+          'Uruguay',
+          'Uzbekistan',
+          'Venezuela',
+          'Vietnam',
+          'Virgin Islands (US)',
+          'Yemen',
+          'Zambia',
+          'Zimbabwe',
+        ]"
         :allow-duplicates="false"
-        :allow-paste="{delimiter: ','}"
+        :allow-paste="{ delimiter: ',' }"
         :theme="{
           primary: '#545454',
           background: '#bdbdbd',
@@ -30,7 +46,6 @@
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";

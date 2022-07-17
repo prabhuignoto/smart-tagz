@@ -19,7 +19,6 @@
   </div>
 </template>
 
-
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";
 

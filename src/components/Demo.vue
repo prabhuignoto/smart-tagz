@@ -1,20 +1,14 @@
 <template>
   <div class="main-container">
     <header>
-      <img
-        src="../assets/logo.png"
-        alt="logo"
-      >
+      <img src="../assets/logo.png" alt="logo" />
       <a
         href="https://github.com/prabhuignoto/smart-tagz"
         class="github"
         target="_new"
       >
         <span>
-          <img
-            src="../assets/github.svg"
-            alt="github"
-          >
+          <img src="../assets/github.svg" alt="github" />
         </span>
       </a>
     </header>
@@ -57,11 +51,9 @@
       </div>
     </div>
     <footer>
-      <a
-        href="https://www.prabhumurthy.com"
-        class="github"
-        target="_new"
-      >www.prabhumurthy.com</a>
+      <a href="https://www.prabhumurthy.com" class="github" target="_new"
+        >www.prabhumurthy.com</a
+      >
     </footer>
   </div>
 </template>

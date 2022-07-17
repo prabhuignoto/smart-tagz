@@ -10,7 +10,17 @@
     <div class="sample-view">
       <smart-tagz
         :sources="sources"
-        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+        :default-tags="[
+          'United Kingdom',
+          'Uruguay',
+          'Uzbekistan',
+          'Venezuela',
+          'Vietnam',
+          'Virgin Islands (US)',
+          'Yemen',
+          'Zambia',
+          'Zimbabwe',
+        ]"
         input-placeholder="Select Countries ..."
         autosuggest
         editable
@@ -19,7 +29,6 @@
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";

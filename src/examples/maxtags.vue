@@ -3,16 +3,30 @@
     <header>
       <h3>MaxTags</h3>
     </header>
-    <p>The component can be configured to accept the maximum tags that can be created. Once the threshold is reached, the textbox input will be hidden from the user.</p>
+    <p>
+      The component can be configured to accept the maximum tags that can be
+      created. Once the threshold is reached, the textbox input will be hidden
+      from the user.
+    </p>
     <pre data-line="3">
       <code class="lang-html">{{ code }}</code>
     </pre>
     <div class="sample-view">
       <smart-tagz
-        :allow-paste="{delimiter: ','}"
+        :allow-paste="{ delimiter: ',' }"
         :max-tags="3"
         :sources="sources"
-        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+        :default-tags="[
+          'United Kingdom',
+          'Uruguay',
+          'Uzbekistan',
+          'Venezuela',
+          'Vietnam',
+          'Virgin Islands (US)',
+          'Yemen',
+          'Zambia',
+          'Zimbabwe',
+        ]"
         input-placeholder="Select Countries ..."
         autosuggest
         editable
@@ -21,7 +35,6 @@
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";

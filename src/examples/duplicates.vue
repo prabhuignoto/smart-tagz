@@ -3,7 +3,11 @@
     <header>
       <h3>Allow / Disallow Duplicate Tags</h3>
     </header>
-    <p>You can decide how to manage duplicate tags by either allowing or disallowing them completely. When set to false no duplicate values are allowed.</p>
+    <p>
+      You can decide how to manage duplicate tags by either allowing or
+      disallowing them completely. When set to false no duplicate values are
+      allowed.
+    </p>
     <pre data-line="7">
       <code class="lang-html">{{ code }}</code>
     </pre>
@@ -13,14 +17,23 @@
         autosuggest
         editable
         :sources="sources"
-        :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
+        :default-tags="[
+          'United Kingdom',
+          'Uruguay',
+          'Uzbekistan',
+          'Venezuela',
+          'Vietnam',
+          'Virgin Islands (US)',
+          'Yemen',
+          'Zambia',
+          'Zimbabwe',
+        ]"
         :allow-duplicates="false"
-        :allow-paste="{delimiter: ','}"
+        :allow-paste="{ delimiter: ',' }"
       />
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import SmartTagz from "../components/Main.vue";
