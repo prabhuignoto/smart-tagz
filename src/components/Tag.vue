@@ -17,7 +17,7 @@
     <span v-else class="tag-name" @dblclick="handleDoubleClick">{{
       name
     }}</span>
-    <button v-if="canShowRemoveBtn" @click="handleRemove(id)">
+    <button v-if="canShowRemoveBtn" @click="handleRemove(id)" type="button">
       <CloseIcon />
     </button>
   </div>
