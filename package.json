@@ -2,6 +2,7 @@
   "name": "smart-tagz",
   "version": "0.3.2",
   "license": "MIT",
+  "type": "module",
   "description": "A Smart input tags component for Vue 3",
   "author": {
     "name": "Prabhu Murthy",
@@ -10,7 +11,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "rollup": "rimraf ./dist && rollup -c",
+    "rollup": "rimraf ./dist && rollup -c ./rollup.config.mjs",
     "lint:css": "stylelint src/**/*.vue --custom-syntax postcss-html",
     "lint": "eslint src/**/*.vue",
     "lint:all": "yarn lint:css && yarn lint",
