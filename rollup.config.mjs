@@ -4,9 +4,9 @@ import common from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import sucrase from "@rollup/plugin-sucrase";
 import scss from "rollup-plugin-scss";
+import { terser } from "rollup-plugin-terser";
 import vue from "rollup-plugin-vue";
-import pkg from "./package.json";
-import  {terser} from  "rollup-plugin-terser";
+import pkg from "./package.json" assert { type: "json" };
 
 const banner = `/*
  * ${pkg.name}
