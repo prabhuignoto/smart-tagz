@@ -59,6 +59,8 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     showSuggestions.value = false;
     selectAllRef.value = false;
     selectedIndex.value = -1;
+    // reset del tag reference
+    delTagRef.value = null;
   };
 
   watch(() => tagsData.value.length, () => {
