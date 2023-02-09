@@ -413,7 +413,8 @@ var _self =
   comment: /<!--[\s\S]*?-->/,
   prolog: /<\?[\s\S]+?\?>/,
   doctype: {
-    pattern: /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
+    pattern:
+      /<!DOCTYPE(?:[^>"'[\]]|"[^"]*"|'[^']*')+(?:\[(?:[^<"'\]]|"[^"]*"|'[^']*'|<(?!!--)|<!--(?:[^-]|-(?!->))*-->)*\]\s*)?>/i,
     greedy: !0,
     inside: {
       "internal-subset": {
@@ -430,7 +431,8 @@ var _self =
   },
   cdata: /<!\[CDATA\[[\s\S]*?]]>/i,
   tag: {
-    pattern: /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
+    pattern:
+      /<\/?(?!\d)[^\s>\/=$<%]+(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?\s*\/?>/,
     greedy: !0,
     inside: {
       tag: {
@@ -756,9 +758,8 @@ var _self =
           a
             ? (n = a.content)
             : (t.hasAttribute("data-url")
-                ? ((n = document.createElement("a")).href = t.getAttribute(
-                    "data-url"
-                  ))
+                ? ((n = document.createElement("a")).href =
+                    t.getAttribute("data-url"))
                 : (n = document.createElement("span")),
               (n.textContent = r)),
           n
