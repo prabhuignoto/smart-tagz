@@ -1,6 +1,6 @@
 {
   "name": "smart-tagz",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "license": "MIT",
   "type": "module",
   "description": "A Smart input tags component for Vue 3",
