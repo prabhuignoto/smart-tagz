@@ -20,10 +20,7 @@
         closeButton: classNames.tag_close_btn,
       }"
     >
-      <div
-        v-if="tagsData.length < maxTags"
-        class="input-wrapper"
-      >
+      <div v-if="tagsData.length < maxTags" class="input-wrapper">
         <input
           v-if="!readOnly"
           ref="textInputRef"
@@ -38,11 +35,8 @@
           @keydown.ctrl.exact="handleSelectAll"
           @paste="handlePaste"
           @blur="handleEscape"
-        >
-        <div
-          class="suggestion-wrapper"
-          :class="{ hidden: !showSuggestions }"
-        >
+        />
+        <div class="suggestion-wrapper" :class="{ hidden: !showSuggestions }">
           <SuggestionPane
             :show="showSuggestions"
             :items="filteredItems"
