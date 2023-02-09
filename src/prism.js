@@ -1,5 +1,6 @@
 /* PrismJS 1.21.0
-https://prismjs.com/download.html#themes=prism&languages=markup&plugins=line-highlight+toolbar+copy-to-clipboard */
+https://prismjs.com/download.html#themes=prism&languages=markup&plugins=line-highlight+toolbar+copy-to-clipboard
+*/
 var _self =
     "undefined" != typeof window
       ? window
