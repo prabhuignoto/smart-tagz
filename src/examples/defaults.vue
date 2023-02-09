@@ -14,6 +14,12 @@
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
+        :class-names="{
+          wrapper: 'tags_wrapper_prabhu',
+          tag_name: 'tag_name_prabhu',
+          tag_container: 'tag_container_prabhu',
+          tag_close_btn: 'tag_close_btn_prabhu',
+        }"
         :default-tags="[
           'United Kingdom',
           'Uruguay',
