@@ -45,6 +45,7 @@
   - [Editable Tags](#editable-tags)
   - [Readonly Tags](#readonly-tags)
   - [Theme](#theme)
+  - [Custom Class names](#custom-class-names)
 - [📦 Build Setup](#-build-setup)
 - [🔨 Contributing](#-contributing)
 - [Notes](#notes)
@@ -52,7 +53,7 @@
 
 ## ⚡ Installation
 
-```sh
+```jsx
 yarn install smart-tagz
 ```
 
@@ -60,7 +61,7 @@ yarn install smart-tagz
 
 smart-tagz has some great defaults to get you started quickly. Please check the props list for all options.
 
-```sh
+```jsx
 <template>
   <smart-tagz
     autosuggest
@@ -116,7 +117,7 @@ Head to our demo page for examples showcasing all the features.
 
 We can initialize smart-tagz with some `default` tags. This setting will mostly be used along with the `readonly` prop to create tags for display only purposes.
 
-```sh
+```jsx
 <smart-tagz :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan']" />
 ```
 
@@ -124,7 +125,7 @@ We can initialize smart-tagz with some `default` tags. This setting will mostly 
 
 You can decide how to manage `duplicate` tags by either allowing or disallowing them completely. When set to `false` no duplicate values are allowed.
 
-```sh
+```jsx
 <smart-tagz :allow-duplicates="false" />
 ```
 
@@ -132,7 +133,7 @@ You can decide how to manage `duplicate` tags by either allowing or disallowing 
 
 Whe set to `true`, the `autosuggest` prop suggests values in a dropdown. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
 
-```sh
+```jsx
  <smart-tagz autosuggest :sources="['India', 'Brazil', 'China', 'United Kingdom']" />
 ```
 
@@ -142,7 +143,7 @@ The component can also be configured to accept the `Maximum` number of tags that
 
 Here we restrict the tags to `3`
 
-```sh
+```jsx
 <smart-tagz :max-tags="3" />
 ```
 
@@ -150,7 +151,7 @@ Here we restrict the tags to `3`
 
 The component can parse strings and automatically create tags for you. The default delimiter is `","` but you can override this setting by manually setting the `delimiter` option.
 
-```sh
+```jsx
 <smart-tagz :allow-paste="{delimiter: ';'}" />
 ```
 
@@ -158,7 +159,7 @@ The component can parse strings and automatically create tags for you. The defau
 
 The Tags are not `editable` by default, but you can change this setting with the `editable` prop. Simply double click a tag, make the changes and hit enter to save.
 
-```sh
+```jsx
 <smart-tagz editable />
 ```
 
@@ -166,7 +167,7 @@ The Tags are not `editable` by default, but you can change this setting with the
 
 You can lock the component with `readonly` mode. All interactions are disabled in `read-only` mode.
 
-```sh
+```jsx
 <smart-tagz read-only />
 ```
 
@@ -174,7 +175,7 @@ You can lock the component with `readonly` mode. All interactions are disabled i
 
 The components color scheme can be customized by passing a custom theme prop.
 
-```sh
+```jsx
   <smart-tagz
     :theme="{
       primary: '#545454',
@@ -182,6 +183,28 @@ The components color scheme can be customized by passing a custom theme prop.
       tagTextColor: '#fff',
     }"
   />
+```
+
+### Custom Class names
+
+If you are looking for more control in terms of customizing the style of the tags, you can make use of the `classNames` prop to apply custom classes to the different elements within the component.
+
+```jsx
+<smart-tagz
+  input-placeholder="Select Countries ..."
+  :class-names="{
+    wrapper: 'tags_wrapper_custom',
+    tag_name: 'tag_name_custom',
+    tag_container: 'tag_container_custom',
+    tag_close_btn: 'tag_close_btn_custom',
+  }"
+  :default-tags="[
+    'United Kingdom',
+    'Uruguay',
+    'Uzbekistan',
+    'Venezuela'
+  ]"
+/>
 ```
 
 ## 📦 Build Setup

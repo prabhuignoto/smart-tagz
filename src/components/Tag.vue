@@ -1,7 +1,7 @@
 <template>
   <div
     class="tag-container"
-    :class="{ 'no-remove': !canShowRemoveBtn }"
+    :class="[!canShowRemoveBtn ? 'no-remove' : '', classNames.container]"
     :style="style"
   >
     <input
@@ -14,10 +14,18 @@
       @keyup.enter="handleSaveEdit"
       @keyup.esc="handleEscape"
     />
-    <span v-else class="tag-name" @dblclick="handleDoubleClick">{{
-      name
-    }}</span>
-    <button v-if="canShowRemoveBtn" @click="handleRemove(id)" type="button">
+    <span
+      v-else
+      :class="['tag-name', classNames.name]"
+      @dblclick="handleDoubleClick"
+      >{{ name }}</span
+    >
+    <button
+      v-if="canShowRemoveBtn"
+      type="button"
+      :class="classNames.closeButton"
+      @click="handleRemove(id)"
+    >
       <CloseIcon />
     </button>
   </div>
@@ -26,6 +34,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, nextTick, computed, toRef } from "vue";
 import CloseIcon from "./CloseIcon.vue";
+import { TagClass } from "../models";
 
 export default defineComponent({
   name: "SmartTag",
@@ -36,6 +45,14 @@ export default defineComponent({
     name: {
       type: String,
       default: "",
+    },
+    classNames: {
+      type: Object as PropType<TagClass>,
+      default: () => ({
+        container: "tag_container",
+        name: "tag_name",
+        closeButton: "tag_close_btn",
+      }),
     },
     onRemove: {
       type: Function as PropType<(id: string) => void>,

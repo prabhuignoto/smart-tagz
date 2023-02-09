@@ -13,6 +13,11 @@
         :editable="editable"
         :read-only="readOnly"
         :tag-style="tagStyle"
+        :class-names="{
+          container: classNames.container,
+          name: classNames.name,
+          closeButton: classNames.closeButton,
+        }"
       />
     </transition-group>
     <slot />
@@ -37,6 +42,14 @@ export default defineComponent({
     tags: {
       type: Array as PropType<TagModel[]>,
       required: true,
+    },
+    classNames: {
+      type: Object as PropType<{
+        container: string;
+        name: string;
+        closeButton: string;
+      }>,
+      default: () => ({}),
     },
     onRemove: {
       type: Function as PropType<(id: string) => void>,

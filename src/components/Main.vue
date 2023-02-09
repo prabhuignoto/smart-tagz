@@ -1,6 +1,6 @@
 <template>
   <div
-    class="tags-main"
+    :class="['tags-main', classNames.wrapper]"
     :style="{ background: theme.background }"
     @keyup.ctrl="handleSelectAll"
   >
@@ -14,8 +14,16 @@
         foreColor: theme.tagTextColor,
         backgroundColor: theme.primary,
       }"
+      :class-names="{
+        container: classNames.tag_container,
+        name: classNames.tag_name,
+        closeButton: classNames.tag_close_btn,
+      }"
     >
-      <div v-if="tagsData.length < maxTags" class="input-wrapper">
+      <div
+        v-if="tagsData.length < maxTags"
+        class="input-wrapper"
+      >
         <input
           v-if="!readOnly"
           ref="textInputRef"
@@ -30,8 +38,11 @@
           @keydown.ctrl.exact="handleSelectAll"
           @paste="handlePaste"
           @blur="handleEscape"
-        />
-        <div class="suggestion-wrapper" :class="{ hidden: !showSuggestions }">
+        >
+        <div
+          class="suggestion-wrapper"
+          :class="{ hidden: !showSuggestions }"
+        >
           <SuggestionPane
             :show="showSuggestions"
             :items="filteredItems"
@@ -64,6 +75,17 @@ export default defineComponent({
     readOnly: {
       type: Boolean,
       default: false,
+    },
+    classNames: {
+      type: Object as PropType<{
+        main: string;
+      }>,
+      default: () => ({
+        wrapper: "tags_wrapper_custom",
+        tag_name: "tag_name_custom",
+        tag_container: "tag_container_custom",
+        tag_close_btn: "tag_close_btn_custom",
+      }),
     },
     defaultTags: {
       type: Array as PropType<string[]>,
