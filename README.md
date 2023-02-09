@@ -134,7 +134,7 @@ You can decide how to manage `duplicate` tags by either allowing or disallowing 
 Whe set to `true`, the `autosuggest` prop suggests values in a dropdown. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
 
 ```jsx
- <smart-tagz autosuggest :sources="['India', 'Brazil', 'China', 'United Kingdom']" />
+<smart-tagz autosuggest:sources="['India', 'Brazil', 'China', 'United Kingdom']" />
 ```
 
 ### Max Tags
