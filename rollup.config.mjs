@@ -3,10 +3,13 @@ import buble from "@rollup/plugin-buble";
 import common from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import sucrase from "@rollup/plugin-sucrase";
-import scss from "rollup-plugin-scss";
+import autoprefixer from "autoprefixer";
+import preset from "postcss-preset-env";
+import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import vue from "rollup-plugin-vue";
 import pkg from "./package.json" assert { type: "json" };
+import cssnano from "cssnano";
 
 const banner = `/*
  * ${pkg.name}
@@ -50,7 +53,16 @@ export default {
       target: "browser",
       css: true,
     }),
-    scss(),
+    postcss({
+      extract: "smart-tagz.css",
+      plugins: [
+        preset({
+          stage: 0,
+        }),
+        autoprefixer(),
+        cssnano()
+      ],
+    }),
     sucrase({
       exclude: ["node_modules/**"],
       transforms: ["typescript"],
@@ -59,7 +71,7 @@ export default {
     buble(),
     beep(),
     resolve(),
-    terser()
+    terser(),
   ],
   external: ["vue", "vue-feather-icons"],
 };
