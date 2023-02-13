@@ -31,7 +31,6 @@ specifiers:
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-vue: ^6.0.0
   sass: ^1.58.0
-  snyk: ^1.1102.0
   stylelint: ^15.1.0
   stylelint-config-standard: ^30.0.1
   typescript: ^4.9.5
@@ -62,7 +61,7 @@ devDependencies:
   eslint-config-prettier: 8.6.0_eslint@8.34.0
   eslint-plugin-vue: 9.9.0_eslint@8.34.0
   husky: 8.0.3
-  lint-staged: 13.1.1
+  lint-staged: 13.1.2
   postcss: 8.4.21
   postcss-html: 1.5.0
   postcss-preset-env: 8.0.1_postcss@8.4.21
@@ -74,7 +73,6 @@ devDependencies:
   rollup-plugin-terser: 7.0.2_rollup@3.15.0
   rollup-plugin-vue: 6.0.0_@vue+compiler-sfc@3.2.47
   sass: 1.58.0
-  snyk: 1.1102.0
   stylelint: 15.1.0
   stylelint-config-standard: 30.0.1_stylelint@15.1.0
   typescript: 4.9.5
@@ -728,7 +726,7 @@ packages:
       '@rollup/pluginutils': 5.0.2_rollup@3.15.0
       '@types/resolve': 1.20.2
       deepmerge: 4.3.0
-      is-builtin-module: 3.2.0
+      is-builtin-module: 3.2.1
       is-module: 1.0.0
       resolve: 1.22.1
       rollup: 3.15.0
@@ -761,43 +759,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.15.0
-    dev: true
-
-  /@sentry/core/7.37.2:
-    resolution: {integrity: sha512-LjofMDSTyVeBErl9N7TTqlyEVuW1g6U4iuJtdZ75JohnvVxzWdpZfWfddwQ6h7nGWfe9dNg0fGs1wxKtMhY+MA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.37.2
-      '@sentry/utils': 7.37.2
-      tslib: 1.14.1
-    dev: true
-
-  /@sentry/node/7.37.2:
-    resolution: {integrity: sha512-aeJQ4oU3vF9zks8S/fvoLPVVhofmTjyMhZZIpSQWtfFqWxrXQsrqNlNUZZdXoqAUPNjA4QAzzOoXHhpUsa3Nxw==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.37.2
-      '@sentry/types': 7.37.2
-      '@sentry/utils': 7.37.2
-      cookie: 0.4.2
-      https-proxy-agent: 5.0.1
-      lru_map: 0.3.3
-      tslib: 1.14.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@sentry/types/7.37.2:
-    resolution: {integrity: sha512-SxKQOCX94ZaQM4C2ysNjHdJsjYapu/NYZCz1cnPyCdDvYfhwiVge1uq6ZHiQ/ARfxAAOmc3R4Mh3VvEz7WUOdw==}
-    engines: {node: '>=8'}
-    dev: true
-
-  /@sentry/utils/7.37.2:
-    resolution: {integrity: sha512-5irN1nN/mtdOoWwsJiwBK0gPgNMkciUubEMbCaaXqJaGyGz8+yfDvXj7L+xGYiU57z+7+QkkSKxKEZ/IcBpjVQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.37.2
-      tslib: 1.14.1
     dev: true
 
   /@trysound/sax/0.2.0:
@@ -1121,15 +1082,6 @@ packages:
     hasBin: true
     dev: true
 
-  /agent-base/6.0.2:
-    resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
-    engines: {node: '>= 6.0.0'}
-    dependencies:
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /aggregate-error/3.1.0:
     resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
     engines: {node: '>=8'}
@@ -1300,7 +1252,7 @@ packages:
       acorn-jsx: 5.3.2_acorn@6.4.2
       chalk: 2.4.2
       magic-string: 0.25.9
-      minimist: 1.2.7
+      minimist: 1.2.8
       regexpu-core: 4.5.4
     dev: true
 
@@ -1465,11 +1417,6 @@ packages:
     resolution: {integrity: sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==}
     dependencies:
       source-map: 0.6.1
-    dev: true
-
-  /cookie/0.4.2:
-    resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
-    engines: {node: '>= 0.6'}
     dev: true
 
   /cosmiconfig/8.0.0:
@@ -2263,16 +2210,6 @@ packages:
       entities: 4.4.0
     dev: true
 
-  /https-proxy-agent/5.0.1:
-    resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
-    engines: {node: '>= 6'}
-    dependencies:
-      agent-base: 6.0.2
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /human-signals/3.0.1:
     resolution: {integrity: sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==}
     engines: {node: '>=12.20.0'}
@@ -2369,8 +2306,8 @@ packages:
       binary-extensions: 2.2.0
     dev: true
 
-  /is-builtin-module/3.2.0:
-    resolution: {integrity: sha512-phDA4oSGt7vl1n5tJvTWooWWAsXLY+2xCnxNqvKhGEzujg+A43wPlPOyDg3C8XQHN+6k/JTQWJ/j0dQh/qr+Hw==}
+  /is-builtin-module/3.2.1:
+    resolution: {integrity: sha512-BSLE3HnV2syZ0FK0iMA/yUGplUeMmNz4AW5fnTunbCIqZi4vG3WjJT9FHMy5D69xmAYBHXQhJdALdpwVxV501A==}
     engines: {node: '>=6'}
     dependencies:
       builtin-modules: 3.3.0
@@ -2518,8 +2455,8 @@ packages:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
 
-  /lint-staged/13.1.1:
-    resolution: {integrity: sha512-LLJLO0Kdbcv2a+CvSF4p1M7jBZOajKSMpBUvyR8+bXccsqPER0/NxTFQSpNHjqwV9kM3tkHczYerTB5wI+bksQ==}
+  /lint-staged/13.1.2:
+    resolution: {integrity: sha512-K9b4FPbWkpnupvK3WXZLbgu9pchUJ6N7TtVZjbaPsoizkqFUDkUReUL25xdrCljJs7uLUF3tZ7nVPeo/6lp+6w==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
     dependencies:
@@ -2618,10 +2555,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
-    dev: true
-
-  /lru_map/0.3.3:
-    resolution: {integrity: sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==}
     dev: true
 
   /magic-string/0.25.9:
@@ -2731,8 +2664,8 @@ packages:
       kind-of: 6.0.3
     dev: true
 
-  /minimist/1.2.7:
-    resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
+  /minimist/1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
     dev: true
 
   /ms/2.1.2:
@@ -4055,17 +3988,6 @@ packages:
     dependencies:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 4.0.0
-    dev: true
-
-  /snyk/1.1102.0:
-    resolution: {integrity: sha512-lOwQt0on7UI8WIFpobNc/EfH1xpNS5lcb9cs7e2YTGK0AZ4mtUO8fvGocvgalEtPswij3912HPpDsuVjWzkgwA==}
-    engines: {node: '>=12'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@sentry/node': 7.37.2
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /source-map-js/1.0.2:
