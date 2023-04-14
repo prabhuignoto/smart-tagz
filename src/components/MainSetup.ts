@@ -59,6 +59,8 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
     showSuggestions.value = false;
     selectAllRef.value = false;
     selectedIndex.value = -1;
+    // reset del tag reference
+    delTagRef.value = null;
   };
 
   watch(() => tagsData.value.length, () => {
@@ -106,6 +108,10 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
 
   // handler to add a new tag
   const handleAddTag: (name: string) => void = (name) => {
+    if (name == '') {
+      return;
+    }
+    
     let nameToUse = '';
     const selIndex = unref(selectedIndex);
 
