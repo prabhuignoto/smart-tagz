@@ -46,6 +46,21 @@ const HandlePaste = (
         }
       }
     } else {
+      if (!allowDuplicates) {
+        const existingItems = tagsData.map((t) => t.name);
+        const newSet = items.filter(
+          (item) => existingItems.includes(item) === false
+          );
+        if(newSet.length == 0 )
+        {
+          return {
+            existingItems,
+            tagsCreated: 0
+          }
+        }
+      }
+
+
       const newData = tagsData.concat({
         name: pasteData,
         value: pasteData,

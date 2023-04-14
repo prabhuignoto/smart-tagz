@@ -26,6 +26,7 @@
           ref="textInputRef"
           v-model="input"
           type="text"
+          :maxlength="maxlengthInput"
           :placeholder="inputPlaceholder"
           @keyup.enter="handleAddTag($event.target.value.trim())"
           @keyup.delete="handleDelete"
@@ -145,6 +146,10 @@ export default defineComponent({
         tagTextColor: "#fff",
       }),
     },
+    maxlengthInput:{
+      type: Number,
+      default: -1,
+    }
   },
   setup: MainSetup,
 });

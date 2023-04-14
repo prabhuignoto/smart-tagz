@@ -106,6 +106,10 @@ export default function ({ autosuggest, allowPaste = { delimiter: "," }, allowDu
 
   // handler to add a new tag
   const handleAddTag: (name: string) => void = (name) => {
+    if(name == '')
+    {
+      return
+    }
     let nameToUse = '';
     const selIndex = unref(selectedIndex);
 
