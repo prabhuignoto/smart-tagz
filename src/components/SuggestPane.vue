@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch, ref } from 'vue'
+import { defineComponent, PropType, ref, watch } from 'vue'
 
 export default defineComponent({
   name: 'SuggestPane',
@@ -65,32 +65,28 @@ export default defineComponent({
     const handleSelection = (name: string) => props.onSelection && props.onSelection(name)
     const paneRef = ref(null)
 
-    const handleEnter = (event: KeyboardEvent) => {
-      event.preventDefault()
-      event.stopImmediatePropagation()
-
-      const item = props.items[props.selectedIndex]
-      if (item) {
-        handleSelection(item)
-      }
-    }
-
+    // Watch for show prop changes
     watch(
       () => props.show,
       (newValue) => {
-        if (newValue) {
-          showPane.value = true
-        } else {
-          showPane.value = false
-        }
+        showPane.value = newValue
       }
     )
 
+    // Handle Enter key to select item
+    const handleEnter = (event: KeyboardEvent) => {
+      event.preventDefault()
+      const selectedItem = props.items[props.selectedIndex]
+      if (selectedItem) {
+        handleSelection(selectedItem)
+      }
+    }
+
     return {
       handleSelection,
+      handleEnter,
       showPane,
       paneRef,
-      handleEnter,
     }
   },
 })

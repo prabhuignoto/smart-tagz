@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import SmartTag from './Tag.vue'
-import { defineComponent, ref, PropType, watch } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import { TagModel } from '../models'
 
 export default defineComponent({
@@ -69,21 +69,15 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const tags = props.readOnly
-      ? props.tags.map((tag) => Object.assign({}, tag, { editable: false }))
-      : props.tags
-
-    const localTags = ref<TagModel[]>(tags)
+    const localTags = computed(() => {
+      if (props.readOnly) {
+        return props.tags.map((tag) => ({ ...tag, editable: false }))
+      }
+      return props.tags
+    })
 
     const handleRemove = (id: string) => props.onRemove(id)
     const handleEdit = (id: string, newValue: string) => props.onEdit(id, newValue)
-
-    watch(
-      () => props.tags,
-      (newValue) => {
-        localTags.value = newValue
-      }
-    )
 
     return {
       localTags,

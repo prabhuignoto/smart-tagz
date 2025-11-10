@@ -453,7 +453,7 @@ describe('Main.vue', () => {
       expect(wrapper.vm.tagsData.length).toBeGreaterThan(0)
     })
 
-    it('should call onChanged after edit', () => {
+    it('should call onChanged after edit', async () => {
       const onChanged = vi.fn()
       const wrapper = mount(Main, {
         props: {
@@ -465,6 +465,8 @@ describe('Main.vue', () => {
 
       const tagId = wrapper.vm.tagsData[0]!.id
       wrapper.vm.handleEditTag(tagId, 'newtag')
+
+      await wrapper.vm.$nextTick()
 
       expect(onChanged).toHaveBeenCalledWith(['newtag'])
     })

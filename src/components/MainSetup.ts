@@ -57,6 +57,8 @@ export default function ({
     return sources.filter((f) => reg.test(f))
   })
 
+  const tagValues = computed(() => tagsData.value.map((item) => item.value))
+
   const focus = () => {
     if (textInputRef.value) {
       ;(textInputRef.value as unknown as HTMLElement).focus()
@@ -65,30 +67,21 @@ export default function ({
 
   const reset: () => void = () => {
     // remove highlight from all tags
-    tagsData.value = tagsData.value.map((t) => {
-      delete t.highlight
-      return t
-    })
+    tagsData.value = tagsData.value.map(({ highlight, ...rest }) => rest)
     // disable autosuggest
     showSuggestions.value = false
     selectAllRef.value = false
     selectedIndex.value = -1
   }
 
-  watch(
-    () => tagsData.value.length,
-    () => {
-      onChanged?.(tagsData.value.map((item) => item.value))
-    }
-  )
+  watch(tagValues, (newValues) => {
+    onChanged?.(newValues)
+  })
 
   watch(input, (newValue) => {
     if (delTagRef.value) {
       delTagRef.value = null
-      tagsData.value = tagsData.value.map((t) => {
-        delete t.highlight
-        return t
-      })
+      tagsData.value = tagsData.value.map(({ highlight, ...rest }) => rest)
     }
 
     if (newValue) {
@@ -184,20 +177,22 @@ export default function ({
       tagsData.value = tagsData.value.filter((t) => t.id !== tag.id)
       delTagRef.value = null
       tagsCreated.value = +tagsCreated.value - 1
-    } else if (tagsData.value.length) {
-      const tag = tagsData.value[tagsData.value.length - 1]!
-      delTagRef.value = {
-        id: tag.id,
-      }
-      tagsData.value = tagsData.value.map((t) => {
-        if (t.id === tag.id) {
-          return Object.assign({}, t, {
-            highlight: true,
-          })
-        } else {
-          return t
+    } else if (tagsData.value.length > 0) {
+      const tag = tagsData.value[tagsData.value.length - 1]
+      if (tag) {
+        delTagRef.value = {
+          id: tag.id,
         }
-      })
+        tagsData.value = tagsData.value.map((t) => {
+          if (t.id === tag.id) {
+            return Object.assign({}, t, {
+              highlight: true,
+            })
+          } else {
+            return t
+          }
+        })
+      }
     }
   }
 
@@ -240,7 +235,6 @@ export default function ({
         return tag
       }
     })
-    onChanged?.(tagsData.value.map((item) => item.value))
   }
 
   const handleSuggestSelection: (name: string) => void = (name) => {
@@ -283,7 +277,7 @@ export default function ({
     if (!quickDelete) {
       return
     }
-    if (event.keyCode === 65 && !input.value) {
+    if (event.key === 'a' && !input.value) {
       selectAllRef.value = true
       delTagRef.value = null
     }

@@ -24,6 +24,25 @@ export default defineComponent({
       highlightedCode: '',
     }
   },
+  /**
+   * Security Note: v-html XSS Considerations
+   *
+   * This component uses v-html to render syntax-highlighted code, which is generally
+   * risky for XSS attacks. However, the following measures mitigate these risks:
+   *
+   * 1. The 'shiki' library's codeToHtml() sanitizes the input and returns safe HTML
+   *    with proper escaping of user content while preserving syntax highlighting.
+   *
+   * 2. In case of errors, we fall back to escapeHtml() which manually escapes all
+   *    HTML special characters (&, <, >, ", ').
+   *
+   * 3. This component should ONLY be used for displaying trusted code snippets
+   *    (e.g., documentation, examples) and NOT for user-generated content without
+   *    proper validation.
+   *
+   * WARNING: Do not pass untrusted user input directly to this component without
+   * additional validation or sanitization at the application level.
+   */
   async mounted() {
     try {
       this.highlightedCode = await codeToHtml(this.code, {

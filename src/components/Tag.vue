@@ -99,7 +99,7 @@ export default defineComponent({
       editMode.value = !editMode.value
 
       nextTick(() => {
-        ;(inputTextRef.value as HTMLElement).focus()
+        inputTextRef.value?.focus()
       })
     }
 

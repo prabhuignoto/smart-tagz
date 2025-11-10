@@ -430,9 +430,11 @@ describe('MainSetup', () => {
       expect(setup.tagsData.value[0]!.value).toBe('newTag')
     })
 
-    it('should emit onChanged callback after edit', () => {
+    it('should emit onChanged callback after edit', async () => {
       mockOnChanged.mockClear()
       setup.handleEditTag('1', 'newTag')
+
+      await nextTick()
 
       expect(mockOnChanged).toHaveBeenCalledWith(['newTag'])
     })
