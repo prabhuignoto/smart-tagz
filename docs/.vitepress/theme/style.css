@@ -23,6 +23,11 @@
   background: var(--vp-c-bg-soft);
 }
 
+/* Ensure SmartTagz component has proper spacing */
+.demo-container > div {
+  width: 100%;
+}
+
 .demo-title {
   font-size: 1rem;
   font-weight: 600;
