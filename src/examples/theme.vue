@@ -48,10 +48,10 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
-import Countries from "../test/countries";
+import SmartTagz from '../components/Main.vue'
+import Countries from '../test/countries'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 const html = `<smart-tagz
   input-placeholder="Select Countries ..."
   autosuggest
@@ -65,10 +65,10 @@ const html = `<smart-tagz
     background: '#bdbdbd',
     tagTextColor: '#fff',
   }"
-/>`;
+/>`
 
 export default defineComponent({
-  name: "Maxtags",
+  name: 'Maxtags',
   components: {
     SmartTagz,
   },
@@ -76,15 +76,15 @@ export default defineComponent({
     return {
       code: html,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 ul {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @include flex-column(flex-start, flex-start);
 }
 </style>

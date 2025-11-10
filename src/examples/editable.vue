@@ -33,29 +33,29 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
+import SmartTagz from '../components/Main.vue'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 const html = `  <smart-tagz
     input-placeholder="Select Countries ..."
     :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
     editable
-  />`;
+  />`
 
 export default defineComponent({
-  name: "Editable",
+  name: 'Editable',
   components: {
     SmartTagz,
   },
   data() {
     return {
       code: html,
-    };
+    }
   },
   methods: {
-    handleChange(tags) {
-      console.log("tags changed", tags);
+    handleChange(tags: string[]) {
+      console.log('tags changed', tags)
     },
   },
-});
+})
 </script>

@@ -5,21 +5,22 @@
 </template>
 
 <script lang="ts">
-import Demo from "./components/Demo.vue";
+import Demo from './components/Demo.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Demo,
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .demo-wrapper {
+  @include flex-row(flex-start, center);
+
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
 }
 </style>

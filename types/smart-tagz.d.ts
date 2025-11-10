@@ -1,26 +1,26 @@
-import { FunctionalComponent } from "vue";
+import { FunctionalComponent } from 'vue'
 
 interface Props {
-  readOnly: boolean;
-  defaultTags: string[];
-  width: string;
-  sources: string[];
-  autosuggest: boolean;
+  readOnly: boolean
+  defaultTags: string[]
+  width: string
+  sources: string[]
+  autosuggest: boolean
   allowPaste: {
-    delimiter: string;
-  },
-  editable: boolean;
-  allowDuplicates: boolean; 
-  maxTags: number; 
-  inputPlaceholder: string;
-  quickDelete: boolean;
+    delimiter: string
+  }
+  editable: boolean
+  allowDuplicates: boolean
+  maxTags: number
+  inputPlaceholder: string
+  quickDelete: boolean
   theme: {
-    primary: string;
-    secondary: string;
-    tagTextColor: string;
+    primary: string
+    secondary: string
+    tagTextColor: string
   }
 }
 
-interface SmartTagzComponent extends FunctionalComponent<Props> {}
+type SmartTagzComponent = FunctionalComponent<Props>
 
-export const SmartTagz: SmartTagzComponent;
+export const SmartTagz: SmartTagzComponent

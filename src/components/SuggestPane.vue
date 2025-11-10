@@ -10,7 +10,7 @@
         v-for="(item, index) of items"
         :key="item"
         class="suggest-pane-item"
-        :class="{ selected: index === selectedIndex }"
+        :class="{ 'suggest-pane-item--selected': index === selectedIndex }"
         @mousedown="handleSelection(item)"
       >
         <span>{{ item }}</span>
@@ -20,10 +20,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, watch, ref } from "vue";
+import { defineComponent, PropType, watch, ref } from 'vue'
 
 export default defineComponent({
-  name: "SuggestPane",
+  name: 'SuggestPane',
   props: {
     items: {
       type: Array as PropType<string[]>,
@@ -46,11 +46,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    // eslint-disable-next-line vue/require-default-prop
     paneStyle: {
       type: Object as PropType<{ bgColor: string }>,
       default: () => ({
-        bgColor: "",
+        bgColor: '',
       }),
     },
     selectedIndex: {
@@ -59,73 +58,72 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const showPane = ref(false);
+    const showPane = ref(false)
     const handleSelection = (name: string) =>
-      props.onSelection && props.onSelection(name);
-    const paneRef = ref(null);
+      props.onSelection && props.onSelection(name)
+    const paneRef = ref(null)
 
     const handleEnter = (event: KeyboardEvent) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
+      event.preventDefault()
+      event.stopImmediatePropagation()
 
-      const item = props.items[props.selectedIndex];
-      handleSelection(item);
-    };
+      const item = props.items[props.selectedIndex]
+      if (item) {
+        handleSelection(item)
+      }
+    }
 
     watch(
       () => props.show,
       (newValue) => {
         if (newValue) {
-          showPane.value = true;
+          showPane.value = true
         } else {
-          showPane.value = false;
+          showPane.value = false
         }
       }
-    );
+    )
 
     return {
       handleSelection,
       showPane,
       paneRef,
       handleEnter,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .suggest-pane {
-  border-radius: 0.2rem;
-  list-style: none;
-  margin: 0;
-  outline: none;
-  padding: 0;
   width: 100%;
+  padding: 0;
+  margin: 0;
+  border-radius: var(--border-radius-sm);
+  list-style: none;
+  outline: none;
 }
 
 .suggest-pane-item {
-  align-items: center;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  font-size: 0.85rem;
-  justify-content: flex-start;
-  overflow: hidden;
-  padding: 0.4rem 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include flex-row(center, flex-start);
+  @include text-truncate;
+  @include transition-fast(background);
+
   width: 100%;
+  padding: var(--spacing-md) 0;
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
 
   span {
-    padding-left: 0.4rem;
+    padding-left: var(--spacing-md);
   }
 
-  &:hover {
-    background: rgba(#fff, 20%);
-  }
-
-  &.selected {
-    background: rgba(#fff, 20%);
+  &:hover,
+  &--selected {
+    background: var(--overlay-white-subtle);
   }
 }
 </style>

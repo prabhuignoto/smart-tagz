@@ -1,0 +1,46 @@
+// ===================================================================
+// SCSS Variables
+// ===================================================================
+// These variables are used at compile-time for calculations,
+// loops, and mixins. For runtime theming, use CSS custom properties
+// defined in _tokens.scss
+
+// ===================================================================
+// Breakpoints
+// ===================================================================
+// Mobile-first responsive breakpoints
+
+$breakpoints: (
+  'sm': 576px,   // Small devices (landscape phones)
+  'md': 768px,   // Medium devices (tablets)
+  'lg': 992px,   // Large devices (desktops)
+  'xl': 1200px,  // Extra large devices (large desktops)
+  '2xl': 1440px, // 2K displays
+  '4k': 2560px   // 4K displays
+);
+
+// Container max-widths at each breakpoint
+$container-widths: (
+  'sm': 550px,
+  'md': 750px,
+  'lg': 900px,
+  'xl': 1000px,
+  '2xl': 1250px,
+  '4k': 1500px
+);
+
+// ===================================================================
+// Grid System
+// ===================================================================
+
+$grid-columns: 12;
+$grid-gutter-width: 1rem;
+
+// ===================================================================
+// Animation Easing
+// ===================================================================
+
+$ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+$ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+$ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);

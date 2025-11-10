@@ -1,7 +1,10 @@
 <template>
   <div
     class="tag-container"
-    :class="[!canShowRemoveBtn ? 'no-remove' : '', classNames.container]"
+    :class="[
+      !canShowRemoveBtn ? 'tag-container--no-remove' : '',
+      classNames.container,
+    ]"
     :style="style"
   >
     <input
@@ -23,6 +26,7 @@
     <button
       v-if="canShowRemoveBtn"
       type="button"
+      class="tag-container__button"
       :class="classNames.closeButton"
       @click="handleRemove(id)"
     >
@@ -32,26 +36,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, nextTick, computed, toRef } from "vue";
-import CloseIcon from "./CloseIcon.vue";
-import { TagClass } from "../models";
+import { defineComponent, PropType, ref, nextTick, computed, toRef } from 'vue'
+import CloseIcon from './CloseIcon.vue'
+import { TagClass } from '../models'
 
 export default defineComponent({
-  name: "SmartTag",
+  name: 'SmartTag',
   components: {
     CloseIcon,
   },
   props: {
     name: {
       type: String,
-      default: "",
+      default: '',
     },
     classNames: {
       type: Object as PropType<TagClass>,
       default: () => ({
-        container: "tag_container",
-        name: "tag_name",
-        closeButton: "tag_close_btn",
+        container: 'tag_container',
+        name: 'tag_name',
+        closeButton: 'tag_close_btn',
       }),
     },
     onRemove: {
@@ -78,52 +82,52 @@ export default defineComponent({
     tagStyle: {
       type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
       default: () => ({
-        foreColor: "",
-        backgroundColor: "",
+        foreColor: '',
+        backgroundColor: '',
       }),
     },
   },
   setup(props) {
-    const editMode = ref(false);
-    const input = ref(props.name);
-    const inputTextRef = ref<HTMLInputElement>();
-    const tagHighlight = toRef(props, "highlight");
+    const editMode = ref(false)
+    const input = ref(props.name)
+    const inputTextRef = ref<HTMLInputElement>()
+    const tagHighlight = toRef(props, 'highlight')
 
-    const handleRemove = (id: string) => props.onRemove(id);
+    const handleRemove = (id: string) => props.onRemove(id)
     const handleDoubleClick = () => {
       if (!props.editable || props.readOnly) {
-        return;
+        return
       }
-      editMode.value = !editMode.value;
+      editMode.value = !editMode.value
 
       nextTick(() => {
-        (inputTextRef.value as HTMLElement).focus();
-      });
-    };
+        ;(inputTextRef.value as HTMLElement).focus()
+      })
+    }
 
     const handleSaveEdit = () => {
-      editMode.value = false;
-      props.onEdit(props.id, input.value);
-    };
+      editMode.value = false
+      props.onEdit(props.id, input.value)
+    }
 
     const handleEscape = () => {
-      editMode.value = false;
-    };
+      editMode.value = false
+    }
 
     const canShowInputbox = computed(
       () => props.editable && editMode.value && !props.readOnly
-    );
+    )
 
-    const canShowRemoveBtn = computed(() => !props.readOnly);
+    const canShowRemoveBtn = computed(() => !props.readOnly)
 
     const style = computed(() => {
       return {
         background: tagHighlight.value
-          ? "#b20000"
+          ? '#b20000'
           : props.tagStyle.backgroundColor,
         color: props.tagStyle.foreColor,
-      };
-    });
+      }
+    })
 
     return {
       handleRemove,
@@ -136,57 +140,63 @@ export default defineComponent({
       canShowInputbox,
       canShowRemoveBtn,
       style,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .tag-container {
-  align-items: center;
-  border-radius: 0.2rem;
-  display: flex;
-  filter: drop-shadow(2px 2px 4px rgb(26 15 15 / 25%));
-  justify-content: center;
-  margin: 0.4rem 0.25rem;
-  padding: 0.4rem 0.1rem 0.4rem 0.4rem;
+  @include flex-center;
+  @include drop-shadow(var(--shadow-tag));
+
+  border-radius: var(--border-radius-sm);
+  margin: var(--spacing-md) var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md)
+    var(--spacing-md);
   user-select: none;
 
-  &.highlight {
-    background-color: #b20000;
-  }
-
-  &.no-remove {
-    padding-right: 0.5rem;
+  &--no-remove {
+    padding-right: var(--spacing-base);
   }
 }
 
 .tag-name {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
 }
 
 .tag-edit-input {
   width: 0;
   min-width: 100px;
-  outline: 0;
+  padding: 0;
   border: 0;
-  background: rgb(255 255 255 / 40%);
-  font-size: 0.85rem;
+  background: var(--overlay-white-medium);
+  font-size: var(--font-size-sm);
+  outline: 0;
 }
 
-button {
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 50%;
-  border: 0;
-  display: flex;
-  height: 1rem;
-  margin-left: 0.5rem;
-  margin-right: 0.2rem;
-  outline: none;
-  width: 1rem;
+.tag-container__button {
+  @include flex-center;
+  @include size(var(--spacing-lg));
+
   padding: 0;
+  margin-right: var(--spacing-xs);
+  margin-left: var(--spacing-base);
+  background: var(--color-white);
+  border: 0;
+  border-radius: 50%;
+  outline: none;
   cursor: pointer;
+  transition: opacity var(--transition-fast);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 </style>

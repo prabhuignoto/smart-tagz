@@ -23,25 +23,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "CloseIcon",
-});
+  name: 'CloseIcon',
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .icon-wrapper {
-  width: 0.5rem;
-  height: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
+  @include size(var(--spacing-base));
 
   svg {
     width: 100%;
     height: 100%;
-    fill: #000;
+    fill: var(--color-black);
   }
 }
 </style>
