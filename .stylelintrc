@@ -3,7 +3,7 @@
     "stylelint-config-standard-scss",
     "stylelint-config-recommended-vue/scss"
   ],
-  "ignoreFiles": ["src/prism.css"],
+  "ignoreFiles": ["src/prism.css", "dist-demo/**", "coverage/**", "types/**", "*.local", "yarn-error.log", "pnpm-lock.yaml", "package-lock.json", "yarn.lock", "pnpm-workspace.yaml", "pnpm-workspace.yaml.lock"],
   "rules": {
     "selector-class-pattern": null,
     "custom-property-pattern": null,
