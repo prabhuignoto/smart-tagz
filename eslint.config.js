@@ -8,6 +8,7 @@ export default [
   {
     ignores: [
       'dist/**',
+      'dist-demo/**',
       'node_modules/**',
       '*.config.js',
       '*.config.ts',
@@ -47,6 +48,7 @@ export default [
       'vue/require-prop-types': 'error',
       'vue/no-unused-components': 'off',
       'vue/no-unused-vars': 'off',
+      'vue/no-v-html': 'off',
     },
   },
 

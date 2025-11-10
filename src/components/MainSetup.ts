@@ -1,5 +1,6 @@
 import { computed, nextTick, ref, unref, watch } from 'vue'
 import escapeStringRegexp from 'escape-string-regexp'
+import Fuse from 'fuse.js'
 import { TagModel } from '../models'
 import HandlePaste from './HandlePaste'
 
@@ -47,14 +48,45 @@ export default function ({
   // ref to track ctrl+a selection
   const selectAllRef = ref(false)
   const selectedIndex = ref(-1)
+  const announcement = ref('')
+  const errorMessage = ref('')
+
+  // Function to announce messages to screen readers
+  const announce = (message: string) => {
+    announcement.value = message
+    // Clear announcement after 1 second to allow screen readers to re-announce if needed
+    setTimeout(() => {
+      announcement.value = ''
+    }, 1000)
+  }
+
+  // Function to display error messages
+  const showError = (message: string) => {
+    errorMessage.value = message
+    announce(message) // Also announce to screen readers
+    // Auto-dismiss error after 4 seconds
+    setTimeout(() => {
+      errorMessage.value = ''
+    }, 4000)
+  }
 
   const style = computed(() => ({
     width,
   }))
 
   const filteredItems = computed(() => {
-    const reg = new RegExp('^' + escapeStringRegexp(input.value), 'i')
-    return sources.filter((f) => reg.test(f))
+    if (!input.value) {
+      return []
+    }
+
+    // Use fuzzy matching with fuse.js instead of prefix-only matching
+    const fuse = new Fuse(sources, {
+      threshold: 0.3, // Balance between accuracy and flexibility
+      includeScore: false,
+    })
+
+    const results = fuse.search(input.value)
+    return results.map((result) => result.item)
   })
 
   const tagValues = computed(() => tagsData.value.map((item) => item.value))
@@ -127,6 +159,14 @@ export default function ({
     }
 
     if (!canAddTag(nameToUse)) {
+      const isDuplicate = tagsData.value.some(
+        (tag) => tag.name.toLowerCase() === nameToUse.toLowerCase()
+      )
+      if (isDuplicate && !allowDuplicates) {
+        showError(`${nameToUse} is already added`)
+      } else if (tagsCreated.value >= maxTags) {
+        showError(`Maximum ${maxTags} tags allowed`)
+      }
       return
     }
 
@@ -144,6 +184,9 @@ export default function ({
         id: Math.random().toString(16).slice(2),
         value: newTag,
       })
+      // Announce tag addition to screen readers
+      const totalTags = tagsCreated.value + 1
+      announce(`${newTag} added. ${totalTags} of ${maxTags} tags`)
     }
 
     input.value = ''
@@ -156,8 +199,14 @@ export default function ({
 
   // handler to remove a tag
   const handleRemoveTag: (id: string) => void = (id) => {
+    const removedTag = tagsData.value.find((t) => t.id === id)
     tagsData.value = tagsData.value.filter((t) => t.id !== id)
     tagsCreated.value = +tagsCreated.value - 1
+    // Announce tag removal to screen readers
+    if (removedTag) {
+      const remainingTags = tagsCreated.value
+      announce(`${removedTag.name} removed. ${remainingTags} of ${maxTags} tags`)
+    }
   }
 
   const handleDelete: () => void = () => {
@@ -283,6 +332,46 @@ export default function ({
     }
   }
 
+  // Handle Home key - go to first suggestion
+  const handleHome: (event: KeyboardEvent) => void = (event) => {
+    if (showSuggestions.value && filteredItems.value.length > 0) {
+      event.preventDefault()
+      selectedIndex.value = 0
+    }
+  }
+
+  // Handle End key - go to last suggestion
+  const handleEnd: (event: KeyboardEvent) => void = (event) => {
+    if (showSuggestions.value && filteredItems.value.length > 0) {
+      event.preventDefault()
+      selectedIndex.value = filteredItems.value.length - 1
+    }
+  }
+
+  // Handle Tab key - close suggestions and move focus to next element
+  const handleTab: (event: KeyboardEvent) => void = (event) => {
+    if (showSuggestions.value) {
+      event.preventDefault()
+      const selectedItem = filteredItems.value[selectedIndex.value]
+      if (
+        selectedIndex.value >= 0 &&
+        selectedIndex.value < filteredItems.value.length &&
+        selectedItem !== undefined
+      ) {
+        // If a suggestion is selected, select it
+        handleAddTag(selectedItem)
+      } else {
+        // Otherwise just close suggestions and move focus
+        showSuggestions.value = false
+      }
+      // Tab behavior will naturally move to next focusable element after this
+      setTimeout(() => {
+        const nextElement = document.querySelector('[tabindex="0"]') as HTMLElement
+        nextElement?.focus()
+      }, 0)
+    }
+  }
+
   return {
     tagsData,
     input,
@@ -291,8 +380,13 @@ export default function ({
     showSuggestions,
     selectedIndex,
     filteredItems,
+    announcement,
+    errorMessage,
     handleKeyUp,
     handleKeydown,
+    handleHome,
+    handleEnd,
+    handleTab,
     handleAddTag,
     handleRemoveTag,
     handleDelete,
