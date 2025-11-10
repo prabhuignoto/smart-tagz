@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { nextTick } from 'vue'
 import MainSetup from './MainSetup'
-import type { TagModel } from '../models'
 
 describe('MainSetup', () => {
   let setup: ReturnType<typeof MainSetup>
