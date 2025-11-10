@@ -1,8 +1,13 @@
 <template>
   <div
     class="tag-container"
-    :class="[!canShowRemoveBtn ? 'tag-container--no-remove' : '', classNames.container]"
+    :class="[
+      !canShowRemoveBtn ? 'tag-container--no-remove' : '',
+      classNames.container,
+      { 'tag-container--highlight': highlight },
+    ]"
     :style="style"
+    :aria-label="highlight ? `${name} - Press Delete again to remove` : name"
   >
     <input
       v-if="canShowInputbox"
@@ -20,6 +25,12 @@
       @dblclick="handleDoubleClick"
     >
       {{ name }}
+      <span
+        v-if="highlight"
+        class="tag-name__delete-hint"
+      >
+        (Press Delete to remove)
+      </span>
     </span>
     <button
       v-if="canShowRemoveBtn"
@@ -150,14 +161,31 @@ export default defineComponent({
   margin: var(--spacing-md) var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md) var(--spacing-md);
   user-select: none;
+  transition: all 0.2s ease-in-out;
 
   &--no-remove {
     padding-right: var(--spacing-base);
+  }
+
+  &--highlight {
+    border: 2px solid rgb(255 255 255 / 60%);
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 30%);
   }
 }
 
 .tag-name {
   font-size: var(--font-size-base);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+
+  &__delete-hint {
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0.9;
+    font-style: italic;
+  }
 }
 
 .tag-edit-input {
@@ -167,29 +195,55 @@ export default defineComponent({
   border: 0;
   background: var(--overlay-white-medium);
   font-size: var(--font-size-sm);
-  outline: 0;
+  transition: box-shadow 0.15s ease-in-out;
+
+  &:focus-visible {
+    outline: 2px solid rgb(255 255 255 / 80%);
+    outline-offset: 2px;
+  }
 }
 
 .tag-container__button {
   @include flex-center;
-  @include size(var(--spacing-lg));
 
-  padding: 0;
+  width: 24px;
+  height: 24px;
+  padding: 10px; // Creates 44px touch target: 24px + (10px * 2)
   margin-right: var(--spacing-xs);
   margin-left: var(--spacing-base);
   background: var(--color-white);
   border: 0;
   border-radius: 50%;
-  outline: none;
   cursor: pointer;
-  transition: opacity var(--transition-fast);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
   &:hover {
     opacity: 0.8;
   }
 
+  &:focus-visible {
+    outline: 2px solid rgb(0 0 0 / 30%);
+    outline-offset: 2px;
+  }
+
   &:active {
     transform: scale(0.95);
+  }
+
+  @media (width <= 768px) {
+    width: 28px;
+    height: 28px;
+    padding: 8px; // Creates 44px touch target: 28px + (8px * 2)
+  }
+
+  /* Scale the icon inside to maintain visual consistency */
+  :deep(svg) {
+    width: 16px;
+    height: 16px;
   }
 }
 </style>

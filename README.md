@@ -22,7 +22,9 @@
 
 <h2>✨ Features</h2>
 
-- ⚡ [Autosuggest](#auto-suggest) with support for keyboard selection.
+- ⚡ [Autosuggest](#auto-suggest) with **fuzzy matching** for smarter suggestions (type "many" to find "Germany")
+- ♿ **WCAG 2.1 AA Accessible** - ARIA support, keyboard navigation, screen reader announcements
+- ⌨️ **Advanced keyboard navigation** - Arrow keys, Home/End, Tab, Escape fully supported
 - ✏️ [Edit](#editable-tags) the tags inline by double clicking them.
 - 🏷️ [Paste](#paste) strings with delimiters of your choice and the component will create the tags for you.
 - 🗑️ Quickly delete the tags with a visual confirmation before removing a tag.
@@ -30,12 +32,16 @@
 - 🔒 &nbsp;[Lock the component](#readonly-tags) using the `readonly` mode.
 - ✋ &nbsp;[Restrict](#max-tags) the number of tags and Handle duplicates gracefully.
 - 🌈&nbsp;[Customize](#theme) the colors.
+- 📱 **Mobile optimized** - 44px touch targets, responsive layout, virtual keyboard support
+- 🎯 **Intelligent error handling** - Real-time error messages, empty states, result counts
 
 ### Table of Contents
 
 - [⚡ Installation](#-installation)
 - [🚀 Getting Started](#-getting-started)
 - [🍬 Demos](#-demos)
+- [Keyboard Shortcuts](#keyboard-shortcuts)
+- [Accessibility](#accessibility)
 - [Props](#props)
   - [Default Tags](#default-tags)
   - [Duplicates](#duplicates)
@@ -46,6 +52,7 @@
   - [Readonly Tags](#readonly-tags)
   - [Theme](#theme)
   - [Custom Class names](#custom-class-names)
+- [Migration Guide (v0.5.0+)](#migration-guide-v050)
 - [📦 Build Setup](#-build-setup)
 - [🔨 Contributing](#-contributing)
 - [Notes](#notes)
@@ -96,6 +103,63 @@ Head to our demo page for examples showcasing all the features.
 
 [https://smart-tagz.vercel.app/](https://smart-tagz.vercel.app/)
 
+## ⌨️ Keyboard Shortcuts
+
+Smart-Tagz supports full keyboard navigation for accessibility and efficiency:
+
+| Key | Action |
+|-----|--------|
+| <kbd>↑</kbd> / <kbd>↓</kbd> | Navigate suggestions up/down |
+| <kbd>Home</kbd> | Jump to first suggestion |
+| <kbd>End</kbd> | Jump to last suggestion |
+| <kbd>Enter</kbd> | Select highlighted suggestion or add typed text |
+| <kbd>Tab</kbd> | Select highlighted suggestion and move focus |
+| <kbd>Escape</kbd> | Close suggestions and clear selection |
+| <kbd>Backspace</kbd> | Delete character or last tag when input is empty |
+| <kbd>Delete</kbd> | Delete last tag (press again to confirm) |
+| <kbd>Ctrl</kbd> + <kbd>A</kbd> | Select all tags for quick deletion (when `quickDelete` enabled) |
+
+## ♿ Accessibility
+
+Smart-Tagz is built with **WCAG 2.1 Level AA** compliance in mind:
+
+### Features
+- **ARIA Support**: Proper roles (`combobox`, `listbox`, `option`) and attributes (`aria-expanded`, `aria-selected`, `aria-label`)
+- **Screen Reader Announcements**:
+  - Tag additions: "France added. 3 of 20 tags"
+  - Tag removals: "Germany removed. 2 of 20 tags"
+  - Error states: "Maximum 20 tags allowed"
+  - Filtered results: Announced via live region
+- **Keyboard Navigation**: All interactions possible without mouse
+- **Focus Management**: Visible focus indicators on all interactive elements
+- **Semantic HTML**: Proper use of `<ul>`, `<li>` for suggestions
+- **Color Independence**: Error states use icons and text, not color alone
+
+### Testing with Screen Readers
+- **Windows**: NVDA (free), JAWS
+- **macOS**: VoiceOver (built-in)
+- **iOS**: VoiceOver (built-in)
+- **Android**: TalkBack (built-in)
+
+### Example with Screen Reader Announcements
+```vue
+<smart-tagz
+  autosuggest
+  :sources="countries"
+  :maxTags="20"
+  :allowDuplicates="false"
+  :onChanged="handleChange"
+/>
+<!-- Screen reader output:
+  "Add tags, 0 of 20"
+  Input receives focus with aria-label and description
+  User types "fran", suggestions appear
+  "5 results" announcement
+  User selects "France"
+  "France added. 1 of 20 tags" announcement
+-->
+```
+
 ## Props
 
 | Prop             | Type                  | Description                                                                                      | Default          |
@@ -131,11 +195,31 @@ You can decide how to manage `duplicate` tags by either allowing or disallowing 
 
 ### Auto Suggest
 
-Whe set to `true`, the `autosuggest` prop suggests values in a dropdown. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
+When set to `true`, the `autosuggest` prop suggests values in a dropdown using **smart fuzzy matching**. You also need to set the `sources` prop for this to work. The `sources` prop can be an Array of strings.
+
+#### Fuzzy Matching
+Smart-Tagz uses intelligent fuzzy matching powered by [fuse.js](https://fusejs.io/) to provide flexible searching:
+
+- **Smart matching**: Type "many" to find "Germany", "germ" to find "Germany", etc.
+- **Typo tolerance**: Slightly misspelled words still match
+- **Partial matching**: Match any part of the word, not just the beginning
+- **Real-time results**: Suggestions update as you type with result count
 
 ```jsx
- <smart-tagz autosuggest :sources="['India', 'Brazil', 'China', 'United Kingdom']" />
+<smart-tagz
+  autosuggest
+  :sources="['India', 'Brazil', 'China', 'United Kingdom']"
+  @changed="handleTagsChange"
+/>
+<!-- Type "ind" → finds "India" -->
+<!-- Type "bra" → finds "Brazil" -->
+<!-- Type "uni" → finds "United Kingdom" -->
 ```
+
+#### Visual Feedback
+- **Result highlighting**: Matching characters are highlighted in yellow
+- **Result count**: Shows "3 results" or "1 result" above suggestions
+- **Empty state**: Shows "No matches found for 'xyz'" when nothing matches
 
 ### Max Tags
 
@@ -206,6 +290,93 @@ If you are looking for more control in terms of customizing the style of the tag
   ]"
 />
 ```
+
+## 🚀 Migration Guide (v0.5.0+)
+
+### Breaking Changes
+
+#### 1. Fuzzy Matching (Default Behavior Change)
+**Before (v0.4.x)**: Prefix-only matching
+```
+Input: "many"  → Suggestions: (no results)
+```
+
+**After (v0.5.0+)**: Smart fuzzy matching
+```
+Input: "many"  → Suggestions: ["Germany", "Myanmar"]
+```
+
+**Migration**: Update your tests and documentation to reflect fuzzy matching behavior. No code changes required unless you relied on prefix-only behavior.
+
+#### 2. New Dependency: fuse.js
+**Added**: `fuse.js` (~7KB gzipped) for fuzzy search
+- Already included in package.json
+- No configuration needed
+- Improves search quality automatically
+
+#### 3. CSS Class Changes
+New utility class added:
+```scss
+.sr-only  // Screen reader only text (hidden visually, visible to screen readers)
+```
+
+Updated styles:
+- `.suggest-pane-item`: Font size reduced from `var(--font-size-sm)` to `0.9rem`
+- `.suggest-pane-item--selected`: Added left border (3px) indicator
+- `.suggest-pane-item`: Added 600 font-weight for better hierarchy
+
+#### 4. Tag Close Button Size
+**Before**: ~16px
+**After**: **44px** (iOS HIG minimum, better mobile accessibility)
+
+May affect layouts that assumed smaller buttons. Adjust styles if needed:
+```scss
+.tag-container__button {
+  // Now: width: 44px; height: 44px;
+  // Override if needed:
+  @include size(24px); // your size here
+}
+```
+
+#### 5. New ARIA Attributes
+Added for accessibility. No breaking changes, but updated DOM structure:
+```html
+<!-- Input now has -->
+<input
+  role="combobox"
+  aria-expanded="true"
+  aria-autocomplete="list"
+  aria-controls="suggestions-listbox"
+  aria-activedescendant="suggestion-0"
+  aria-label="Add tags (0 of 20)"
+/>
+
+<!-- Suggestions now have -->
+<ul role="listbox" aria-label="Tag suggestions" id="suggestions-listbox">
+  <li role="option" aria-selected="false" id="suggestion-0">...</li>
+</ul>
+```
+
+### New Features (Non-Breaking)
+
+✅ Screen reader announcements for tag operations
+✅ Live error messages (duplicate/max tags)
+✅ Empty state messaging ("No matches found")
+✅ Result count indicator
+✅ Result highlighting in suggestions
+✅ Enhanced keyboard navigation (Home, End, Tab)
+✅ Mobile-optimized touch targets
+✅ Responsive dropdown height (80vh on desktop, 60vh on mobile)
+✅ Better focus indicators with `:focus-visible`
+
+### Upgrade Checklist
+
+- [ ] Review fuzzy matching behavior in your use cases
+- [ ] Test with keyboard navigation (arrows, Home, End, Tab)
+- [ ] Test with screen readers (optional but recommended)
+- [ ] Verify button sizes in your layout
+- [ ] Update unit tests for new matching behavior
+- [ ] Update documentation for end users
 
 ## 📦 Build Setup
 

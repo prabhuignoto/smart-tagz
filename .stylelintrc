@@ -3,7 +3,29 @@
     "stylelint-config-standard-scss",
     "stylelint-config-recommended-vue/scss"
   ],
-  "ignoreFiles": ["src/prism.css"],
+  "ignoreFiles": [
+    "src/prism.css",
+    "dist-demo/**",
+    "coverage/**",
+    "types/**",
+    "*.local",
+    "yarn-error.log",
+    "pnpm-lock.yaml",
+    "package-lock.json",
+    "yarn.lock",
+    "pnpm-workspace.yaml",
+    "pnpm-workspace.yaml.lock",
+    "docs/.vitepress/cache",
+    "docs/public",
+    "docs/public/smart-tagz.css",
+    "docs/public/smart-tagz.js",
+    "docs/public/smart-tagz.esm.js",
+    "docs/public/smart-tagz.d.ts",
+    "docs/public/smart-tagz.css.map",
+    "docs/public/smart-tagz.js.map",
+    "docs/public/smart-tagz.esm.js.map",
+    "docs/public/smart-tagz.d.ts.map"
+  ],
   "rules": {
     "selector-class-pattern": null,
     "custom-property-pattern": null,
@@ -11,19 +33,33 @@
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        "ignorePseudoClasses": ["deep", "global", "slotted"]
+        "ignorePseudoClasses": [
+          "deep",
+          "global",
+          "slotted"
+        ]
       }
     ],
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["v-deep", "v-global", "v-slotted"]
+        "ignorePseudoElements": [
+          "v-deep",
+          "v-global",
+          "v-slotted"
+        ]
       }
     ],
     "function-no-unknown": [
       true,
       {
-        "ignoreFunctions": ["v-bind", "map-get", "map-has-key", "darken", "lighten"]
+        "ignoreFunctions": [
+          "v-bind",
+          "map-get",
+          "map-has-key",
+          "darken",
+          "lighten"
+        ]
       }
     ],
     "at-rule-no-unknown": null,
@@ -32,8 +68,17 @@
     "value-keyword-case": [
       "lower",
       {
-        "ignoreFunctions": ["v-bind"],
-        "ignoreKeywords": ["Nunito", "Avenir", "Helvetica", "Arial", "Consolas", "Monaco"]
+        "ignoreFunctions": [
+          "v-bind"
+        ],
+        "ignoreKeywords": [
+          "Nunito",
+          "Avenir",
+          "Helvetica",
+          "Arial",
+          "Consolas",
+          "Monaco"
+        ]
       }
     ],
     "custom-property-empty-line-before": null,
@@ -41,11 +86,15 @@
   },
   "overrides": [
     {
-      "files": ["**/*.vue"],
+      "files": [
+        "**/*.vue"
+      ],
       "customSyntax": "postcss-html"
     },
     {
-      "files": ["**/*.scss"],
+      "files": [
+        "**/*.scss"
+      ],
       "customSyntax": "postcss-scss"
     }
   ]

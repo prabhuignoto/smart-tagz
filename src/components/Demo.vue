@@ -48,15 +48,17 @@
       <div class="hero-content">
         <h1 class="hero-title">Smart Input Tags</h1>
         <p class="hero-description">
-          A powerful, feature-rich input tags component for Vue 3. Built with TypeScript, fully
-          customizable, and production-ready.
+          A powerful, accessible tag input component for Vue 3. Features fuzzy matching, WCAG 2.1 AA
+          compliance, full keyboard navigation, and mobile optimization. Built with TypeScript,
+          fully customizable, and production-ready.
         </p>
 
         <div class="features-badges">
           <span class="badge">Vue 3</span>
           <span class="badge">TypeScript</span>
-          <span class="badge">Customizable</span>
           <span class="badge">Accessible</span>
+          <span class="badge">Fuzzy Matching</span>
+          <span class="badge">Mobile Ready</span>
         </div>
 
         <div class="hero-actions">
@@ -87,6 +89,7 @@
         </div>
 
         <div class="examples-grid">
+          <!-- Basic Examples -->
           <div class="example-card">
             <Basic />
           </div>
@@ -96,6 +99,8 @@
           <div class="example-card">
             <Editable />
           </div>
+
+          <!-- Core Features -->
           <div class="example-card">
             <Autocomplete />
           </div>
@@ -105,6 +110,8 @@
           <div class="example-card">
             <ReadOnly />
           </div>
+
+          <!-- Advanced Configuration -->
           <div class="example-card">
             <Duplicates />
           </div>
@@ -117,6 +124,23 @@
           <div class="example-card">
             <QuickDelete />
           </div>
+
+          <!-- NEW: v0.5.0 Features -->
+          <div class="example-card featured">
+            <FuzzySearch />
+          </div>
+          <div class="example-card featured">
+            <Keyboard />
+          </div>
+          <div class="example-card featured">
+            <Accessibility />
+          </div>
+          <div class="example-card featured">
+            <ErrorHandling />
+          </div>
+          <div class="example-card featured">
+            <Mobile />
+          </div>
         </div>
       </div>
     </section>
@@ -128,10 +152,12 @@
         <section class="footer-section">
           <h3>Why Smart-Tagz?</h3>
           <ul class="features-list">
-            <li>⚡ Lightweight and performant</li>
+            <li>⚡ Smart fuzzy matching for better search</li>
             <li>🎨 Fully customizable styling</li>
-            <li>♿ Built with accessibility in mind</li>
-            <li>📦 Zero external dependencies</li>
+            <li>♿ WCAG 2.1 AA accessible</li>
+            <li>⌨️ Full keyboard navigation support</li>
+            <li>📱 Mobile-optimized (44px touch targets)</li>
+            <li>🎯 Real-time error handling & empty states</li>
           </ul>
         </section>
 
@@ -150,20 +176,29 @@
             </li>
             <li>
               <a
-                href="https://github.com/prabhuignoto/smart-tagz#api"
+                href="https://github.com/prabhuignoto/smart-tagz#-keyboard-shortcuts"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                API Reference
+                Keyboard Shortcuts
               </a>
             </li>
             <li>
               <a
-                href="https://github.com/prabhuignoto/smart-tagz#examples"
+                href="https://github.com/prabhuignoto/smart-tagz#-accessibility"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Examples
+                Accessibility
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/prabhuignoto/smart-tagz#props"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                API Reference
               </a>
             </li>
             <li>
@@ -278,6 +313,11 @@ import Duplicates from '../examples/duplicates.vue'
 import Maxtags from '../examples/maxtags.vue'
 import Theme from '../examples/theme.vue'
 import QuickDelete from '../examples/quickdelete.vue'
+import FuzzySearch from '../examples/fuzzysearch.vue'
+import Keyboard from '../examples/keyboard.vue'
+import Accessibility from '../examples/accessibility.vue'
+import ErrorHandling from '../examples/errorhandling.vue'
+import Mobile from '../examples/mobile.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -293,11 +333,16 @@ export default defineComponent({
     Maxtags,
     Theme,
     QuickDelete,
+    FuzzySearch,
+    Keyboard,
+    Accessibility,
+    ErrorHandling,
+    Mobile,
   },
   data() {
     return {
       copied: false,
-      version: '0.4.1',
+      version: '0.5.0',
     }
   },
   methods: {
@@ -670,6 +715,30 @@ export default defineComponent({
   position: relative;
   box-sizing: border-box;
   margin-bottom: 2rem;
+  transition: all var(--transition-base);
+
+  &.featured {
+    border: 2px solid var(--color-primary);
+    background: linear-gradient(135deg, rgb(99 102 241 / 02%) 0%, rgb(99 102 241 / 04%) 100%);
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 8%),
+      0 0 0 1px rgb(99 102 241 / 1%);
+
+    &::before {
+      content: '✨ NEW';
+      position: absolute;
+      top: -12px;
+      left: 16px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      color: var(--color-white);
+      padding: 4px 12px;
+      border-radius: var(--border-radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgb(99 102 241 / 3%);
+    }
+  }
 
   // Override example styles within cards
   :deep(.example) {
@@ -721,7 +790,7 @@ export default defineComponent({
       border-radius: var(--border-radius-md);
       border: 2px solid var(--color-border);
       margin-top: var(--spacing-lg);
-      box-shadow: inset 0 2px 8px rgb(99 102 241 / 8%);
+      box-shadow: inset 0 2px 8px rgb(99 102 241 / 08%);
     }
   }
 }

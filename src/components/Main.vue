@@ -20,6 +20,16 @@
         closeButton: classNames.tag_close_btn ?? '',
       }"
     >
+      <!-- Error message display -->
+      <transition name="error-message">
+        <div
+          v-if="errorMessage"
+          class="error-message"
+        >
+          {{ errorMessage }}
+        </div>
+      </transition>
+
       <div
         v-if="tagsData.length < maxTags"
         class="input-wrapper"
@@ -31,11 +41,20 @@
           type="text"
           class="tags-main__input"
           :placeholder="inputPlaceholder"
+          role="combobox"
+          :aria-expanded="showSuggestions"
+          aria-autocomplete="list"
+          aria-controls="suggestions-listbox"
+          :aria-activedescendant="selectedIndex >= 0 ? `suggestion-${selectedIndex}` : ''"
+          :aria-label="`Add tags${maxTags ? ` (${tagsData.length} of ${maxTags})` : ''}`"
           @keyup.enter="handleAddTag(($event.target as HTMLInputElement).value.trim())"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
           @keydown.down="handleKeydown"
           @keydown.up="handleKeyUp"
+          @keydown.home="handleHome"
+          @keydown.end="handleEnd"
+          @keydown.tab="handleTab"
           @keydown.ctrl.exact="handleSelectAll"
           @paste="handlePaste"
           @blur="handleEscape"
@@ -45,6 +64,7 @@
           :class="{ 'suggestion-wrapper--hidden': !showSuggestions }"
         >
           <SuggestionPane
+            id="suggestions-listbox"
             :show="showSuggestions"
             :items="filteredItems"
             :keyword="input"
@@ -54,6 +74,15 @@
             :selected-index="selectedIndex"
             :focus="false"
           />
+        </div>
+        <!-- Live region for accessibility announcements -->
+        <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          class="sr-only"
+        >
+          {{ announcement }}
         </div>
       </div>
     </SmartTags>
@@ -171,6 +200,13 @@ export default defineComponent({
   flex-wrap: wrap;
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-sm);
+  gap: var(--spacing-md);
+
+  @media (width <= 768px) {
+    flex-direction: column;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
 }
 
 .tags-main__input {
@@ -181,8 +217,14 @@ export default defineComponent({
   border-radius: 0;
   background: transparent;
   font-size: var(--font-size-base);
-  outline: 0;
   position: relative;
+  transition: border-color 0.15s ease-in-out;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary, #6093ca);
+    outline-offset: 2px;
+    border-bottom-color: var(--color-primary, #6093ca);
+  }
 }
 
 .input-wrapper {
@@ -192,6 +234,13 @@ export default defineComponent({
   margin-top: var(--spacing-base);
   margin-left: var(--spacing-base);
   align-self: center;
+
+  @media (width <= 768px) {
+    width: 100%;
+    min-height: 44px; // Minimum touch target height
+    margin-top: var(--spacing-md);
+    margin-left: 0;
+  }
 }
 
 .suggestion-wrapper {
@@ -199,13 +248,52 @@ export default defineComponent({
   @include drop-shadow(var(--overlay-black-medium), 2px, 2px, 10px);
 
   width: 100%;
-  min-height: 400px;
-  max-height: 500px;
+  min-height: auto;
+  max-height: min(500px, 80vh);
   overflow: hidden auto;
   z-index: var(--z-index-dropdown);
+  transition: max-height 0.2s ease-in-out;
 
   &--hidden {
     visibility: hidden;
   }
+
+  @media (width <= 768px) {
+    max-height: min(300px, 60vh);
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.error-message {
+  padding: var(--spacing-base) var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-left: 4px solid #dc2626;
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.error-message-enter-active,
+.error-message-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.error-message-enter-from,
+.error-message-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

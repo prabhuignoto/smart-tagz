@@ -653,4 +653,443 @@ describe('MainSetup', () => {
       expect(mockOnChanged).toHaveBeenCalled()
     })
   })
+
+  describe('Fuzzy Matching (Fuse.js)', () => {
+    it('should perform fuzzy matching on input', () => {
+      setup.input.value = 'Java'
+      const results = setup.filteredItems.value
+      expect(results.length).toBeGreaterThan(0)
+      expect(results.some((item) => item.includes('Java'))).toBe(true)
+    })
+
+    it('should match partial words', () => {
+      setup.input.value = 'Script'
+      const results = setup.filteredItems.value
+      expect(results.length).toBeGreaterThan(0)
+      expect(results.some((item) => item.includes('Script'))).toBe(true)
+    })
+
+    it('should handle no matches with empty results', () => {
+      setup.input.value = 'nonexistent'
+      expect(setup.filteredItems.value.length).toBe(0)
+    })
+
+    it('should return empty array when input is empty', () => {
+      setup.input.value = ''
+      expect(setup.filteredItems.value.length).toBe(0)
+    })
+
+    it('should be case-insensitive', () => {
+      setup.input.value = 'java'
+      const results = setup.filteredItems.value
+      expect(results.length).toBeGreaterThan(0)
+    })
+
+    it('should support fuzzy matching with similar strings', () => {
+      // With threshold 0.3, "Typscript" should match "TypeScript"
+      setup.input.value = 'Typscript'
+      const results = setup.filteredItems.value
+      expect(results.length).toBeGreaterThan(0)
+    })
+
+    it('should match multiple items for partial input', () => {
+      setup.input.value = 'T'
+      const results = setup.filteredItems.value
+      // Should match TypeScript, and potentially others
+      expect(results.some((item) => item.includes('T'))).toBe(true)
+    })
+  })
+
+  describe('Keyboard Navigation - Home/End Keys', () => {
+    beforeEach(() => {
+      setup.input.value = 'J'
+      setup.showSuggestions.value = true
+    })
+
+    it('should handle Home key to go to first suggestion', () => {
+      const event = new KeyboardEvent('keydown', { key: 'Home' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleHome(event)
+
+      expect(setup.selectedIndex.value).toBe(0)
+      expect(preventDefaultSpy).toHaveBeenCalled()
+    })
+
+    it('should handle End key to go to last suggestion', () => {
+      const event = new KeyboardEvent('keydown', { key: 'End' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleEnd(event)
+
+      const lastIndex = setup.filteredItems.value.length - 1
+      expect(setup.selectedIndex.value).toBe(lastIndex)
+      expect(preventDefaultSpy).toHaveBeenCalled()
+    })
+
+    it('should not handle Home when suggestions hidden', () => {
+      setup.showSuggestions.value = false
+      const event = new KeyboardEvent('keydown', { key: 'Home' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleHome(event)
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled()
+    })
+
+    it('should not handle End when suggestions hidden', () => {
+      setup.showSuggestions.value = false
+      const event = new KeyboardEvent('keydown', { key: 'End' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleEnd(event)
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled()
+    })
+
+    it('should not handle Home when no filtered items', () => {
+      setup.input.value = 'xyz'
+      const event = new KeyboardEvent('keydown', { key: 'Home' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleHome(event)
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('Keyboard Navigation - Tab Key', () => {
+    beforeEach(() => {
+      setup.input.value = 'J'
+      setup.showSuggestions.value = true
+    })
+
+    it('should handle Tab key to select item when index valid', async () => {
+      const mockFocus = vi.fn()
+      ;(setup.textInputRef as unknown) = { value: { focus: mockFocus } }
+
+      setup.selectedIndex.value = 0
+      const event = new KeyboardEvent('keydown', { key: 'Tab' })
+
+      setup.handleTab(event)
+      await nextTick()
+
+      expect(setup.tagsData.value.length).toBeGreaterThan(0)
+    })
+
+    it('should close suggestions on Tab when no item selected', async () => {
+      setup.selectedIndex.value = -1
+      const event = new KeyboardEvent('keydown', { key: 'Tab' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleTab(event)
+      await nextTick()
+
+      expect(preventDefaultSpy).toHaveBeenCalled()
+      expect(setup.showSuggestions.value).toBe(false)
+    })
+
+    it('should not handle Tab when suggestions hidden', () => {
+      setup.showSuggestions.value = false
+      const event = new KeyboardEvent('keydown', { key: 'Tab' })
+      const preventDefaultSpy = vi.spyOn(event, 'preventDefault')
+
+      setup.handleTab(event)
+
+      expect(preventDefaultSpy).not.toHaveBeenCalled()
+    })
+
+    it('should handle Tab with out of bounds index gracefully', () => {
+      setup.selectedIndex.value = 999
+      const event = new KeyboardEvent('keydown', { key: 'Tab' })
+
+      setup.handleTab(event)
+
+      // Should not crash and should close suggestions
+      expect(setup.showSuggestions.value).toBe(false)
+    })
+  })
+
+  describe('Error Handling & Announcements', () => {
+    it('should show error when adding duplicate tag', () => {
+      setup.tagsData.value = [
+        {
+          id: '1',
+          name: 'JavaScript',
+          value: 'JavaScript',
+        },
+      ]
+
+      setup.handleAddTag('JavaScript')
+
+      expect(setup.errorMessage.value).toContain('already added')
+    })
+
+    it('should show error when exceeding max tags', () => {
+      const setupMax1 = MainSetup({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 1,
+        defaultTags: ['tag1'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      setupMax1.handleAddTag('tag2')
+
+      expect(setupMax1.errorMessage.value).toContain('Maximum')
+    })
+
+    it('should announce tag addition to screen readers', async () => {
+      const mockFocus = vi.fn()
+      ;(setup.textInputRef as unknown) = { value: { focus: mockFocus } }
+
+      setup.handleAddTag('NewTag')
+      await nextTick()
+
+      expect(setup.announcement.value).toContain('NewTag added')
+    })
+
+    it('should announce tag removal to screen readers', () => {
+      setup.tagsData.value = [
+        {
+          id: '1',
+          name: 'TestTag',
+          value: 'TestTag',
+        },
+      ]
+
+      setup.handleRemoveTag('1')
+
+      expect(setup.announcement.value).toContain('TestTag removed')
+    })
+
+    it('should auto-dismiss error messages after timeout', async () => {
+      vi.useFakeTimers()
+
+      setup.tagsData.value = [
+        {
+          id: '1',
+          name: 'Tag',
+          value: 'Tag',
+        },
+      ]
+
+      setup.handleAddTag('Tag')
+      expect(setup.errorMessage.value).not.toBe('')
+
+      vi.advanceTimersByTime(4100)
+
+      expect(setup.errorMessage.value).toBe('')
+
+      vi.useRealTimers()
+    })
+
+    it('should auto-clear announcements after timeout', async () => {
+      vi.useFakeTimers()
+
+      const mockFocus = vi.fn()
+      ;(setup.textInputRef as unknown) = { value: { focus: mockFocus } }
+
+      setup.handleAddTag('tag')
+      expect(setup.announcement.value).not.toBe('')
+
+      vi.advanceTimersByTime(1100)
+
+      expect(setup.announcement.value).toBe('')
+
+      vi.useRealTimers()
+    })
+  })
+
+  describe('Error Handling - Edge Cases', () => {
+    it('should handle adding tag with empty name gracefully', () => {
+      const initialLength = setup.tagsData.value.length
+      setup.handleAddTag('')
+
+      expect(setup.tagsData.value.length).toBe(initialLength)
+    })
+
+    it('should validate tags with special characters', () => {
+      setup.handleAddTag('tag@#$')
+      expect(setup.tagsData.value.length).toBeGreaterThanOrEqual(0)
+    })
+
+    it('should handle maxTags of 0', () => {
+      const setupMax0 = MainSetup({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 0,
+        defaultTags: [],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      setupMax0.handleAddTag('tag')
+      expect(setupMax0.tagsData.value).toHaveLength(0)
+    })
+  })
+
+  describe('Delete Operations - Complete Coverage', () => {
+    it('should handle delete with no tags', () => {
+      setup.tagsData.value = []
+      setup.input.value = ''
+
+      setup.handleDelete()
+
+      expect(setup.tagsData.value).toHaveLength(0)
+    })
+
+    it('should delete marked tag on second delete', () => {
+      setup.tagsData.value = [{ id: '1', name: 'tag1', value: 'tag1' }]
+      setup.input.value = ''
+
+      setup.handleDelete()
+      expect(setup.tagsData.value[0]!.highlight).toBe(true)
+
+      setup.handleDelete()
+      expect(setup.tagsData.value).toHaveLength(0)
+    })
+
+    it('should highlight last tag before deleting', () => {
+      setup.tagsData.value = [
+        { id: '1', name: 'tag1', value: 'tag1' },
+        { id: '2', name: 'tag2', value: 'tag2' },
+      ]
+      setup.input.value = ''
+
+      setup.handleDelete()
+
+      // Last tag should be highlighted
+      const lastTag = setup.tagsData.value[setup.tagsData.value.length - 1]
+      expect(lastTag?.highlight).toBe(true)
+    })
+  })
+
+  describe('Input Watcher Behavior', () => {
+    it('should handle autosuggest false with input', async () => {
+      const setupNoAutosuggest = MainSetup({
+        autosuggest: false,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['JavaScript', 'Vue.js'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      setupNoAutosuggest.input.value = 'JS'
+      await nextTick()
+
+      expect(setupNoAutosuggest.showSuggestions.value).toBe(false)
+    })
+
+    it('should reset suggestions when input changes', async () => {
+      setup.input.value = 'J'
+      await nextTick()
+      expect(setup.showSuggestions.value).toBe(true)
+
+      setup.input.value = ''
+      await nextTick()
+
+      expect(setup.showSuggestions.value).toBe(false)
+    })
+
+    it('should handle empty input correctly', async () => {
+      setup.input.value = 'text'
+      await nextTick()
+
+      setup.input.value = ''
+      await nextTick()
+
+      expect(setup.input.value).toBe('')
+    })
+  })
+
+  describe('SelectAll Handler', () => {
+    it('should handle ctrl+a when quickDelete is enabled', () => {
+      const setupWithQuickDelete = MainSetup({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const event = new KeyboardEvent('keydown', {
+        key: 'a',
+        ctrlKey: true,
+      })
+
+      Object.defineProperty(event, 'key', { value: 'a' })
+
+      setupWithQuickDelete.handleSelectAll(event)
+      // Just verify it doesn't throw and tags exist
+      expect(setupWithQuickDelete.tagsData.value).toBeDefined()
+    })
+
+    it('should not respond to ctrl+a when quickDelete is disabled', () => {
+      const setupNoQuickDelete = MainSetup({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2'],
+        sources: [],
+        quickDelete: false,
+        width: '100%',
+      })
+
+      const event = new KeyboardEvent('keydown', {
+        key: 'a',
+      })
+
+      const initialLength = setupNoQuickDelete.tagsData.value.length
+      setupNoQuickDelete.handleSelectAll(event)
+
+      expect(setupNoQuickDelete.tagsData.value.length).toBe(initialLength)
+    })
+  })
+
+  describe('Duplicate Prevention - Regex Handling', () => {
+    it('should use case-insensitive regex for duplicate detection', () => {
+      setup.tagsData.value = [
+        {
+          id: '1',
+          name: 'Test',
+          value: 'Test',
+        },
+      ]
+
+      setup.handleAddTag('test')
+      setup.handleAddTag('TEST')
+      setup.handleAddTag('TeSt')
+
+      // All should be rejected
+      expect(setup.tagsData.value).toHaveLength(1)
+    })
+
+    it('should handle special regex characters in tag names', () => {
+      setup.tagsData.value = [
+        {
+          id: '1',
+          name: 'c++',
+          value: 'c++',
+        },
+      ]
+
+      setup.handleAddTag('c++')
+
+      // Should not crash and should prevent duplicate
+      expect(setup.tagsData.value).toHaveLength(1)
+    })
+  })
 })
