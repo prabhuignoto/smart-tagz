@@ -20,7 +20,10 @@
         closeButton: classNames.tag_close_btn ?? '',
       }"
     >
-      <div v-if="tagsData.length < maxTags" class="input-wrapper">
+      <div
+        v-if="tagsData.length < maxTags"
+        class="input-wrapper"
+      >
         <input
           v-if="!readOnly"
           ref="textInputRef"
@@ -28,9 +31,7 @@
           type="text"
           class="tags-main__input"
           :placeholder="inputPlaceholder"
-          @keyup.enter="
-            handleAddTag(($event.target as HTMLInputElement).value.trim())
-          "
+          @keyup.enter="handleAddTag(($event.target as HTMLInputElement).value.trim())"
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
           @keydown.down="handleKeydown"

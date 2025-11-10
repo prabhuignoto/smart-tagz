@@ -1,5 +1,8 @@
 <template>
-  <div v-if="showPane" class="suggest-pane-container">
+  <div
+    v-if="showPane"
+    class="suggest-pane-container"
+  >
     <ul
       ref="paneRef"
       class="suggest-pane"
@@ -59,8 +62,7 @@ export default defineComponent({
   },
   setup(props) {
     const showPane = ref(false)
-    const handleSelection = (name: string) =>
-      props.onSelection && props.onSelection(name)
+    const handleSelection = (name: string) => props.onSelection && props.onSelection(name)
     const paneRef = ref(null)
 
     const handleEnter = (event: KeyboardEvent) => {

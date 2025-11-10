@@ -1,15 +1,17 @@
 <template>
   <div class="example">
     <header>
-      <h3>Getting started</h3>
+      <h3>Getting Started</h3>
     </header>
     <p>
-      smart-tagz has some great defaults for starters. Following is a very basic
-      variant that takes a custom placeholder message.
+      Create a simple, functional tags input with just a few lines of code. This example
+      demonstrates the basic usage with a custom placeholder message. Perfect for getting started
+      quickly with sensible defaults included.
     </p>
-    <pre>
-      <code class="lang-html">{{ code }}</code>
-    </pre>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
@@ -20,26 +22,28 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
+import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Basic",
+  name: 'Basic',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   setup() {
-    const logResult = (result: string[]) => console.log(result);
+    const logResult = (result: string[]) => console.log(result)
 
     return {
       logResult,
-    };
+    }
   },
   data() {
     return {
       code: '<smart-tagz input-placeholder="Select Countries ..." />',
-    };
+    }
   },
-});
+})
 </script>

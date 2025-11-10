@@ -22,9 +22,7 @@ const HandlePaste = (
       // check if duplicates are disallowed
       if (!allowDuplicates) {
         const existingItems = tagsData.map((t) => t.name)
-        const newSet = items.filter(
-          (item) => existingItems.includes(item) === false
-        )
+        const newSet = items.filter((item) => existingItems.includes(item) === false)
 
         // remove the duplicate entries
         items = [...new Set(newSet)] as string[]

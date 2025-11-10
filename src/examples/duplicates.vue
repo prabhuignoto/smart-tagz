@@ -1,16 +1,20 @@
 <template>
   <div class="example">
     <header>
-      <h3>Allow / Disallow Duplicate Tags</h3>
+      <h3>Duplicate Prevention</h3>
     </header>
     <p>
-      You can decide how to manage duplicate tags by either allowing or
-      disallowing them completely. When set to false no duplicate values are
-      allowed.
+      Control duplicate tag handling with the
+      <code>allow-duplicates</code>
+      prop. Set it to
+      <code>false</code>
+      to prevent users from adding duplicate tags—ideal for unique identifiers, email addresses, or
+      SKUs. The component automatically prevents duplicate entries and provides visual feedback.
     </p>
-    <pre data-line="7">
-      <code class="lang-html">{{ code }}</code>
-    </pre>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
@@ -36,10 +40,11 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
-import Countries from "../test/countries";
+import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
+import Countries from '../test/countries'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 const html = `<smart-tagz
   input-placeholder="Select Countries ..."
   autosuggest
@@ -48,18 +53,19 @@ const html = `<smart-tagz
   :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
   :allow-duplicates="false"
   :allow-paste="{delimiter: ','}"
-/>`;
+/>`
 
 export default defineComponent({
-  name: "Dplicates",
+  name: 'Duplicates',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   data() {
     return {
       code: html,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>

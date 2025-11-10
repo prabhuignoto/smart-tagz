@@ -1,23 +1,26 @@
 <template>
   <div class="example">
     <header>
-      <h3>Custom Color Scheme</h3>
+      <h3>Custom Theming</h3>
     </header>
     <p>
-      The components color scheme can be customized by passing a custom theme
-      prop.
+      Fully customize the component's appearance by passing a
+      <code>theme</code>
+      object. Control colors for tags, backgrounds, text, and more to match your brand identity
+      perfectly.
     </p>
     <ul>
       <li>
-        primary - targets the background color of the tag and the background of
-        the autosuggest dropdown.
+        primary - targets the background color of the tag and the background of the autosuggest
+        dropdown.
       </li>
       <li>background - targets the background of the main container.</li>
       <li>tagTextColor - targets the forecolor of the tag.</li>
     </ul>
-    <pre data-line="9-13">
-      <code class="lang-html">{{ code }}</code>
-    </pre>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
@@ -49,6 +52,7 @@
 
 <script lang="ts">
 import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
 import Countries from '../test/countries'
 
 import { defineComponent } from 'vue'
@@ -68,9 +72,10 @@ const html = `<smart-tagz
 />`
 
 export default defineComponent({
-  name: 'Maxtags',
+  name: 'Theme',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   data() {
     return {
