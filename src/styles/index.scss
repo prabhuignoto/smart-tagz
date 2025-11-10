@@ -1,0 +1,36 @@
+// ===================================================================
+// Smart Tagz - Main SCSS Entry Point
+// ===================================================================
+// This file serves as the main entry point for the design system.
+// Import this file in components that need access to tokens and mixins.
+
+// Modern SCSS module system (@use instead of @import)
+// This ensures proper namespacing and prevents duplicate output
+
+// Design tokens (CSS custom properties)
+@forward './tokens';
+
+// SCSS variables (compile-time)
+@forward './variables';
+
+// Mixins and utilities
+@forward './mixins';
+
+// ===================================================================
+// Usage in Vue components:
+// ===================================================================
+
+/*
+<style lang="scss" scoped>
+@use '@/styles' as *;
+
+.my-component {
+  color: var(--color-primary);
+  padding: var(--spacing-md);
+
+  @include respond-to('md') {
+    padding: var(--spacing-lg);
+  }
+}
+</style>
+*/

@@ -1,0 +1,129 @@
+// ===================================================================
+// Design Tokens
+// ===================================================================
+// This file defines the design system tokens using CSS custom properties
+// for runtime theming support. These values can be overridden at runtime.
+
+:root {
+  // ===================================================================
+  // Color Palette
+  // ===================================================================
+
+  // Primary Colors
+  --color-primary: #6093ca;
+  --color-primary-light: #eaf1f8;
+
+  // Semantic Colors
+  --color-error: #b20000;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+
+  // Neutrals
+  --color-white: #fff;
+  --color-black: #000;
+  --color-text-dark: #2c3e50;
+  --color-gray-dark: #545454;
+  --color-gray-medium: #bdbdbd;
+
+  // Overlays & Transparencies
+  --overlay-white-subtle: rgb(255 255 255 / 20%);
+  --overlay-white-medium: rgb(255 255 255 / 40%);
+  --overlay-black-subtle: rgb(0 0 0 / 25%);
+  --overlay-black-medium: rgb(0 0 0 / 40%);
+  --shadow-tag: rgb(26 15 15 / 25%);
+
+  // ===================================================================
+  // Spacing Scale
+  // ===================================================================
+  // Based on 0.1rem (2px) base unit
+
+  --spacing-2xs: 0.1rem;   // 2px
+  --spacing-xs: 0.2rem;    // 4px
+  --spacing-sm: 0.25rem;   // 5px
+  --spacing-md: 0.4rem;    // 8px
+  --spacing-base: 0.5rem;  // 10px
+  --spacing-lg: 1rem;      // 20px
+  --spacing-xl: 2rem;      // 40px
+  --spacing-2xl: 3rem;     // 60px
+  --spacing-3xl: 4rem;     // 80px
+
+  // ===================================================================
+  // Typography
+  // ===================================================================
+
+  // Font Families
+  --font-family-base: Nunito, Avenir, Helvetica, Arial, sans-serif;
+  --font-family-mono: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+  // Font Sizes
+  --font-size-sm: 0.85rem;  // 17px (secondary text)
+  --font-size-base: 1rem;   // 20px (body text)
+  --font-size-lg: 1.25rem;  // 25px (large text)
+  --font-size-xl: 1.5rem;   // 30px (headings)
+
+  // Font Weights
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  // Line Heights
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  // ===================================================================
+  // Border & Radius
+  // ===================================================================
+
+  --border-radius-sm: 0.2rem;  // 4px
+  --border-radius-md: 0.5rem;  // 10px
+  --border-radius-lg: 1rem;    // 20px
+
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+
+  // ===================================================================
+  // Shadows
+  // ===================================================================
+
+  --shadow-sm: 2px 2px 4px var(--overlay-black-subtle);
+  --shadow-md: 0 2px 8px var(--overlay-black-medium);
+  --shadow-dropdown: 10px 10px 10px var(--overlay-black-medium);
+
+  // ===================================================================
+  // Z-Index Scale
+  // ===================================================================
+
+  --z-index-base: 1;
+  --z-index-dropdown: 10;
+  --z-index-modal: 100;
+  --z-index-tooltip: 1000;
+
+  // ===================================================================
+  // Transitions
+  // ===================================================================
+
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+// ===================================================================
+// Dark Mode Preparation
+// ===================================================================
+// Architecture ready for dark mode implementation
+// Uncomment and customize when adding dark mode support:
+
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #7ba8d8;
+    --color-primary-light: #1a2332;
+    --color-white: #1e1e1e;
+    --color-black: #ffffff;
+    --color-text-dark: #e0e0e0;
+    ... override other tokens as needed
+  }
+}
+*/

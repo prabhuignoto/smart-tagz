@@ -29,5 +29,11 @@ jobs:
       - name: Lint
         run: pnpm lint:all
 
+      - name: Run Tests
+        run: pnpm test
+
+      - name: Generate Coverage Report
+        run: pnpm test:coverage
+
       - name: Build
         run: pnpm rollup

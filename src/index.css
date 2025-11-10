@@ -1,9 +1,12 @@
+/* Import design tokens */
+@import './styles/tokens';
+
 #app {
-  font-family: Nunito, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-family-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--color-text-dark);
   margin-top: 50px;
   height: 100%;
 }

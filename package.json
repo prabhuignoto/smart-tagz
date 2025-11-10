@@ -11,32 +11,35 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "rollup": "rimraf ./dist && rollup -c ./rollup.config.mjs",
-    "lint:css": "stylelint src/**/*.vue --custom-syntax postcss-html",
-    "lint": "eslint src/**/*.vue",
-    "lint:all": "pnpm lint:css && pnpm lint",
-    "prepare": "husky install",
-    "snyk": "pnpx snyk test",
-    "format": "prettier --write src/**/*.{vue,js}",
-    "clean": "pnpm format && pnpm lint:all"
+    "preview": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:css": "stylelint \"src/**/*.{vue,css,scss}\"",
+    "lint:css:fix": "stylelint \"src/**/*.{vue,css,scss}\" --fix",
+    "lint:all": "pnpm type-check && pnpm lint && pnpm lint:css",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "format": "prettier --write \"src/**/*.{vue,js,ts}\"",
+    "format:check": "prettier --check \"src/**/*.{vue,js,ts}\"",
+    "clean": "rimraf dist",
+    "prepare": "husky",
+    "snyk": "pnpx snyk test"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/prabhuignoto/smart-tagz"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "src/**/*.scss": [
-      "stylelint src/**/*.scss",
-      "git add"
+    "*.{vue,ts,js}": [
+      "eslint --fix",
+      "prettier --write",
+      "vitest related --run"
     ],
-    "src/**/*.vue": [
-      "eslint src/**/*.vue",
-      "git add"
+    "*.{vue,css,scss}": [
+      "stylelint --fix"
     ]
   },
   "dependencies": {
@@ -44,41 +47,40 @@
     "vue-feather-icons": "^5.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-beep": "^1.0.2",
-    "@rollup/plugin-buble": "^1.0.2",
-    "@rollup/plugin-commonjs": "^24.1.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
-    "@rollup/plugin-sucrase": "^5.0.1",
+    "@eslint/js": "^9.39.1",
     "@types/nanoid": "^3.0.0",
+    "@types/node": "^24.10.0",
     "@types/vue-feather-icons": "^5.0.4",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "@vue/compiler-sfc": "^3.2.47",
-    "autoprefixer": "^10.4.14",
-    "cssnano": "^6.0.0",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-vue": "^9.10.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
-    "postcss": "^8.4.21",
-    "postcss-html": "^1.5.0",
-    "postcss-preset-env": "^8.3.1",
-    "prettier": "^2.8.7",
-    "rimraf": "^5.0.0",
-    "rollup": "^3.20.2",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-scss": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-vue": "^6.0.0",
-    "sass": "^1.62.0",
-    "stylelint": "^15.4.0",
-    "stylelint-config-standard": "^32.0.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.2.1",
-    "vue": "^3.2.47",
-    "vue-template-compiler": "2.7.14"
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/ui": "^4.0.8",
+    "@vue/compiler-sfc": "^3.5.13",
+    "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.1.2",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^9.1.2",
+    "eslint-plugin-vue": "^9.31.0",
+    "happy-dom": "^20.0.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.2",
+    "postcss": "^8.4.49",
+    "postcss-html": "^1.7.0",
+    "postcss-preset-env": "^10.4.0",
+    "postcss-scss": "^4.0.9",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.1.0",
+    "sass": "^1.83.0",
+    "stylelint": "^16.25.0",
+    "stylelint-config-recommended-vue": "^1.6.1",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-config-standard-scss": "^16.0.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.46.3",
+    "vite": "^6.4.1",
+    "vitest": "^4.0.8",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.12"
   },
   "files": [
     "dist",
@@ -87,7 +89,15 @@
   "peerDependencies": {
     "vue-feather-icons": "^5.1.0"
   },
-  "main": "dist/smart-tagz.js",
-  "module": "dist/smart-tagz.esm.js",
-  "umd": "dist/smart-tagz.umd.js"
+  "main": "./dist/smart-tagz.js",
+  "module": "./dist/smart-tagz.esm.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/smart-tagz.esm.js",
+      "require": "./dist/smart-tagz.js"
+    },
+    "./dist/smart-tagz.css": "./dist/smart-tagz.css"
+  }
 }

@@ -1,0 +1,287 @@
+// ===================================================================
+// Mixins
+// ===================================================================
+// Reusable SCSS mixins for common patterns
+
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:color';
+@use './variables' as *;
+
+// ===================================================================
+// Responsive Breakpoints
+// ===================================================================
+// Usage: @include respond-to('md') { ... }
+
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    $breakpoint-value: map.get($breakpoints, $breakpoint);
+
+    @media (width >= #{$breakpoint-value}) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid breakpoint: #{$breakpoint}. Available: #{map-keys($breakpoints)}";
+  }
+}
+
+// Custom breakpoint with specific value
+// Usage: @include respond-to-custom(1024px) { ... }
+@mixin respond-to-custom($width) {
+  @media (width >= #{$width}) {
+    @content;
+  }
+}
+
+// ===================================================================
+// Flexbox Utilities
+// ===================================================================
+
+// Flex center (both axes)
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Flex row with alignment options
+@mixin flex-row($align: center, $justify: flex-start) {
+  display: flex;
+  flex-direction: row;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+// Flex column with alignment options
+@mixin flex-column($align: flex-start, $justify: flex-start) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+// ===================================================================
+// Typography
+// ===================================================================
+
+// Truncate text with ellipsis
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Multi-line truncate
+@mixin text-truncate-lines($lines: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}
+
+// ===================================================================
+// Shadows & Effects
+// ===================================================================
+
+// Drop shadow mixin
+@mixin drop-shadow($color: var(--shadow-tag), $x: 2px, $y: 2px, $blur: 4px) {
+  filter: drop-shadow(#{$x} #{$y} #{$blur} #{$color});
+}
+
+// Box shadow mixin
+@mixin box-shadow($shadow: var(--shadow-md)) {
+  box-shadow: $shadow;
+}
+
+// ===================================================================
+// Positioning
+// ===================================================================
+
+// Absolute positioning shorthand
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+
+  @if $top {
+    top: $top;
+  }
+
+  @if $right {
+    right: $right;
+  }
+
+  @if $bottom {
+    bottom: $bottom;
+  }
+
+  @if $left {
+    left: $left;
+  }
+}
+
+// Fixed positioning shorthand
+@mixin fixed($top: null, $right: null, $bottom: null, $left: null) {
+  position: fixed;
+
+  @if $top {
+    top: $top;
+  }
+
+  @if $right {
+    right: $right;
+  }
+
+  @if $bottom {
+    bottom: $bottom;
+  }
+
+  @if $left {
+    left: $left;
+  }
+}
+
+// ===================================================================
+// Sizing & Spacing
+// ===================================================================
+
+// Square sizing shorthand
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// Min/Max size constraints
+@mixin size-constraints($min-width: null, $max-width: null, $min-height: null, $max-height: null) {
+  @if $min-width {
+    min-width: $min-width;
+  }
+
+  @if $max-width {
+    max-width: $max-width;
+  }
+
+  @if $min-height {
+    min-height: $min-height;
+  }
+
+  @if $max-height {
+    max-height: $max-height;
+  }
+}
+
+// ===================================================================
+// Transitions
+// ===================================================================
+
+// Transition shorthand
+@mixin transition($properties...) {
+  $transitions: ();
+
+  @each $property in $properties {
+    $transitions: list.append($transitions, #{$property} var(--transition-base), comma);
+  }
+
+  transition: $transitions;
+}
+
+// Fast transition
+@mixin transition-fast($properties...) {
+  $transitions: ();
+
+  @each $property in $properties {
+    $transitions: list.append($transitions, #{$property} var(--transition-fast), comma);
+  }
+
+  transition: $transitions;
+}
+
+// ===================================================================
+// Pseudo Elements
+// ===================================================================
+
+// Pseudo element base styles
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+// ===================================================================
+// Focus States
+// ===================================================================
+
+// Accessible focus outline
+@mixin focus-outline($color: var(--color-primary), $width: 2px, $offset: 2px) {
+  outline: $width solid $color;
+  outline-offset: $offset;
+}
+
+// Remove focus outline (use with caution - ensure alternative focus indicator)
+@mixin focus-outline-none {
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// ===================================================================
+// Interactive States
+// ===================================================================
+
+// Hover state with transition
+@mixin hover($property: opacity, $value: 0.8) {
+  transition: $property var(--transition-fast);
+
+  &:hover {
+    #{$property}: $value;
+  }
+}
+
+// Active/pressed state
+@mixin active-state {
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// ===================================================================
+// Accessibility
+// ===================================================================
+
+// Visually hide element (accessible to screen readers)
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ===================================================================
+// Scrollbar Styling
+// ===================================================================
+
+@mixin custom-scrollbar($width: 8px, $track-color: transparent, $thumb-color: var(--color-gray-medium)) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: calc(#{$width} / 2);
+
+    &:hover {
+      background: color.adjust($thumb-color, $lightness: -10%);
+    }
+  }
+}

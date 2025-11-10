@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts">
-import SmartTag from "./Tag.vue";
-import { defineComponent, ref, PropType, watch } from "vue";
-import { TagModel } from "../models";
+import SmartTag from './Tag.vue'
+import { defineComponent, ref, PropType, watch } from 'vue'
+import { TagModel } from '../models'
 
 export default defineComponent({
-  name: "SmartTags",
+  name: 'SmartTags',
   components: {
     SmartTag,
   },
@@ -45,9 +45,9 @@ export default defineComponent({
     },
     classNames: {
       type: Object as PropType<{
-        container: string;
-        name: string;
-        closeButton: string;
+        container: string
+        name: string
+        closeButton: string
       }>,
       default: () => ({}),
     },
@@ -71,41 +71,42 @@ export default defineComponent({
   setup(props) {
     const tags = props.readOnly
       ? props.tags.map((tag) => Object.assign({}, tag, { editable: false }))
-      : props.tags;
+      : props.tags
 
-    const localTags = ref<TagModel[]>(tags);
+    const localTags = ref<TagModel[]>(tags)
 
-    const handleRemove = (id: string) => props.onRemove(id);
+    const handleRemove = (id: string) => props.onRemove(id)
     const handleEdit = (id: string, newValue: string) =>
-      props.onEdit(id, newValue);
+      props.onEdit(id, newValue)
 
     watch(
       () => props.tags,
       (newValue) => {
-        localTags.value = newValue;
+        localTags.value = newValue
       }
-    );
+    )
 
     return {
       localTags,
       handleRemove,
       handleEdit,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .tags-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  @include flex-row(flex-start, flex-start);
+
   flex-wrap: wrap;
 }
 
 .tags-list-enter-active,
 .tags-list-leave-active {
-  transition: all 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
 .tags-list-enter,

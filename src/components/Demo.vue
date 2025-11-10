@@ -1,6 +1,6 @@
 <template>
   <div class="main-container">
-    <header>
+    <header class="demo__header">
       <img src="../assets/logo.png" alt="logo" />
       <a
         href="https://github.com/prabhuignoto/smart-tagz"
@@ -12,7 +12,7 @@
         </span>
       </a>
     </header>
-    <section>
+    <section class="demo__section">
       <p class="intro">
         A Smart input tags component built for
         <a href="https://v3.vuejs.org/guide/introduction.html">Vue 3</a>.
@@ -50,7 +50,7 @@
         <QuickDelete />
       </div>
     </div>
-    <footer>
+    <footer class="demo__footer">
       <a href="https://www.prabhumurthy.com" class="github" target="_new"
         >www.prabhumurthy.com</a
       >
@@ -59,21 +59,21 @@
 </template>
 
 <script lang="ts">
-import Countries from "../test/countries";
-import Basic from "../examples/basic.vue";
-import Defaults from "../examples/defaults.vue";
-import Editable from "../examples/editable.vue";
-import Autocomplete from "../examples/autocomplete.vue";
-import Paste from "../examples/paste.vue";
-import ReadOnly from "../examples/readonly.vue";
-import Duplicates from "../examples/duplicates.vue";
-import Maxtags from "../examples/maxtags.vue";
-import Theme from "../examples/theme.vue";
-import QuickDelete from "../examples/quickdelete.vue";
-import { defineComponent } from "vue";
+import Countries from '../test/countries'
+import Basic from '../examples/basic.vue'
+import Defaults from '../examples/defaults.vue'
+import Editable from '../examples/editable.vue'
+import Autocomplete from '../examples/autocomplete.vue'
+import Paste from '../examples/paste.vue'
+import ReadOnly from '../examples/readonly.vue'
+import Duplicates from '../examples/duplicates.vue'
+import Maxtags from '../examples/maxtags.vue'
+import Theme from '../examples/theme.vue'
+import QuickDelete from '../examples/quickdelete.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Demo",
+  name: 'Demo',
   components: {
     Basic,
     Defaults,
@@ -90,24 +90,26 @@ export default defineComponent({
     return {
       count: 0,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>
 
-<style lang="scss">
-header {
-  display: flex;
-  align-items: center;
-  height: 3rem;
+<style lang="scss" scoped>
+@use '@/styles' as *;
+
+.demo__header {
+  @include flex-row(center, flex-start);
+
+  height: var(--spacing-2xl);
 
   h1 {
-    color: #6093ca;
+    color: var(--color-primary);
   }
 
   a {
-    width: 2rem;
-    height: 2rem;
+    @include size(var(--spacing-xl));
+
     margin-left: auto;
   }
 }
@@ -115,31 +117,29 @@ header {
 .example {
   width: 100%;
 
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-weight: 400;
+  &__header {
+    @include flex-row(center, flex-start);
+
+    font-weight: var(--font-weight-normal);
+    font-size: var(--font-size-sm);
     text-transform: uppercase;
-    font-size: 0.85rem;
   }
 
   pre {
     display: flex;
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
   }
 
   p {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    @include flex-row(center, flex-start);
+
+    font-weight: var(--font-weight-normal);
     text-align: left;
-    font-weight: 400;
   }
 }
 
 .example-block {
-  margin-bottom: 3rem;
+  margin-bottom: var(--spacing-2xl);
 }
 
 .sample-view {
@@ -147,61 +147,44 @@ header {
 }
 
 .intro {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
-section {
-  display: flex;
-  align-items: center;
+.demo__section {
+  @include flex-row(center, flex-start);
 }
 
 .main-container {
   width: 90%;
-}
 
-@media (min-width: 576px) {
-  .main-container {
+  @include respond-to('sm') {
     width: 550px;
   }
-}
 
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-  .main-container {
+  @include respond-to('md') {
     width: 750px;
   }
-}
 
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-  .main-container {
+  @include respond-to('lg') {
     width: 900px;
   }
-}
 
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
-  .main-container {
+  @include respond-to('xl') {
     width: 1000px;
   }
-}
 
-@media (min-width: 1440px) {
-  .main-container {
+  @include respond-to('2xl') {
     width: 1250px;
   }
-}
 
-@media (min-width: 2560px) {
-  .main-container {
+  @include respond-to('4k') {
     width: 1500px;
   }
 }
 
-footer {
-  margin: 4rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.demo__footer {
+  @include flex-center;
+
+  margin: var(--spacing-3xl) 0;
 }
 </style>

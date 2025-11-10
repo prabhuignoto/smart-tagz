@@ -1,25 +1,53 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    // Modern target and module
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    // Module resolution
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+
+    // Type checking
     "strict": true,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Emit
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "declarationDir": "./dist",
+    "removeComments": false,
+
+    // Interop
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
+    "isolatedModules": true,
+
+    // Vue support
     "jsx": "preserve",
-    "types": ["node", "vue"],
+    "jsxImportSource": "vue",
+
+    // Paths
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-  }
+
+    // Skip lib check for faster builds
+    "skipLibCheck": true,
+
+    // For Vue 3 compatibility
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
 }

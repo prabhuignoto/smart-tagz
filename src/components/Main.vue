@@ -26,6 +26,7 @@
           ref="textInputRef"
           v-model="input"
           type="text"
+          class="tags-main__input"
           :placeholder="inputPlaceholder"
           @keyup.enter="handleAddTag($event.target.value.trim())"
           @keyup.delete="handleDelete"
@@ -36,7 +37,10 @@
           @paste="handlePaste"
           @blur="handleEscape"
         />
-        <div class="suggestion-wrapper" :class="{ hidden: !showSuggestions }">
+        <div
+          class="suggestion-wrapper"
+          :class="{ 'suggestion-wrapper--hidden': !showSuggestions }"
+        >
           <SuggestionPane
             :show="showSuggestions"
             :items="filteredItems"
@@ -54,13 +58,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import SmartTags from "./Tags.vue";
-import SuggestionPane from "./SuggestPane.vue";
-import MainSetup from "./MainSetup";
+import { defineComponent, PropType } from 'vue'
+import SmartTags from './Tags.vue'
+import SuggestionPane from './SuggestPane.vue'
+import MainSetup from './MainSetup'
 
 export default defineComponent({
-  name: "SmartTagz",
+  name: 'SmartTagz',
   components: {
     SmartTags,
     SuggestionPane,
@@ -72,13 +76,13 @@ export default defineComponent({
     },
     classNames: {
       type: Object as PropType<{
-        main: string;
+        main: string
       }>,
       default: () => ({
-        wrapper: "tags_wrapper_custom",
-        tag_name: "tag_name_custom",
-        tag_container: "tag_container_custom",
-        tag_close_btn: "tag_close_btn_custom",
+        wrapper: 'tags_wrapper_custom',
+        tag_name: 'tag_name_custom',
+        tag_container: 'tag_container_custom',
+        tag_close_btn: 'tag_close_btn_custom',
       }),
     },
     defaultTags: {
@@ -88,7 +92,7 @@ export default defineComponent({
     // container width
     width: {
       type: String,
-      default: "100%",
+      default: '100%',
     },
     // sources array for autosuggest
     sources: {
@@ -123,7 +127,7 @@ export default defineComponent({
     // placeholder for the input box
     inputPlaceholder: {
       type: String,
-      default: "Enter tag...",
+      default: 'Enter tag...',
     },
     quickDelete: {
       type: Boolean,
@@ -135,63 +139,64 @@ export default defineComponent({
     },
     theme: {
       type: Object as PropType<{
-        primary: string;
-        secondary: string;
-        tagTextColor: string;
+        primary: string
+        secondary: string
+        tagTextColor: string
       }>,
       default: () => ({
-        primary: "#6093ca",
-        background: "#eaf1f8",
-        tagTextColor: "#fff",
+        primary: '#6093ca',
+        background: '#eaf1f8',
+        tagTextColor: '#fff',
       }),
     },
   },
   setup: MainSetup,
-});
+})
 </script>
 
 <style lang="scss" scoped>
+@use '@/styles' as *;
+
 .tags-main {
-  align-items: center;
-  display: flex;
+  @include flex-row(center, flex-start);
+
   flex-wrap: wrap;
-  justify-content: flex-start;
-  padding: 1rem;
-  border-radius: 0.2rem;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-sm);
 }
 
-input[type="text"] {
-  border-radius: 0;
-  border: 0;
-  border-bottom: 1px solid #000;
-  font-size: 1rem;
+.tags-main__input {
   height: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: var(--border-width-thin) solid var(--color-black);
+  border-radius: 0;
+  background: transparent;
+  font-size: var(--font-size-base);
   outline: 0;
   position: relative;
-  background: transparent;
 }
 
 .input-wrapper {
-  align-self: center;
-  height: 100%;
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
   position: relative;
   width: 200px;
+  height: 100%;
+  margin-top: var(--spacing-base);
+  margin-left: var(--spacing-base);
+  align-self: center;
 }
 
 .suggestion-wrapper {
-  max-height: 500px;
-  min-height: 400px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: absolute;
-  top: 2rem;
-  width: 100%;
-  z-index: 100;
-  filter: drop-shadow(2px 2px 10px rgb(0 0 0 / 40%));
+  @include absolute($top: var(--spacing-xl));
+  @include drop-shadow(var(--overlay-black-medium), 2px, 2px, 10px);
 
-  &.hidden {
+  width: 100%;
+  min-height: 400px;
+  max-height: 500px;
+  overflow: hidden auto;
+  z-index: var(--z-index-dropdown);
+
+  &--hidden {
     visibility: hidden;
   }
 }
