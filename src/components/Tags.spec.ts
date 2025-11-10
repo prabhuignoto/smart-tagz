@@ -434,9 +434,7 @@ describe('Tags.vue', () => {
         },
       })
 
-      expect(wrapper.findComponent({ name: 'TransitionGroup' }).exists()).toBe(
-        true
-      )
+      expect(wrapper.findComponent({ name: 'TransitionGroup' }).exists()).toBe(true)
     })
   })
 
@@ -514,9 +512,7 @@ describe('Tags.vue', () => {
     })
 
     it('should handle null/undefined in highlight property', () => {
-      const tagsWithoutHighlight: TagModel[] = [
-        { id: '1', name: 'tag1', value: 'tag1' },
-      ]
+      const tagsWithoutHighlight: TagModel[] = [{ id: '1', name: 'tag1', value: 'tag1' }]
 
       const wrapper = mount(Tags, {
         props: {

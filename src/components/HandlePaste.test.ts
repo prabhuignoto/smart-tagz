@@ -45,14 +45,7 @@ describe('HandlePaste', () => {
     })
 
     it('should not process single item as delimiter split', () => {
-      const result = HandlePaste(
-        mockTags,
-        'no-delimiter-here',
-        10,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'no-delimiter-here', 10, 1, ',', false)
 
       expect(result?.newData).toHaveLength(2)
       expect(result?.newData[1]!.name).toBe('no-delimiter-here')
@@ -61,14 +54,7 @@ describe('HandlePaste', () => {
 
   describe('Duplicate Detection', () => {
     it('should filter duplicates when allowDuplicates is false', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1,existing,tag2',
-        10,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1,existing,tag2', 10, 1, ',', false)
 
       // existing tag is filtered out, so we get 1 (existing) + 2 (tag1, tag2)
       expect(result?.newData).toHaveLength(3)
@@ -80,14 +66,7 @@ describe('HandlePaste', () => {
     })
 
     it('should allow duplicates when allowDuplicates is true', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1,existing,tag2',
-        10,
-        1,
-        ',',
-        true
-      )
+      const result = HandlePaste(mockTags, 'tag1,existing,tag2', 10, 1, ',', true)
 
       expect(result?.newData).toHaveLength(4)
       expect(result?.newData.some((t) => t.name === 'existing')).toBe(true)
@@ -108,14 +87,7 @@ describe('HandlePaste', () => {
         { id: '2', name: 'tag2', value: 'tag2' },
       ]
 
-      const result = HandlePaste(
-        mockTags,
-        'tag1,tag2,tag3,tag4',
-        10,
-        2,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1,tag2,tag3,tag4', 10, 2, ',', false)
 
       expect(result?.newData).toHaveLength(4)
       expect(result?.newData[2]!.name).toBe('tag3')
@@ -125,14 +97,7 @@ describe('HandlePaste', () => {
 
   describe('Max Tags Limit', () => {
     it('should respect maxTags limit', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1,tag2,tag3,tag4,tag5',
-        3,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1,tag2,tag3,tag4,tag5', 3, 1, ',', false)
 
       expect(result?.newData).toHaveLength(3)
     })
@@ -143,14 +108,7 @@ describe('HandlePaste', () => {
         { id: '2', name: 'existing2', value: 'existing2' },
       ]
 
-      const result = HandlePaste(
-        mockTags,
-        'tag1,tag2,tag3,tag4,tag5',
-        5,
-        2,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1,tag2,tag3,tag4,tag5', 5, 2, ',', false)
 
       expect(result?.newData).toHaveLength(5)
     })
@@ -158,14 +116,7 @@ describe('HandlePaste', () => {
     it('should not exceed maxTags even with duplicates removal', () => {
       mockTags = [{ id: '1', name: 'existing', value: 'existing' }]
 
-      const result = HandlePaste(
-        mockTags,
-        'existing,tag1,tag2,tag3',
-        4,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'existing,tag1,tag2,tag3', 4, 1, ',', false)
 
       expect(result?.newData.length).toBeLessThanOrEqual(4)
     })
@@ -196,14 +147,7 @@ describe('HandlePaste', () => {
     })
 
     it('should account for duplicates in tagsCreated', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1,existing,tag2',
-        10,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1,existing,tag2', 10, 1, ',', false)
 
       expect(result?.tagsCreated).toBe(3)
     })
@@ -264,14 +208,7 @@ describe('HandlePaste', () => {
     })
 
     it('should handle whitespace in tag names', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag with space,tag-with-dash',
-        10,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag with space,tag-with-dash', 10, 1, ',', false)
 
       expect(result?.newData).toContainEqual(
         expect.objectContaining({
@@ -288,14 +225,7 @@ describe('HandlePaste', () => {
     })
 
     it('should handle unicode characters', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag🎉,tagあ,tag中文',
-        10,
-        1,
-        ',',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag🎉,tagあ,tag中文', 10, 1, ',', false)
 
       expect(result?.newData).toBeDefined()
       expect(result?.newData.length).toBeGreaterThan(1)
@@ -309,27 +239,13 @@ describe('HandlePaste', () => {
     })
 
     it('should handle newline delimiter', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1\ntag2\ntag3',
-        10,
-        1,
-        '\n',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1\ntag2\ntag3', 10, 1, '\n', false)
 
       expect(result?.newData.length).toBeGreaterThan(1)
     })
 
     it('should handle tab delimiter', () => {
-      const result = HandlePaste(
-        mockTags,
-        'tag1\ttag2\ttag3',
-        10,
-        1,
-        '\t',
-        false
-      )
+      const result = HandlePaste(mockTags, 'tag1\ttag2\ttag3', 10, 1, '\t', false)
 
       expect(result?.newData.length).toBeGreaterThan(1)
     })

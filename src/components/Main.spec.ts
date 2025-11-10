@@ -337,9 +337,7 @@ describe('Main.vue', () => {
 
       wrapper.vm.handleAddTag('tag1')
 
-      expect(wrapper.vm.tagsData.filter((t) => t.name === 'tag1')).toHaveLength(
-        1
-      )
+      expect(wrapper.vm.tagsData.filter((t) => t.name === 'tag1')).toHaveLength(1)
     })
 
     it('should allow duplicate tags when allowDuplicates is true', () => {
@@ -352,9 +350,7 @@ describe('Main.vue', () => {
 
       wrapper.vm.handleAddTag('tag1')
 
-      expect(wrapper.vm.tagsData.filter((t) => t.name === 'tag1')).toHaveLength(
-        2
-      )
+      expect(wrapper.vm.tagsData.filter((t) => t.name === 'tag1')).toHaveLength(2)
     })
   })
 
@@ -414,9 +410,7 @@ describe('Main.vue', () => {
       wrapper.vm.handleSuggestSelection('JavaScript')
       await nextTick()
 
-      expect(wrapper.vm.tagsData.some((t) => t.name === 'JavaScript')).toBe(
-        true
-      )
+      expect(wrapper.vm.tagsData.some((t) => t.name === 'JavaScript')).toBe(true)
     })
 
     it('should escape suggestion pane', () => {
@@ -612,9 +606,7 @@ describe('Main.vue', () => {
       })
 
       const input = wrapper.find('input')
-      expect(input.attributes('placeholder')).toBe(
-        'Add tags... (e.g., @tag, #tag)'
-      )
+      expect(input.attributes('placeholder')).toBe('Add tags... (e.g., @tag, #tag)')
     })
 
     it('should handle whitespace in defaultTags', () => {

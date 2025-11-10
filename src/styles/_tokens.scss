@@ -6,24 +6,51 @@
 
 :root {
   // ===================================================================
-  // Color Palette
+  // Color Palette - Vibrant Design System
   // ===================================================================
 
-  // Primary Colors
-  --color-primary: #6093ca;
-  --color-primary-light: #eaf1f8;
+  // Primary Colors - Vibrant Electric Blue/Purple
+  --color-primary: #6366f1;           // Vibrant indigo
+  --color-primary-light: #818cf8;     // Light indigo
+  --color-primary-dark: #4f46e5;      // Darker indigo for hovers
+  --color-primary-gradient-start: #8b5cf6;  // Purple
+  --color-primary-gradient-end: #3b82f6;    // Blue
+
+  // Accent Colors - Energetic
+  --color-accent: #f59e0b;            // Vibrant amber/orange
+  --color-accent-light: #fbbf24;      // Light amber
+  --color-accent-coral: #fb7185;      // Coral pink
+  --color-accent-green: #10b981;      // Vibrant emerald
 
   // Semantic Colors
-  --color-error: #b20000;
-  --color-success: #28a745;
-  --color-warning: #ffc107;
+  --color-error: #ef4444;             // Bright red
+  --color-success: #10b981;           // Vibrant emerald
+  --color-warning: #f59e0b;           // Vibrant amber
+
+  // Text Colors
+  --color-text-primary: #1f2937;      // Dark gray (almost black)
+  --color-text-secondary: #6b7280;    // Medium gray
+  --color-text-muted: #9ca3af;        // Light gray
 
   // Neutrals
   --color-white: #fff;
   --color-black: #000;
   --color-text-dark: #2c3e50;
-  --color-gray-dark: #545454;
-  --color-gray-medium: #bdbdbd;
+  --color-gray-dark: #374151;
+  --color-gray-medium: #d1d5db;
+  --color-gray-light: #f3f4f6;
+
+  // Backgrounds
+  --color-bg-primary: #fff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-light: #f3f4f6;
+  --color-bg-lighter: #fafafa;
+  --color-bg-code: #f1f5f9;
+  --color-bg-hero: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
+
+  // Borders
+  --color-border: #e5e7eb;
+  --color-border-dark: #d1d5db;
 
   // Overlays & Transparencies
   --overlay-white-subtle: rgb(255 255 255 / 20%);
@@ -56,15 +83,18 @@
   --font-family-mono: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 
   // Font Sizes
-  --font-size-sm: 0.85rem;  // 17px (secondary text)
-  --font-size-base: 1rem;   // 20px (body text)
-  --font-size-lg: 1.25rem;  // 25px (large text)
-  --font-size-xl: 1.5rem;   // 30px (headings)
+  --font-size-xs: 0.75rem;   // 15px (tiny text)
+  --font-size-sm: 0.875rem;  // 17.5px (secondary text)
+  --font-size-base: 1rem;    // 20px (body text)
+  --font-size-lg: 1.125rem;  // 22.5px (large text)
+  --font-size-xl: 1.5rem;    // 30px (headings)
+  --font-size-2xl: 2rem;     // 40px (large headings)
 
   // Font Weights
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
+  --font-weight-semi-bold: 600;  // Alias for consistency
   --font-weight-bold: 700;
 
   // Line Heights
@@ -76,12 +106,15 @@
   // Border & Radius
   // ===================================================================
 
-  --border-radius-sm: 0.2rem;  // 4px
-  --border-radius-md: 0.5rem;  // 10px
-  --border-radius-lg: 1rem;    // 20px
+  --border-radius-sm: 0.25rem;   // 5px
+  --border-radius-md: 0.5rem;    // 10px
+  --border-radius-lg: 0.75rem;   // 15px
+  --border-radius-xl: 1rem;      // 20px
+  --border-radius-full: 9999px;  // Pill shape
 
   --border-width-thin: 1px;
   --border-width-medium: 2px;
+  --border-width-thick: 3px;
 
   // ===================================================================
   // Shadows
@@ -104,6 +137,7 @@
   // Transitions
   // ===================================================================
 
+  --transition-duration: 250ms;          // Default duration
   --transition-fast: 150ms ease-in-out;
   --transition-base: 250ms ease-in-out;
   --transition-slow: 350ms ease-in-out;

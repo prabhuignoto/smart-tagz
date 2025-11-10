@@ -1,16 +1,25 @@
 <template>
   <div class="example">
     <header>
-      <h3>Quick Delete</h3>
+      <h3>Bulk Delete All Tags</h3>
     </header>
     <p>
-      The quick delete function allows to select all the tags and delete them in
-      one go. From the input box, try pressing CTR + A to select all the tags
-      and press DEL or BACKSPACE to delete all the Tags.
+      Enable fast bulk deletion with the
+      <code>quick-delete</code>
+      prop. Users can select all tags with
+      <strong>Ctrl+A</strong>
+      (or
+      <strong>Cmd+A</strong>
+      on Mac) and delete them instantly by pressing
+      <strong>Delete</strong>
+      or
+      <strong>Backspace</strong>
+      . Great for quick data clearing or reset workflows.
     </p>
-    <pre data-line="9">
-      <code class="lang-html">{{ code }}</code>
-    </pre>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         :sources="sources"
@@ -37,10 +46,11 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
-import Countries from "../test/countries";
+import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
+import Countries from '../test/countries'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 const html = `<smart-tagz
   :sources="sources"
   :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
@@ -50,18 +60,19 @@ const html = `<smart-tagz
   editable
   autosuggest
   quick-delete
-/>`;
+/>`
 
 export default defineComponent({
-  name: "Maxtags",
+  name: 'QuickDelete',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   data() {
     return {
       code: html,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>

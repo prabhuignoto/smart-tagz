@@ -320,9 +320,7 @@ describe('MainSetup', () => {
       setup.handleDelete()
 
       // First delete highlights the last tag
-      expect(
-        setup.tagsData.value[setup.tagsData.value.length - 1]!.highlight
-      ).toBe(true)
+      expect(setup.tagsData.value[setup.tagsData.value.length - 1]!.highlight).toBe(true)
     })
   })
 
@@ -388,9 +386,7 @@ describe('MainSetup', () => {
 
   describe('handleEscape', () => {
     it('should reset highlight on escape', () => {
-      setup.tagsData.value = [
-        { id: '1', name: 'tag1', value: 'tag1', highlight: true },
-      ]
+      setup.tagsData.value = [{ id: '1', name: 'tag1', value: 'tag1', highlight: true }]
 
       setup.handleEscape()
 
@@ -508,9 +504,7 @@ describe('MainSetup', () => {
 
       setup.handleKeyUp(event)
 
-      expect(setup.selectedIndex.value).toBe(
-        setup.filteredItems.value.length - 1
-      )
+      expect(setup.selectedIndex.value).toBe(setup.filteredItems.value.length - 1)
     })
   })
 
@@ -533,9 +527,7 @@ describe('MainSetup', () => {
       setup.handleSuggestSelection('JavaScript')
       await nextTick()
 
-      expect(setup.tagsData.value.some((t) => t.name === 'JavaScript')).toBe(
-        true
-      )
+      expect(setup.tagsData.value.some((t) => t.name === 'JavaScript')).toBe(true)
     })
   })
 

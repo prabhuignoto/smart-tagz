@@ -138,10 +138,7 @@ export const assertions = {
   },
 
   areTagsEqual: (tagsA: string[], tagsB: string[]): boolean => {
-    return (
-      tagsA.length === tagsB.length &&
-      tagsA.every((tag, index) => tag === tagsB[index])
-    )
+    return tagsA.length === tagsB.length && tagsA.every((tag, index) => tag === tagsB[index])
   },
 }
 

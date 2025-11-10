@@ -37,9 +37,7 @@ describe('Tag.vue', () => {
         },
       })
 
-      expect(wrapper.find('.tag-container').classes()).toContain(
-        'tag_container'
-      )
+      expect(wrapper.find('.tag-container').classes()).toContain('tag_container')
       expect(wrapper.find('.tag-name').classes()).toContain('tag_name')
     })
 

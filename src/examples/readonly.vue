@@ -1,12 +1,18 @@
 <template>
   <div class="example">
     <header>
-      <h3>Readonly Tags</h3>
+      <h3>Read-Only Mode</h3>
     </header>
-    <p>Use the readonly prop to make the component readonly.</p>
-    <pre data-line="7">
-      <code class="lang-html">{{ code }}</code>
-    </pre>
+    <p>
+      Display tags in read-only mode where users cannot modify, add, or remove tags. Use the
+      <code>read-only</code>
+      prop for displaying tag collections that are locked or for informational displays. Perfect for
+      approval workflows or audit trails.
+    </p>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         :sources="sources"
@@ -31,10 +37,11 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
-import Countries from "../test/countries";
+import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
+import Countries from '../test/countries'
 
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 const html = `<smart-tagz
   :sources="sources"
   :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
@@ -42,18 +49,19 @@ const html = `<smart-tagz
   autosuggest
   editable
   read-only
-/>`;
+/>`
 
 export default defineComponent({
-  name: "Readonly",
+  name: 'Readonly',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   data() {
     return {
       code: html,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>

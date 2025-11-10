@@ -41,9 +41,7 @@ export default function ({
   // ref for the input box
   const input = ref('')
   // ref to track the tags created by te user
-  const tagsCreated = ref<number>(
-    defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0
-  )
+  const tagsCreated = ref<number>(defaultTags.length ? Math.min(defaultTags.length, maxTags) : 0)
   // ref to display the suggestion pane
   const showSuggestions = ref(false)
   // ref to track ctrl+a selection
@@ -118,9 +116,7 @@ export default function ({
   const canAddTag = (name: string) => {
     const tester = new RegExp(`^${escapeStringRegexp(name)}$`, 'ig')
     const duplicatesCheck = !allowDuplicates
-      ? !tagsData.value.some(
-          (tag) => tag.name === name || tester.test(tag.name)
-        )
+      ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
       : allowDuplicates
     const maxAllowed = tagsCreated.value < maxTags
     return duplicatesCheck && maxAllowed
@@ -233,10 +229,7 @@ export default function ({
 
   const handleEscape = () => reset()
 
-  const handleEditTag: (id: string, newValue: string) => void = (
-    id,
-    newValue
-  ) => {
+  const handleEditTag: (id: string, newValue: string) => void = (id, newValue) => {
     tagsData.value = tagsData.value.map((tag) => {
       if (tag.id === id) {
         return Object.assign({}, tag, {

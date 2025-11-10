@@ -1,16 +1,21 @@
 <template>
   <div class="example">
     <header>
-      <h3>Autosuggest</h3>
+      <h3>Autocomplete & Suggestions</h3>
     </header>
     <p>
-      When set to true, the autosuggest prop suggests values in the dropdown as
-      you type. You also need to set the sources prop for this to work. The
-      sources prop should be an Array of strings.
+      Enable intelligent autocomplete by using the
+      <code>autosuggest</code>
+      prop with a
+      <code>sources</code>
+      array. As users type, Smart-Tagz intelligently filters and displays matching suggestions in a
+      dropdown. Great for guided data entry with large datasets like countries, skills, or
+      categories.
     </p>
-    <pre data-line="3-3">
-    <code class="lang-html">{{ code }}</code>
-    </pre>
+    <CodeBlock
+      :code="code"
+      lang="html"
+    />
     <div class="sample-view">
       <smart-tagz
         input-placeholder="Select Countries ..."
@@ -35,35 +40,37 @@
 </template>
 
 <script lang="ts">
-import SmartTagz from "../components/Main.vue";
-import Countries from "../test/countries";
-import { defineComponent } from "vue";
+import SmartTagz from '../components/Main.vue'
+import CodeBlock from '../components/CodeBlock.vue'
+import Countries from '../test/countries'
+import { defineComponent } from 'vue'
 
-const html = `  <smart-tagz
+const html = `<smart-tagz
   input-placeholder="Select Countries ..."
   autosuggest
   editable
   :sources="sources"
   :default-tags="['United Kingdom', 'Uruguay', 'Uzbekistan', 'Venezuela', 'Vietnam', 'Virgin Islands (US)', 'Yemen', 'Zambia', 'Zimbabwe']"
-/>`;
+/>`
 
 export default defineComponent({
-  name: "Autocomplete",
+  name: 'Autocomplete',
   components: {
     SmartTagz,
+    CodeBlock,
   },
   setup() {
-    const logResult = (result: string[]) => console.log(result);
+    const logResult = (result: string[]) => console.log(result)
 
     return {
       logResult,
-    };
+    }
   },
   data() {
     return {
       code: html,
       sources: Countries,
-    };
+    }
   },
-});
+})
 </script>

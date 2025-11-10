@@ -1,10 +1,7 @@
 <template>
   <div
     class="tag-container"
-    :class="[
-      !canShowRemoveBtn ? 'tag-container--no-remove' : '',
-      classNames.container,
-    ]"
+    :class="[!canShowRemoveBtn ? 'tag-container--no-remove' : '', classNames.container]"
     :style="style"
   >
     <input
@@ -21,8 +18,9 @@
       v-else
       :class="['tag-name', classNames.name]"
       @dblclick="handleDoubleClick"
-      >{{ name }}</span
     >
+      {{ name }}
+    </span>
     <button
       v-if="canShowRemoveBtn"
       type="button"
@@ -114,17 +112,13 @@ export default defineComponent({
       editMode.value = false
     }
 
-    const canShowInputbox = computed(
-      () => props.editable && editMode.value && !props.readOnly
-    )
+    const canShowInputbox = computed(() => props.editable && editMode.value && !props.readOnly)
 
     const canShowRemoveBtn = computed(() => !props.readOnly)
 
     const style = computed(() => {
       return {
-        background: tagHighlight.value
-          ? '#b20000'
-          : props.tagStyle.backgroundColor,
+        background: tagHighlight.value ? '#b20000' : props.tagStyle.backgroundColor,
         color: props.tagStyle.foreColor,
       }
     })
@@ -154,8 +148,7 @@ export default defineComponent({
 
   border-radius: var(--border-radius-sm);
   margin: var(--spacing-md) var(--spacing-sm);
-  padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md)
-    var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md) var(--spacing-md);
   user-select: none;
 
   &--no-remove {
