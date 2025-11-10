@@ -14,9 +14,9 @@ describe('HandlePaste', () => {
       const result = HandlePaste(mockTags, 'tag1,tag2,tag3', 10, 1, ',', false)
 
       expect(result?.newData).toHaveLength(4)
-      expect(result?.newData[1].name).toBe('tag1')
-      expect(result?.newData[2].name).toBe('tag2')
-      expect(result?.newData[3].name).toBe('tag3')
+      expect(result?.newData[1]!.name).toBe('tag1')
+      expect(result?.newData[2]!.name).toBe('tag2')
+      expect(result?.newData[3]!.name).toBe('tag3')
     })
 
     it('should handle space delimiter', () => {
@@ -35,7 +35,7 @@ describe('HandlePaste', () => {
       const result = HandlePaste(mockTags, 'singletag', 10, 1, ',', false)
 
       expect(result?.newData).toHaveLength(2)
-      expect(result?.newData[1].name).toBe('singletag')
+      expect(result?.newData[1]!.name).toBe('singletag')
     })
 
     it('should return undefined when paste data is empty', () => {
@@ -55,7 +55,7 @@ describe('HandlePaste', () => {
       )
 
       expect(result?.newData).toHaveLength(2)
-      expect(result?.newData[1].name).toBe('no-delimiter-here')
+      expect(result?.newData[1]!.name).toBe('no-delimiter-here')
     })
   })
 
@@ -118,8 +118,8 @@ describe('HandlePaste', () => {
       )
 
       expect(result?.newData).toHaveLength(4)
-      expect(result?.newData[2].name).toBe('tag3')
-      expect(result?.newData[3].name).toBe('tag4')
+      expect(result?.newData[2]!.name).toBe('tag3')
+      expect(result?.newData[3]!.name).toBe('tag4')
     })
   })
 
@@ -305,7 +305,7 @@ describe('HandlePaste', () => {
       const longTag = 'a'.repeat(100)
       const result = HandlePaste(mockTags, longTag, 10, 1, ',', false)
 
-      expect(result?.newData[1].name).toBe(longTag)
+      expect(result?.newData[1]!.name).toBe(longTag)
     })
 
     it('should handle newline delimiter', () => {

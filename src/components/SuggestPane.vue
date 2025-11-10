@@ -68,7 +68,9 @@ export default defineComponent({
       event.stopImmediatePropagation()
 
       const item = props.items[props.selectedIndex]
-      handleSelection(item)
+      if (item) {
+        handleSelection(item)
+      }
     }
 
     watch(

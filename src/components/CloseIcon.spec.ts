@@ -71,9 +71,6 @@ describe('CloseIcon.vue', () => {
 
     it('should have correct wrapper dimensions defined in style', () => {
       const wrapper = mount(CloseIcon)
-      const style = window.getComputedStyle(
-        wrapper.find('.icon-wrapper').element
-      )
       // Note: computed styles might not work in jsdom, so we just check the element exists
       expect(wrapper.find('.icon-wrapper').exists()).toBe(true)
     })

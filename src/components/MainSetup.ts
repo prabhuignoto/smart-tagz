@@ -132,7 +132,7 @@ export default function ({
     const selIndex = unref(selectedIndex)
 
     if (selIndex > -1) {
-      nameToUse = filteredItems.value[selIndex]
+      nameToUse = filteredItems.value[selIndex] || ''
     } else {
       nameToUse = name
     }
@@ -189,7 +189,7 @@ export default function ({
       delTagRef.value = null
       tagsCreated.value = +tagsCreated.value - 1
     } else if (tagsData.value.length) {
-      const tag = tagsData.value[tagsData.value.length - 1]
+      const tag = tagsData.value[tagsData.value.length - 1]!
       delTagRef.value = {
         id: tag.id,
       }

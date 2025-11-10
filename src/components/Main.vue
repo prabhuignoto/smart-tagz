@@ -15,9 +15,9 @@
         backgroundColor: theme.primary,
       }"
       :class-names="{
-        container: classNames.tag_container,
-        name: classNames.tag_name,
-        closeButton: classNames.tag_close_btn,
+        container: classNames.tag_container ?? '',
+        name: classNames.tag_name ?? '',
+        closeButton: classNames.tag_close_btn ?? '',
       }"
     >
       <div v-if="tagsData.length < maxTags" class="input-wrapper">
@@ -28,7 +28,9 @@
           type="text"
           class="tags-main__input"
           :placeholder="inputPlaceholder"
-          @keyup.enter="handleAddTag($event.target.value.trim())"
+          @keyup.enter="
+            handleAddTag(($event.target as HTMLInputElement).value.trim())
+          "
           @keyup.delete="handleDelete"
           @keyup.esc="handleEscape"
           @keydown.down="handleKeydown"
@@ -76,7 +78,11 @@ export default defineComponent({
     },
     classNames: {
       type: Object as PropType<{
-        main: string
+        main?: string
+        wrapper?: string
+        tag_container?: string
+        tag_name?: string
+        tag_close_btn?: string
       }>,
       default: () => ({
         wrapper: 'tags_wrapper_custom',
@@ -140,7 +146,8 @@ export default defineComponent({
     theme: {
       type: Object as PropType<{
         primary: string
-        secondary: string
+        background?: string
+        secondary?: string
         tagTextColor: string
       }>,
       default: () => ({

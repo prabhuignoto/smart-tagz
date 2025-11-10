@@ -200,7 +200,7 @@ describe('Main.vue', () => {
       await wrapper.find('input').trigger('keyup.delete')
       await nextTick()
 
-      expect(wrapper.vm.tagsData[0].highlight).toBe(true)
+      expect(wrapper.vm.tagsData[0]!.highlight).toBe(true)
     })
 
     it('should handle Escape key', async () => {
@@ -307,7 +307,7 @@ describe('Main.vue', () => {
         },
       })
 
-      const tagId = wrapper.vm.tagsData[0].id
+      const tagId = wrapper.vm.tagsData[0]!.id
       wrapper.vm.handleRemoveTag(tagId)
 
       expect(wrapper.vm.tagsData).toHaveLength(1)
@@ -321,10 +321,10 @@ describe('Main.vue', () => {
         },
       })
 
-      const tagId = wrapper.vm.tagsData[0].id
+      const tagId = wrapper.vm.tagsData[0]!.id
       wrapper.vm.handleEditTag(tagId, 'newtag')
 
-      expect(wrapper.vm.tagsData[0].name).toBe('newtag')
+      expect(wrapper.vm.tagsData[0]!.name).toBe('newtag')
     })
 
     it('should prevent adding duplicate tags by default', () => {
@@ -469,7 +469,7 @@ describe('Main.vue', () => {
         },
       })
 
-      const tagId = wrapper.vm.tagsData[0].id
+      const tagId = wrapper.vm.tagsData[0]!.id
       wrapper.vm.handleEditTag(tagId, 'newtag')
 
       expect(onChanged).toHaveBeenCalledWith(['newtag'])
@@ -478,7 +478,7 @@ describe('Main.vue', () => {
     it('should not call onChanged if no callback provided', () => {
       const wrapper = mount(Main, {
         props: {
-          onChanged: null,
+          onChanged: undefined,
         },
       })
 
@@ -625,7 +625,7 @@ describe('Main.vue', () => {
       })
 
       expect(wrapper.vm.tagsData).toHaveLength(2)
-      expect(wrapper.vm.tagsData[0].name).toBe('tag with spaces')
+      expect(wrapper.vm.tagsData[0]!.name).toBe('tag with spaces')
     })
   })
 })

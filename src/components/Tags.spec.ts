@@ -170,7 +170,7 @@ describe('Tags.vue', () => {
         },
       })
 
-      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]
+      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]!
       expect(firstTag.props('id')).toBe('1')
       expect(firstTag.props('name')).toBe('tag1')
       expect(firstTag.props('highlight')).toBeUndefined()
@@ -192,7 +192,7 @@ describe('Tags.vue', () => {
         },
       })
 
-      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]
+      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]!
       expect(firstTag.props('classNames')).toEqual(classNames)
     })
 
@@ -211,7 +211,7 @@ describe('Tags.vue', () => {
         },
       })
 
-      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]
+      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]!
       expect(firstTag.props('tagStyle')).toEqual(tagStyle)
     })
   })
@@ -264,8 +264,8 @@ describe('Tags.vue', () => {
       })
 
       const tags = wrapper.findAllComponents({ name: 'SmartTag' })
-      expect(tags[0].props('highlight')).toBe(true)
-      expect(tags[1].props('highlight')).toBe(false)
+      expect(tags[0]!.props('highlight')).toBe(true)
+      expect(tags[1]!.props('highlight')).toBe(false)
     })
   })
 
@@ -279,7 +279,7 @@ describe('Tags.vue', () => {
         },
       })
 
-      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]
+      const firstTag = wrapper.findAllComponents({ name: 'SmartTag' })[0]!
       firstTag.vm.handleRemove('1')
 
       expect(mockOnRemove).toHaveBeenCalledWith('1')
@@ -308,8 +308,8 @@ describe('Tags.vue', () => {
       })
 
       const tags = wrapper.findAllComponents({ name: 'SmartTag' })
-      tags[0].vm.handleRemove('1')
-      tags[1].vm.handleRemove('2')
+      tags[0]!.vm.handleRemove('1')
+      tags[1]!.vm.handleRemove('2')
 
       expect(mockOnRemove).toHaveBeenCalledTimes(2)
       expect(mockOnRemove).toHaveBeenNthCalledWith(1, '1')
@@ -340,7 +340,7 @@ describe('Tags.vue', () => {
     it('should re-render tags when tags prop changes', async () => {
       const wrapper = mount(Tags, {
         props: {
-          tags: [mockTags[0]],
+          tags: [mockTags[0]!],
           onRemove: mockOnRemove,
           onEdit: mockOnEdit,
         },
@@ -471,8 +471,8 @@ describe('Tags.vue', () => {
       })
 
       const tags = wrapper.findAllComponents({ name: 'SmartTag' })
-      expect(tags[0].props('name')).toBe('tag@#$')
-      expect(tags[1].props('name')).toBe('tag with spaces')
+      expect(tags[0]!.props('name')).toBe('tag@#$')
+      expect(tags[1]!.props('name')).toBe('tag with spaces')
     })
 
     it('should handle many tags', () => {
@@ -509,8 +509,8 @@ describe('Tags.vue', () => {
       })
 
       const tags = wrapper.findAllComponents({ name: 'SmartTag' })
-      expect(tags[0].props('name')).toBe('🎉tag')
-      expect(tags[1].props('name')).toBe('tag中文')
+      expect(tags[0]!.props('name')).toBe('🎉tag')
+      expect(tags[1]!.props('name')).toBe('tag中文')
     })
 
     it('should handle null/undefined in highlight property', () => {
