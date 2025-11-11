@@ -60,8 +60,15 @@
 
 ## ⚡ Installation
 
-```jsx
-yarn install smart-tagz
+```bash
+# Using npm
+npm install smart-tagz
+
+# Using yarn
+yarn add smart-tagz
+
+# Using pnpm
+pnpm add smart-tagz
 ```
 
 ## 🚀 Getting Started
@@ -171,11 +178,13 @@ Smart-Tagz is built with **WCAG 2.1 Level AA** compliance in mind:
 | allowPaste       | { delimiter: String } | Parses the pasted string based on the passed delimiter and creates tags automatically            | {delimiter: ","} |
 | editable         | Boolean               | makes the tags `editable`                                                                        | false            |
 | allowDuplicates  | Boolean               | allows/disallows `duplicate` tag entries while pasted or entered manually.                       | true             |
-| maxTags          | Number                | sets the `Maximum` number of tags                                                                | 10               |
+| maxTags          | Number                | sets the `Maximum` number of tags                                                                | 20               |
 | inputPlaceholder | String                | `Placeholder` for the input box.                                                                 | "Enter tag..."   |
 | readOnly         | Boolean               | Makes the whole component `readOnly`. ideal for display only purposes.                           | false            |
 | quick-delete     | Boolean               | When enabled all the tags can be cleared by <kbd>CTRL</kbd> + <kbd>A</kbd>, <kbd>DEL</kbd>       | false            |
 | on-changed       | Function              | `callback` that gets called when a new tag is added or an existing tag is deleted                | false            |
+
+> **Note:** Props can be passed using either camelCase (`quickDelete`) or kebab-case (`:quick-delete`) in Vue templates. The table uses kebab-case for consistency with HTML attribute conventions.
 
 ### Default Tags
 
@@ -209,7 +218,7 @@ Smart-Tagz uses intelligent fuzzy matching powered by [fuse.js](https://fusejs.i
 <smart-tagz
   autosuggest
   :sources="['India', 'Brazil', 'China', 'United Kingdom']"
-  @changed="handleTagsChange"
+  :on-changed="handleTagsChange"
 />
 <!-- Type "ind" → finds "India" -->
 <!-- Type "bra" → finds "Brazil" -->
@@ -268,6 +277,12 @@ The components color scheme can be customized by passing a custom theme prop.
     }"
   />
 ```
+
+**Theme Properties:**
+- `primary` (String, required): Main color for tag background and suggestion pane
+- `tagTextColor` (String, required): Text color for tags
+- `background` (String, optional): Container background color
+- `secondary` (String, optional): Additional accent color (currently unused)
 
 ### Custom Class names
 
@@ -378,21 +393,45 @@ Added for accessibility. No breaking changes, but updated DOM structure:
 - [ ] Update unit tests for new matching behavior
 - [ ] Update documentation for end users
 
+## 📦 Dependencies
+
+Smart-Tagz uses the following core dependencies:
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **fuse.js** | ^7.1.0 | Fuzzy search and matching for autosuggest feature |
+| **vue-feather-icons** | ^5.1.0 | Icon components (peer dependency) |
+| **escape-string-regexp** | ^5.0.0 | Utility for escaping special characters in regex patterns |
+| **shiki** | ^3.15.0 | Syntax highlighting for code blocks in demo (demo-only) |
+
+> **Note:** `vue-feather-icons` is a peer dependency, so it must be installed separately in your project.
+
 ## 📦 Build Setup
 
 ```bash
-# install dependencies
-yarn install
+# install dependencies (using pnpm)
+pnpm install
 
 # start dev
-yarn run dev
+pnpm dev
 
-# package lib
-npm run rollup
+# build library
+pnpm build
 
 # run css linting
-yarn run lint:css
+pnpm lint:css
+
+# run css linting and fix
+pnpm lint:css:fix
+
+# run all tests
+pnpm test
+
+# run tests with coverage
+pnpm test:coverage
 ```
+
+**Note:** The project uses pnpm for dependency management. You can also use npm or yarn, but pnpm is recommended.
 
 ## 🔨 Contributing
 
@@ -412,7 +451,7 @@ Prabhu Murthy – [@prabhumurthy2](https://twitter.com/prabhumurthy2) – prabhu
 
 Distributed under the MIT license. See `LICENSE` for more information.
 
-[https://github.com/prabhuingoto/](https://github.com/prabhuingoto/)
+[https://github.com/prabhuignoto/](https://github.com/prabhuignoto/)
 
 <!-- Markdown link & img dfn's -->
 
