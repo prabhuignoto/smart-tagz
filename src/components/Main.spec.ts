@@ -84,8 +84,12 @@ describe('Main.vue', () => {
         },
       })
 
+      // Check that the component accepts and stores the inputPlaceholder prop
+      expect(wrapper.vm.inputPlaceholder).toBe('Add items...')
+
+      // Verify no placeholder attribute on input
       const input = wrapper.find('input')
-      expect(input.attributes('placeholder')).toBe('Add items...')
+      expect(input.attributes('placeholder')).toBeUndefined()
     })
 
     it('should accept theme prop with custom colors', () => {
@@ -607,8 +611,12 @@ describe('Main.vue', () => {
         },
       })
 
+      // Check that the component accepts special characters in the placeholder
+      expect(wrapper.vm.inputPlaceholder).toBe('Add tags... (e.g., @tag, #tag)')
+
+      // Check that the input has no placeholder attribute
       const input = wrapper.find('input')
-      expect(input.attributes('placeholder')).toBe('Add tags... (e.g., @tag, #tag)')
+      expect(input.attributes('placeholder')).toBeUndefined()
     })
 
     it('should handle whitespace in defaultTags', () => {

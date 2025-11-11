@@ -163,45 +163,6 @@ Input: "ts"
 ✅ Screen reader announcements
 ```
 
-## Popular Use Cases
-
-### Technology Stack Selection
-
-```vue
-const frontendFrameworks = [
-  'Vue.js', 'React', 'Angular', 'Svelte',
-  'Next.js', 'Nuxt', 'Gatsby', 'Remix'
-]
-```
-
-### Programming Language Selection
-
-```vue
-const languages = [
-  'JavaScript', 'TypeScript', 'Python',
-  'Java', 'C#', 'Go', 'Rust', 'PHP'
-]
-```
-
-### Skill Tags
-
-```vue
-const skills = [
-  'Frontend Development', 'Backend Development',
-  'Database Design', 'DevOps', 'Security',
-  'Testing', 'Performance', 'Accessibility'
-]
-```
-
-### User Interests
-
-```vue
-const interests = [
-  'Web Development', 'Mobile Apps', 'AI/ML',
-  'Cloud Computing', 'Open Source', 'Startups'
-]
-```
-
 ## Tips & Tricks
 
 ### 🎯 Performance

@@ -5,9 +5,9 @@ hero:
   name: Smart-Tagz
   text: Smart Input Tags for Vue 3
   tagline: A powerful, accessible, and lightweight tag input component with fuzzy search, keyboard navigation, and WCAG 2.1 AA compliance
-  image:
-    src: /logo.svg
-    alt: Smart-Tagz
+  # image:
+  #   src: /logo.png
+  #   alt: Smart-Tagz
   actions:
     - theme: brand
       text: Get Started
@@ -18,28 +18,28 @@ hero:
 
 features:
   - icon: ⚡
-    title: Fuzzy Matching
-    details: Intelligent search with smart matching using fuse.js. Match partial words, handle typos, and provide better search results.
+    title: Smart Fuzzy Matching
+    details: Intelligent search with real-time suggestions powered by fuse.js. Handle typos, match partial words, and provide intuitive search results automatically.
 
   - icon: ♿
     title: Fully Accessible
-    details: WCAG 2.1 AA compliant with ARIA labels, screen reader support, full keyboard navigation, and semantic HTML.
-
-  - icon: ⌨️
-    title: Keyboard Shortcuts
-    details: Complete keyboard navigation support including arrow keys, Home/End, Tab, Delete, and more for power users.
+    details: WCAG 2.1 AA compliant with ARIA labels, screen reader support, complete keyboard navigation (arrows, Home/End, Tab, Delete), and semantic HTML.
 
   - icon: 📱
-    title: Mobile Optimized
-    details: 44px touch targets, responsive layout, viewport-aware dropdown, and full mobile keyboard support.
+    title: Mobile First Design
+    details: 44px touch targets for accessibility, responsive layout, viewport-aware dropdown positioning, and native mobile keyboard support.
 
   - icon: 🎨
-    title: Fully Customizable
-    details: Customize colors, sizes, behavior, and styling. Works with Tailwind CSS, Vue 3 components, and more.
+    title: Highly Customizable
+    details: Full control over colors, sizes, behavior, and styling. Seamless integration with Tailwind CSS, Vue 3 components, and custom themes.
+
+  - icon: 🛡️
+    title: Robust & Reliable
+    details: Inline tag editing, paste support with custom delimiters, read-only mode, duplicate prevention, and error handling with auto-dismiss.
 
   - icon: 📦
     title: Production Ready
-    details: TypeScript support, small bundle size, zero dependencies beyond Vue 3, and comprehensive documentation.
+    details: Full TypeScript support, small bundle size (~10KB), minimal dependencies (Vue 3, fuse.js), and comprehensive documentation.
 ---
 
 ## Quick Start
@@ -80,12 +80,12 @@ const handleTagsChanged = (tags) => {
 - **Accessible**: Built from the ground up for accessibility with full keyboard support
 - **Modern**: Built with Vue 3 Composition API and TypeScript
 - **Lightweight**: Minimal dependencies, fast performance
-- **Tested**: 314+ unit tests with 87%+ coverage
+- **Tested**: Comprehensive test suite with 87%+ coverage
 - **Well Documented**: Interactive examples and comprehensive guides
 
 ## Features at a Glance
 
-✨ **v0.5.0** includes:
+✨ **v1.0.0** includes:
 - Intelligent fuzzy matching (fuse.js)
 - Full keyboard navigation (arrows, Home/End, Tab)
 - Screen reader announcements
@@ -94,17 +94,6 @@ const handleTagsChanged = (tags) => {
 - Error feedback with auto-dismiss
 - Tag editing and deletion
 - Paste support with custom delimiters
-
-## Interactive Demo
-
-Try Smart-Tagz right here:
-
-<SmartTagz
-  input-placeholder="Type to search (try 'Script', 'java', 'type'...)..."
-  autosuggest
-  :sources="['JavaScript', 'Vue.js', 'TypeScript', 'React', 'Python', 'Go', 'Rust', 'Ruby']"
-  :max-tags="5"
-/>
 
 ## Community
 
@@ -115,4 +104,8 @@ Try Smart-Tagz right here:
 
 ## License
 
-MIT © 2024 [Prabhu Murthy](https://prabhumurthy.com)
+<script setup>
+const currentYear = new Date().getFullYear()
+</script>
+
+MIT © {{ currentYear }} [Prabhu Murthy](https://prabhumurthy.com)

@@ -1,4 +1,4 @@
-import { computed, nextTick, ref, unref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, unref, watch } from 'vue'
 import escapeStringRegexp from 'escape-string-regexp'
 import Fuse from 'fuse.js'
 import { TagModel } from '../models'
@@ -39,6 +39,7 @@ export default function ({
     }))
   )
   const textInputRef = ref(null)
+  const inputWrapperRef = ref<HTMLElement | null>(null)
   // ref for the input box
   const input = ref('')
   // ref to track the tags created by te user
@@ -48,6 +49,10 @@ export default function ({
   // ref to track ctrl+a selection
   const selectAllRef = ref(false)
   const selectedIndex = ref(-1)
+  // ref to show placeholder tooltip when input is focused and placeholder is long
+  const showPlaceholderTooltip = ref(false)
+  // ref to track if user manually dismissed the placeholder tooltip
+  const dismissPlaceholderTooltip = ref(false)
   const announcement = ref('')
   const errorMessage = ref('')
 
@@ -91,10 +96,82 @@ export default function ({
 
   const tagValues = computed(() => tagsData.value.map((item) => item.value))
 
+  // Computed property for dropdown positioning
+  const dropdownPosition = ref({
+    top: '0px',
+    left: '0px',
+    width: '200px',
+  })
+
+  // Function to calculate dropdown position
+  const updateDropdownPosition = () => {
+    if (!inputWrapperRef.value) return
+
+    const rect = inputWrapperRef.value.getBoundingClientRect()
+    dropdownPosition.value = {
+      top: `${rect.bottom + 8}px`, // 8px gap below input
+      left: `${rect.left}px`,
+      width: `${rect.width}px`,
+    }
+  }
+
+  // Watch showSuggestions to update position when dropdown appears
+  watch(showSuggestions, (isShown) => {
+    if (isShown) {
+      // Use nextTick to ensure DOM is updated
+      nextTick(() => {
+        updateDropdownPosition()
+      })
+    }
+  })
+
+  // Setup event listeners for scroll and resize
+  onMounted(() => {
+    window.addEventListener('scroll', updateDropdownPosition, true)
+    window.addEventListener('resize', updateDropdownPosition)
+  })
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', updateDropdownPosition, true)
+    window.removeEventListener('resize', updateDropdownPosition)
+  })
+
   const focus = () => {
     if (textInputRef.value) {
       ;(textInputRef.value as unknown as HTMLElement).focus()
     }
+  }
+
+  // Handle input focus - show placeholder tooltip if not dismissed and no delete active
+  const handleInputFocus = () => {
+    if (!input.value && !dismissPlaceholderTooltip.value && !delTagRef.value) {
+      showPlaceholderTooltip.value = true
+    }
+  }
+
+  // Handle input blur - hide placeholder tooltip and reset dismiss state
+  const handleInputBlur = () => {
+    showPlaceholderTooltip.value = false
+    dismissPlaceholderTooltip.value = false
+    reset()
+  }
+
+  // Handle placeholder tooltip close
+  const handleClosePlaceholderTooltip = () => {
+    showPlaceholderTooltip.value = false
+    dismissPlaceholderTooltip.value = true
+  }
+
+  // Handle clear highlight from tag tooltip close button
+  const handleClearHighlight = (id: string) => {
+    delTagRef.value = null
+    tagsData.value = tagsData.value.map((tag) => {
+      if (tag.id === id) {
+        const { highlight, ...rest } = tag
+        return rest
+      }
+      return tag
+    })
   }
 
   const reset: () => void = () => {
@@ -114,6 +191,11 @@ export default function ({
     if (delTagRef.value) {
       delTagRef.value = null
       tagsData.value = tagsData.value.map(({ highlight, ...rest }) => rest)
+    }
+
+    // Hide placeholder tooltip when user starts typing
+    if (newValue && showPlaceholderTooltip.value) {
+      showPlaceholderTooltip.value = false
     }
 
     if (newValue) {
@@ -247,6 +329,11 @@ export default function ({
 
   // handle to manage paste
   const handlePaste: (event: ClipboardEvent) => void = (event) => {
+    // Only handle paste if allowPaste prop is configured
+    if (!allowPaste || !allowPaste.delimiter) {
+      return // Let default paste behavior happen
+    }
+
     // cancel the default operation
     event.stopPropagation()
     event.preventDefault()
@@ -260,7 +347,7 @@ export default function ({
         data,
         maxTags,
         +unref(tagsCreated),
-        allowPaste?.delimiter,
+        allowPaste.delimiter,
         allowDuplicates
       )
 
@@ -372,16 +459,25 @@ export default function ({
     }
   }
 
+  const handleClearSelectAllTooltip: () => void = () => {
+    selectAllRef.value = false
+  }
+
   return {
     tagsData,
     input,
     style,
     textInputRef,
+    inputWrapperRef,
+    dropdownPosition,
     showSuggestions,
     selectedIndex,
     filteredItems,
     announcement,
     errorMessage,
+    showPlaceholderTooltip,
+    delTagRef,
+    selectAllRef,
     handleKeyUp,
     handleKeydown,
     handleHome,
@@ -396,5 +492,10 @@ export default function ({
     handleSuggestSelection,
     handleSuggestEsc,
     handleSelectAll,
+    handleInputFocus,
+    handleInputBlur,
+    handleClosePlaceholderTooltip,
+    handleClearHighlight,
+    handleClearSelectAllTooltip,
   }
 }

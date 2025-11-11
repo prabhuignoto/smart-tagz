@@ -78,9 +78,8 @@ Fuse.js uses a threshold-based scoring system:
 ```typescript
 {
   threshold: 0.3,           // Match sensitivity (0=strict, 1=loose)
-  minMatchCharLength: 1,    // Minimum characters to match
-  ignoreLocation: true,     // Ignore position in string
-  findAllMatches: true,     // Find all occurrences
+  // Only these core options are actively configured
+  // Fuse.js has many other options available but Smart-Tagz uses defaults for most
 }
 ```
 
@@ -294,24 +293,6 @@ Keyboard Navigation:
 | Typo tolerance | ❌ | ✅ |
 | Faster | ✅ | ❌ |
 | More intuitive | ❌ | ✅ |
-
-## Use Cases
-
-### Developer Tools
-- Language/framework selection
-- Package/library search
-- Skill tagging
-- Technology selection
-
-### E-Commerce
-- Product tag filtering
-- Category selection
-- Brand/manufacturer search
-
-### Content Management
-- Article tag selection
-- Content categorization
-- Author/creator search
 
 ## Next Steps
 

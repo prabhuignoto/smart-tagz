@@ -166,18 +166,19 @@ When `readOnly` is `true`:
 **Properties:**
 - `primary`: Input background and accent color
 - `background`: Main container background
-- `secondary`: Secondary color (optional)
+- `secondary`: Reserved for future use (currently unused)
 - `tagTextColor`: Text color of tags
 
 ### `classNames`
 
-- **Type:** `{ container?: string, name?: string, closeButton?: string }`
-- **Default:** `{ container: 'tag_container', name: 'tag_name', closeButton: 'tag_close_btn' }`
+- **Type:** `{ wrapper?: string, container?: string, name?: string, closeButton?: string }`
+- **Default:** `{ wrapper: 'tags_wrapper_custom', container: 'tag_container_custom', name: 'tag_name_custom', closeButton: 'tag_close_btn_custom' }`
 - **Description:** Custom CSS class names for advanced styling
 
 ```vue
 <SmartTagz
   :class-names="{
+    wrapper: 'my-wrapper',
     container: 'my-custom-container',
     name: 'my-tag-text',
     closeButton: 'my-close-btn'
@@ -208,7 +209,6 @@ const handleTagsChanged = (tags) => {
 - User removes a tag
 - User edits a tag
 - User pastes multiple tags
-- User changes input field
 
 **Returns:** Array of current tag strings
 

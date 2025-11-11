@@ -15,6 +15,9 @@ const HandlePaste = (
     // split string to create new tags
     let items = delimiter ? pasteData.split(delimiter) : []
 
+    // Trim whitespace from each item and filter out empty strings
+    items = items.map((item) => item.trim()).filter((item) => item.length > 0)
+
     if (items.length > 1) {
       // pick the items that can fit in the slot
       items = items.slice(0, Math.min(items.length, availableSlots))
