@@ -1,6 +1,6 @@
 # Accessibility
 
-Smart-Tagz is designed with accessibility as a first-class feature, meeting **WCAG 2.1 Level AA** standards.
+Smart-Tagz is designed with accessibility as a first-class feature, built to meet **WCAG 2.1 Level AA** standards.
 
 ## Accessibility Features
 

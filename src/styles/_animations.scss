@@ -1,0 +1,128 @@
+/**
+ * Smart-Tagz Animation System
+ * Minimal, subtle, and reusable CSS animations
+ */
+
+// ============================================
+// KEYFRAME DEFINITIONS
+// ============================================
+
+/**
+ * Fade + Scale animation for tag entrance/exit
+ * Subtle scale effect from 95% to 100%
+ */
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/**
+ * Fade + Slide Up animation for tooltip entrance
+ * Minimal 4px slide up with fade
+ */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * Fade + Slide Down animation for dropdown entrance
+ * Minimal 8px slide down with fade
+ */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ============================================
+// ANIMATION MIXINS
+// ============================================
+
+/**
+ * Apply fade-scale animation (for tags)
+ * @param {string} $duration - Animation duration (default: 200ms)
+ * @param {string} $easing - Easing function (default: ease-out)
+ */
+@mixin animate-fade-scale($duration: 200ms, $easing: ease-out) {
+  animation: fadeScale $duration $easing;
+}
+
+/**
+ * Apply fade-slide-up animation (for tooltips)
+ * @param {string} $duration - Animation duration (default: 150ms)
+ * @param {string} $easing - Easing function (default: ease-out)
+ */
+@mixin animate-fade-slide-up($duration: 150ms, $easing: ease-out) {
+  animation: fadeSlideUp $duration $easing;
+}
+
+/**
+ * Apply fade-slide-down animation (for dropdowns)
+ * @param {string} $duration - Animation duration (default: 200ms)
+ * @param {string} $easing - Easing function (default: ease-out)
+ */
+@mixin animate-fade-slide-down($duration: 200ms, $easing: ease-out) {
+  animation: fadeSlideDown $duration $easing;
+}
+
+// ============================================
+// TRANSITION CLASSES FOR ANIMATIONS
+// ============================================
+
+/**
+ * Vue transition classes for fade-scale (tags)
+ */
+.fade-scale-enter-active {
+  animation: fadeScale 200ms ease-out;
+}
+
+.fade-scale-leave-active {
+  animation: fadeScale 200ms ease-out reverse;
+}
+
+.fade-scale-move {
+  transition: transform 200ms ease-out;
+}
+
+/**
+ * Vue transition classes for fade-slide-up (tooltips)
+ */
+.fade-slide-up-enter-active {
+  animation: fadeSlideUp 150ms ease-out;
+}
+
+.fade-slide-up-leave-active {
+  animation: fadeSlideUp 150ms ease-out reverse;
+}
+
+/**
+ * Vue transition classes for fade-slide-down (dropdowns)
+ */
+.fade-slide-down-enter-active {
+  animation: fadeSlideDown 200ms ease-out;
+}
+
+.fade-slide-down-leave-active {
+  animation: fadeSlideDown 150ms ease-in reverse;
+}

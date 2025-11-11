@@ -8,39 +8,44 @@
       :tags="tagsData"
       :on-remove="handleRemoveTag"
       :on-edit="handleEditTag"
+      :on-clear-highlight="handleClearHighlight"
       :editable="editable"
       :read-only="readOnly"
       :tag-style="{
         foreColor: theme.tagTextColor,
         backgroundColor: theme.primary,
       }"
+      :select-all="selectAllRef"
+      :on-clear-select-all-tooltip="handleClearSelectAllTooltip"
       :class-names="{
         container: classNames.tag_container ?? '',
         name: classNames.tag_name ?? '',
         closeButton: classNames.tag_close_btn ?? '',
       }"
     >
-      <!-- Error message display -->
-      <transition name="error-message">
-        <div
-          v-if="errorMessage"
-          class="error-message"
-        >
-          {{ errorMessage }}
-        </div>
-      </transition>
-
       <div
         v-if="tagsData.length < maxTags"
+        ref="inputWrapperRef"
         class="input-wrapper"
       >
+        <Tooltip
+          :show="showPlaceholderTooltip && !delTagRef && !selectAllRef"
+          :message="inputPlaceholder"
+          variant="info"
+          closeable
+          @close="handleClosePlaceholderTooltip"
+        />
+        <Tooltip
+          :show="!!errorMessage"
+          :message="errorMessage"
+          variant="error"
+        />
         <input
           v-if="!readOnly"
           ref="textInputRef"
           v-model="input"
           type="text"
           class="tags-main__input"
-          :placeholder="inputPlaceholder"
           role="combobox"
           :aria-expanded="showSuggestions"
           aria-autocomplete="list"
@@ -57,24 +62,35 @@
           @keydown.tab="handleTab"
           @keydown.ctrl.exact="handleSelectAll"
           @paste="handlePaste"
-          @blur="handleEscape"
+          @focus="handleInputFocus"
+          @blur="handleInputBlur"
         />
-        <div
-          class="suggestion-wrapper"
-          :class="{ 'suggestion-wrapper--hidden': !showSuggestions }"
-        >
-          <SuggestionPane
-            id="suggestions-listbox"
-            :show="showSuggestions"
-            :items="filteredItems"
-            :keyword="input"
-            :on-selection="handleSuggestSelection"
-            :on-pane-esc="handleSuggestEsc"
-            :pane-style="{ bgColor: theme.primary }"
-            :selected-index="selectedIndex"
-            :focus="false"
-          />
-        </div>
+        <!-- Teleport dropdown to body to avoid clipping -->
+        <Teleport to="body">
+          <div
+            v-if="showSuggestions"
+            class="suggestion-wrapper-teleported"
+            :style="{
+              position: 'fixed',
+              top: dropdownPosition.top,
+              left: dropdownPosition.left,
+              width: dropdownPosition.width,
+              zIndex: 100,
+            }"
+          >
+            <SuggestionPane
+              id="suggestions-listbox"
+              :show="showSuggestions"
+              :items="filteredItems"
+              :keyword="input"
+              :on-selection="handleSuggestSelection"
+              :on-pane-esc="handleSuggestEsc"
+              :pane-style="{ bgColor: theme.primary }"
+              :selected-index="selectedIndex"
+              :focus="false"
+            />
+          </div>
+        </Teleport>
         <!-- Live region for accessibility announcements -->
         <div
           role="status"
@@ -93,6 +109,7 @@
 import { defineComponent, PropType } from 'vue'
 import SmartTags from './Tags.vue'
 import SuggestionPane from './SuggestPane.vue'
+import Tooltip from './Tooltip.vue'
 import MainSetup from './MainSetup'
 
 export default defineComponent({
@@ -100,6 +117,7 @@ export default defineComponent({
   components: {
     SmartTags,
     SuggestionPane,
+    Tooltip,
   },
   props: {
     readOnly: {
@@ -210,7 +228,7 @@ export default defineComponent({
 }
 
 .tags-main__input {
-  height: 100%;
+  height: auto;
   padding: 0;
   border: 0;
   border-bottom: var(--border-width-thin) solid var(--color-black);
@@ -230,33 +248,25 @@ export default defineComponent({
 .input-wrapper {
   position: relative;
   width: 200px;
-  height: 100%;
-  margin-top: var(--spacing-base);
+  height: auto;
   margin-left: var(--spacing-base);
-  align-self: center;
+  display: flex;
+  align-items: center;
 
   @media (width <= 768px) {
     width: 100%;
     min-height: 44px; // Minimum touch target height
-    margin-top: var(--spacing-md);
     margin-left: 0;
   }
 }
 
-.suggestion-wrapper {
-  @include absolute($top: var(--spacing-xl));
+.suggestion-wrapper-teleported {
   @include drop-shadow(var(--overlay-black-medium), 2px, 2px, 10px);
 
-  width: 100%;
-  min-height: auto;
   max-height: min(500px, 80vh);
   overflow: hidden auto;
-  z-index: var(--z-index-dropdown);
-  transition: max-height 0.2s ease-in-out;
-
-  &--hidden {
-    visibility: hidden;
-  }
+  pointer-events: auto;
+  border-radius: var(--border-radius-sm);
 
   @media (width <= 768px) {
     max-height: min(300px, 60vh);
@@ -273,27 +283,5 @@ export default defineComponent({
   clip-path: inset(50%);
   white-space: nowrap;
   border-width: 0;
-}
-
-.error-message {
-  padding: var(--spacing-base) var(--spacing-lg);
-  margin-bottom: var(--spacing-md);
-  background-color: #fee2e2;
-  color: #991b1b;
-  border-left: 4px solid #dc2626;
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-}
-
-.error-message-enter-active,
-.error-message-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-
-.error-message-enter-from,
-.error-message-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
 }
 </style>

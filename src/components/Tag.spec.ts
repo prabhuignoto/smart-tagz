@@ -475,7 +475,7 @@ describe('Tag.vue', () => {
         },
       })
 
-      expect(wrapper.vm.style.background).toBe('#b20000')
+      expect(wrapper.vm.style.background).toBe('#b50000')
     })
 
     it('should use custom backgroundColor when not highlighted', () => {
@@ -511,7 +511,7 @@ describe('Tag.vue', () => {
 
       await wrapper.setProps({ highlight: true })
 
-      expect(wrapper.vm.style.background).toBe('#b20000')
+      expect(wrapper.vm.style.background).toBe('#b50000')
     })
   })
 

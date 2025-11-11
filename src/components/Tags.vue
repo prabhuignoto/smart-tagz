@@ -1,6 +1,14 @@
 <template>
   <div class="tags-container">
-    <transition-group name="tags-list">
+    <Tooltip
+      :show="selectAll && localTags.length > 0"
+      message="Press Delete to remove"
+      variant="error"
+      closeable
+      class="select-all-tooltip"
+      @close="handleClearSelectAllTooltip"
+    />
+    <transition-group name="fade-scale">
       <SmartTag
         v-for="tag of localTags"
         :id="tag.id"
@@ -13,11 +21,13 @@
         :editable="editable"
         :read-only="readOnly"
         :tag-style="tagStyle"
+        :is-select-all="selectAll"
         :class-names="{
           container: classNames.container,
           name: classNames.name,
           closeButton: classNames.closeButton,
         }"
+        @clear-highlight="handleClearHighlight(tag.id)"
       />
     </transition-group>
     <slot />
@@ -26,6 +36,7 @@
 
 <script lang="ts">
 import SmartTag from './Tag.vue'
+import Tooltip from './Tooltip.vue'
 import { defineComponent, PropType, computed } from 'vue'
 import { TagModel } from '../models'
 
@@ -33,6 +44,7 @@ export default defineComponent({
   name: 'SmartTags',
   components: {
     SmartTag,
+    Tooltip,
   },
   props: {
     readOnly: {
@@ -67,6 +79,18 @@ export default defineComponent({
       type: Object as PropType<{ foreColor: string; backgroundColor: string }>,
       default: () => ({}),
     },
+    onClearHighlight: {
+      type: Function as PropType<(id: string) => void>,
+      default: () => {},
+    },
+    selectAll: {
+      type: Boolean,
+      default: false,
+    },
+    onClearSelectAllTooltip: {
+      type: Function as PropType<() => void>,
+      default: () => {},
+    },
   },
   setup(props) {
     const localTags = computed(() => {
@@ -78,11 +102,15 @@ export default defineComponent({
 
     const handleRemove = (id: string) => props.onRemove(id)
     const handleEdit = (id: string, newValue: string) => props.onEdit(id, newValue)
+    const handleClearHighlight = (id: string) => props.onClearHighlight(id)
+    const handleClearSelectAllTooltip = () => props.onClearSelectAllTooltip()
 
     return {
       localTags,
       handleRemove,
       handleEdit,
+      handleClearHighlight,
+      handleClearSelectAllTooltip,
     }
   },
 })
@@ -92,18 +120,19 @@ export default defineComponent({
 @use '@/styles' as *;
 
 .tags-container {
-  @include flex-row(flex-start, flex-start);
+  @include flex-row(center, flex-start);
 
   flex-wrap: wrap;
+  position: relative;
 }
 
-.tags-list-enter-active,
-.tags-list-leave-active {
-  transition: all 0.2s ease-in-out;
+.select-all-tooltip {
+  position: absolute;
+  top: -45px;
+  left: var(--spacing-sm);
+  pointer-events: auto;
 }
 
-.tags-list-enter,
-.tags-list-leave-to {
-  opacity: 0;
-}
+// Animation classes imported from @/styles/_animations.scss
+// Uses fade-scale animation for subtle tag entrance/exit with scale effect
 </style>

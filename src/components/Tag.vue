@@ -9,6 +9,13 @@
     :style="style"
     :aria-label="highlight ? `${name} - Press Delete again to remove` : name"
   >
+    <Tooltip
+      :show="!!highlight && !isSelectAll"
+      message="Press Delete to remove"
+      variant="error"
+      closeable
+      @close="handleClearHighlight"
+    />
     <input
       v-if="canShowInputbox"
       ref="inputTextRef"
@@ -25,12 +32,6 @@
       @dblclick="handleDoubleClick"
     >
       {{ name }}
-      <span
-        v-if="highlight"
-        class="tag-name__delete-hint"
-      >
-        (Press Delete to remove)
-      </span>
     </span>
     <button
       v-if="canShowRemoveBtn"
@@ -47,12 +48,14 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, nextTick, computed, toRef } from 'vue'
 import CloseIcon from './CloseIcon.vue'
+import Tooltip from './Tooltip.vue'
 import { TagClass } from '../models'
 
 export default defineComponent({
   name: 'SmartTag',
   components: {
     CloseIcon,
+    Tooltip,
   },
   props: {
     name: {
@@ -95,14 +98,22 @@ export default defineComponent({
         backgroundColor: '',
       }),
     },
+    isSelectAll: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  emits: {
+    'clear-highlight': () => true,
+  },
+  setup(props, { emit }) {
     const editMode = ref(false)
     const input = ref(props.name)
     const inputTextRef = ref<HTMLInputElement>()
     const tagHighlight = toRef(props, 'highlight')
 
     const handleRemove = (id: string) => props.onRemove(id)
+    const handleClearHighlight = () => emit('clear-highlight')
     const handleDoubleClick = () => {
       if (!props.editable || props.readOnly) {
         return
@@ -129,7 +140,7 @@ export default defineComponent({
 
     const style = computed(() => {
       return {
-        background: tagHighlight.value ? '#b20000' : props.tagStyle.backgroundColor,
+        background: tagHighlight.value ? '#b50000' : props.tagStyle.backgroundColor,
         color: props.tagStyle.foreColor,
       }
     })
@@ -139,6 +150,7 @@ export default defineComponent({
       handleDoubleClick,
       handleSaveEdit,
       handleEscape,
+      handleClearHighlight,
       editMode,
       input,
       inputTextRef,
@@ -157,6 +169,7 @@ export default defineComponent({
   @include flex-center;
   @include drop-shadow(var(--shadow-tag));
 
+  position: relative; // For tooltip positioning
   border-radius: var(--border-radius-sm);
   margin: var(--spacing-md) var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md) var(--spacing-md);
@@ -168,24 +181,13 @@ export default defineComponent({
   }
 
   &--highlight {
-    border: 2px solid rgb(255 255 255 / 60%);
+    // border: 1px solid rgb(255 255 255 / 60%);
     box-shadow: 0 0 0 2px rgb(255 255 255 / 30%);
   }
 }
 
 .tag-name {
   font-size: var(--font-size-base);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-sm);
-
-  &__delete-hint {
-    font-size: 0.75rem;
-    font-weight: 600;
-    opacity: 0.9;
-    font-style: italic;
-  }
 }
 
 .tag-edit-input {
@@ -206,9 +208,9 @@ export default defineComponent({
 .tag-container__button {
   @include flex-center;
 
-  width: 24px;
-  height: 24px;
-  padding: 10px; // Creates 44px touch target: 24px + (10px * 2)
+  width: 20px;
+  height: 20px;
+  padding: 12px; // Creates 44px touch target: 20px + (12px * 2)
   margin-right: var(--spacing-xs);
   margin-left: var(--spacing-base);
   background: var(--color-white);
@@ -235,15 +237,15 @@ export default defineComponent({
   }
 
   @media (width <= 768px) {
-    width: 28px;
-    height: 28px;
-    padding: 8px; // Creates 44px touch target: 28px + (8px * 2)
+    width: 24px;
+    height: 24px;
+    padding: 10px; // Creates 44px touch target: 24px + (10px * 2)
   }
 
   /* Scale the icon inside to maintain visual consistency */
   :deep(svg) {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 </style>

@@ -25,7 +25,6 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
     siteTitle: 'Smart-Tagz',
 
     nav: [
@@ -61,14 +60,36 @@ export default defineConfig({
       ],
       '/examples/': [
         {
-          text: 'Examples',
+          text: 'Core Features',
           items: [
             { text: 'Basic Usage', link: '/examples/basic' },
+            { text: 'Default Tags', link: '/examples/defaults' },
+            { text: 'Inline Editing', link: '/examples/editable' },
+            { text: 'Paste & Bulk Import', link: '/examples/paste' },
+            { text: 'Read-Only Mode', link: '/examples/readonly' },
+          ],
+        },
+        {
+          text: 'Validation & Constraints',
+          items: [
+            { text: 'Duplicate Prevention', link: '/examples/duplicates' },
+            { text: 'Maximum Tag Limit', link: '/examples/maxtags' },
+          ],
+        },
+        {
+          text: 'Advanced Features',
+          items: [
             { text: 'Autocomplete', link: '/examples/autocomplete' },
-            { text: 'Keyboard Navigation', link: '/examples/keyboard' },
-            { text: 'Accessibility Demo', link: '/examples/accessibility' },
             { text: 'Fuzzy Search', link: '/examples/fuzzy-search' },
             { text: 'Error Handling', link: '/examples/error-handling' },
+            { text: 'Quick Delete', link: '/examples/quickdelete' },
+          ],
+        },
+        {
+          text: 'UX & Accessibility',
+          items: [
+            { text: 'Keyboard Navigation', link: '/examples/keyboard' },
+            { text: 'Accessibility Demo', link: '/examples/accessibility' },
             { text: 'Mobile Optimization', link: '/examples/mobile' },
             { text: 'Theme Customization', link: '/examples/theme' },
           ],
@@ -98,7 +119,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024 Prabhu Murthy',
+      copyright: `Copyright © ${new Date().getFullYear()} Prabhu Murthy`,
     },
   },
 

@@ -1,0 +1,14 @@
+/* Home page hero logo styling */
+.VPHero .image {
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.light .VPHero .image {
+  background-color: #f3f4f6;
+}
+
+.dark .VPHero .image {
+  background-color: #1f2937;
+}

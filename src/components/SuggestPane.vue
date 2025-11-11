@@ -1,50 +1,52 @@
 <template>
-  <div
-    v-if="showPane"
-    class="suggest-pane-container"
-  >
+  <Transition name="fade-slide-down">
     <div
-      v-if="items.length > 0"
-      class="suggest-pane-wrapper"
+      v-if="showPane"
+      class="suggest-pane-container"
     >
-      <div class="suggest-pane-header">
-        {{ items.length }} {{ items.length === 1 ? 'result' : 'results' }}
-      </div>
-      <ul
-        ref="paneRef"
-        class="suggest-pane"
-        :style="{ background: paneStyle.bgColor }"
-        role="listbox"
-        aria-label="Tag suggestions"
-        tabindex="0"
+      <div
+        v-if="items.length > 0"
+        class="suggest-pane-wrapper"
       >
-        <li
-          v-for="(item, index) of items"
-          :id="`suggestion-${index}`"
-          :key="item"
-          class="suggest-pane-item"
-          :class="{ 'suggest-pane-item--selected': index === selectedIndex }"
-          role="option"
-          :aria-selected="index === selectedIndex"
-          :title="item"
-          @mousedown="handleSelection(item)"
+        <!-- <div class="suggest-pane-header">
+        {{ items.length }} {{ items.length === 1 ? 'result' : 'results' }}
+      </div> -->
+        <ul
+          ref="paneRef"
+          class="suggest-pane"
+          :style="{ background: paneStyle.bgColor }"
+          role="listbox"
+          aria-label="Tag suggestions"
+          tabindex="0"
         >
-          <span
-            class="suggest-match"
-            v-html="highlightMatch(item, keyword)"
-          />
-        </li>
-      </ul>
+          <li
+            v-for="(item, index) of items"
+            :id="`suggestion-${index}`"
+            :key="item"
+            class="suggest-pane-item"
+            :class="{ 'suggest-pane-item--selected': index === selectedIndex }"
+            role="option"
+            :aria-selected="index === selectedIndex"
+            :title="item"
+            @mousedown="handleSelection(item)"
+          >
+            <span
+              class="suggest-match"
+              v-html="highlightMatch(item, keyword)"
+            />
+          </li>
+        </ul>
+      </div>
+      <!-- Empty state when no results found -->
+      <div
+        v-else
+        class="suggest-pane-empty"
+        :style="{ background: paneStyle.bgColor }"
+      >
+        <div class="suggest-pane-empty__text">No matches found for "{{ keyword }}"</div>
+      </div>
     </div>
-    <!-- Empty state when no results found -->
-    <div
-      v-else
-      class="suggest-pane-empty"
-      :style="{ background: paneStyle.bgColor }"
-    >
-      <div class="suggest-pane-empty__text">No matches found for "{{ keyword }}"</div>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -95,7 +97,8 @@ export default defineComponent({
       () => props.show,
       (newValue) => {
         showPane.value = newValue
-      }
+      },
+      { immediate: true } // Run immediately on mount to sync initial value
     )
 
     // Handle Enter key to select item
@@ -131,6 +134,14 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 @use '@/styles' as *;
+
+// Animation classes imported from @/styles/_animations.scss
+// Uses fade-slide-down animation for subtle dropdown entrance/exit
+
+.suggest-pane-container {
+  width: 100%;
+  position: relative;
+}
 
 .suggest-pane {
   width: 100%;

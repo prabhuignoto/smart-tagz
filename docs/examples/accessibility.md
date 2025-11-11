@@ -58,47 +58,6 @@ Smart-Tagz uses semantic HTML elements:
 - `<div role="listbox">` for suggestions
 - ARIA attributes for labels and descriptions
 
-## Screen Reader Testing Guide
-
-### Testing with NVDA (Windows)
-
-```
-1. Download and install NVDA (free)
-2. Enable NVDA (Ctrl + Alt + N)
-3. Tab to SmartTagz component
-4. Use arrow keys to navigate
-5. Press Enter to add tags
-6. Listen for announcements
-```
-
-### Testing with JAWS (Windows)
-
-```
-1. Launch JAWS
-2. Use Tab to focus component
-3. Use arrow keys for suggestions
-4. JAWS will announce all interactions
-5. Verify announcements make sense
-```
-
-### Testing with VoiceOver (Mac/iOS)
-
-```
-1. Enable VoiceOver (Cmd + F5)
-2. Use VO (Control + Option) + arrow keys
-3. Use VO + Space to select items
-4. Listen for all announcements
-```
-
-### Testing with TalkBack (Android)
-
-```
-1. Settings > Accessibility > TalkBack (enable)
-2. Use two-finger swipe right to navigate
-3. Double-tap to select
-4. Listen for announcements
-```
-
 ## Code Example
 
 ```vue
@@ -113,10 +72,8 @@ Smart-Tagz uses semantic HTML elements:
       :allow-duplicates=\"false\"
       input-placeholder=\"Type to search technologies\"
       :on-changed=\"handleTagsChanged\"
-      aria-label=\"Technology tag input\"
-      aria-describedby=\"tag-help\"
     />
-    <p id=\"tag-help\" class=\"help-text\">
+    <p class=\"help-text\">
       Use arrow keys to navigate suggestions, Enter to add, Delete to remove
     </p>
   </div>
