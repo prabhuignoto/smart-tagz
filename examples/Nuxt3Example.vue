@@ -6,7 +6,7 @@
       <h2>Basic Usage</h2>
       <SmartTagz
         input-placeholder="Add programming languages..."
-        :source="languages"
+        :sources="languages"
         :on-changed="handleLanguagesChanged"
       />
       <p class="info">Selected: {{ selectedLanguages.join(', ') || 'None' }}</p>
@@ -22,12 +22,6 @@
         :on-changed="handleNamesChanged"
       />
       <p class="info">Names: {{ selectedNames.join(', ') || 'None' }}</p>
-      <button
-        class="btn"
-        @click="clearAllNames"
-      >
-        Clear All
-      </button>
       <button
         class="btn"
         @click="addProgrammaticName"
@@ -48,7 +42,7 @@
       </div>
       <SmartTagz
         input-placeholder="Select from dynamic source..."
-        :source="dynamicSource"
+        :sources="dynamicSource"
         :on-changed="handleDynamicChanged"
       />
       <p class="info">Dynamic selection: {{ dynamicSelection.join(', ') || 'None' }}</p>
@@ -63,7 +57,7 @@
         :max-tags="5"
         autosuggest
         :default-tags="['Vue', 'Nuxt']"
-        :source="frameworks"
+        :sources="frameworks"
         :on-changed="handleFrameworksChanged"
         allow-paste
         quick-delete
@@ -114,14 +108,6 @@ const handleDynamicChanged = (tags: string[]) => {
 }
 
 // Methods
-const clearAllNames = () => {
-  if (editableTagsRef.value?.clearAllTags) {
-    editableTagsRef.value.clearAllTags()
-    selectedNames.value = []
-    console.log('All names cleared')
-  }
-}
-
 const addProgrammaticName = () => {
   if (editableTagsRef.value?.handleAddTag) {
     editableTagsRef.value.handleAddTag('Charlie')

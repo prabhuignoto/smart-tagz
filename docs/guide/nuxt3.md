@@ -64,7 +64,7 @@ Once installed, use the component anywhere in your Nuxt 3 app:
   <div>
     <SmartTagz
       input-placeholder="Enter programming languages..."
-      :source="languages"
+      :sources="languages"
       :on-changed="handleChanged"
     />
     <p>Selected: {{ selectedTags }}</p>
@@ -102,7 +102,6 @@ Access the component instance to add/clear tags programmatically:
     />
 
     <button @click="addTag">Add Tag</button>
-    <button @click="clearTags">Clear All</button>
   </div>
 </template>
 
@@ -114,10 +113,6 @@ const tags = ref(['Vue', 'Nuxt'])
 
 const addTag = () => {
   tagsRef.value?.handleAddTag('New Tag')
-}
-
-const clearTags = () => {
-  tagsRef.value?.clearAllTags()
 }
 </script>
 ```
@@ -132,7 +127,7 @@ Update the source array reactively:
     <button @click="toggleSource">Switch Source</button>
 
     <SmartTagz
-      :source="currentSource"
+      :sources="currentSource"
       :on-changed="handleChanged"
     />
   </div>
@@ -169,7 +164,7 @@ Load tags from an API:
   <div>
     <SmartTagz
       v-if="!loading"
-      :source="availableTags"
+      :sources="availableTags"
       :default-tags="userTags"
       :on-changed="handleChanged"
     />
@@ -218,7 +213,7 @@ Use with Nuxt form validation:
       <label>Select Tags:</label>
       <SmartTagz
         ref="tagsRef"
-        :source="availableTags"
+        :sources="availableTags"
         :on-changed="updateFormData"
       />
       <span v-if="errors.tags" class="error">{{ errors.tags }}</span>
@@ -262,8 +257,6 @@ const submitForm = async () => {
       body: formData.value,
     })
 
-    // Clear form
-    tagsRef.value?.clearAllTags()
     alert('Form submitted successfully!')
   } catch (error) {
     console.error('Form submission failed:', error)
@@ -294,7 +287,7 @@ interface SmartTagzProps {
 
   // Data
   defaultTags?: string[] // Initial tags
-  source?: string[] // Autocomplete options
+  sources?: string[] // Autocomplete options
 
   // Behavior
   editable?: boolean // Allow editing existing tags
@@ -332,9 +325,6 @@ tagsRef.value.handleAddTag('new-tag')
 
 // Remove a tag
 tagsRef.value.handleRemoveTag('tag-id')
-
-// Clear all tags
-tagsRef.value.clearAllTags()
 ```
 
 ---

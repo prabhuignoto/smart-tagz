@@ -26,6 +26,20 @@ yarn add smart-tagz
 pnpm add smart-tagz
 ```
 
+## Peer Dependencies
+
+Smart-Tagz requires the following peer dependency to be installed in your project:
+
+```bash
+npm install vue-feather-icons
+# or
+yarn add vue-feather-icons
+# or
+pnpm add vue-feather-icons
+```
+
+This dependency is used for icon components in the tag interface. Most projects will have this already installed, but if you get warnings about missing peer dependencies, install it using the command above.
+
 ## Setup in Your Project
 
 ### Step 1: Import Component

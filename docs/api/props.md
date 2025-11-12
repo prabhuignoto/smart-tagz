@@ -171,19 +171,58 @@ When `readOnly` is `true`:
 
 ### `classNames`
 
-- **Type:** `{ wrapper?: string, container?: string, name?: string, closeButton?: string }`
-- **Default:** `{ wrapper: 'tags_wrapper_custom', container: 'tag_container_custom', name: 'tag_name_custom', closeButton: 'tag_close_btn_custom' }`
-- **Description:** Custom CSS class names for advanced styling
+- **Type:** `{ main?: string, wrapper?: string, tag_container?: string, tag_name?: string, tag_close_btn?: string }`
+- **Default:** `{ wrapper: 'tags_wrapper_custom', tag_container: 'tag_container_custom', tag_name: 'tag_name_custom', tag_close_btn: 'tag_close_btn_custom' }`
+- **Description:** Custom CSS class names for advanced styling. Note: `main` property is available in the type but currently not used by the component.
 
 ```vue
 <SmartTagz
   :class-names="{
     wrapper: 'my-wrapper',
-    container: 'my-custom-container',
-    name: 'my-tag-text',
-    closeButton: 'my-close-btn'
+    tag_container: 'my-custom-container',
+    tag_name: 'my-tag-text',
+    tag_close_btn: 'my-close-btn'
   }"
 />
+```
+
+## Methods
+
+Component methods can be accessed via template refs for programmatic control.
+
+### `handleAddTag(tag: string)`
+
+Add a tag programmatically to the component.
+
+```vue
+<template>
+  <div>
+    <SmartTagz ref="tagsRef" />
+    <button @click="addCustomTag">Add Tag</button>
+  </div>
+</template>
+
+<script setup>
+const tagsRef = ref()
+
+const addCustomTag = () => {
+  tagsRef.value?.handleAddTag('Custom Tag')
+}
+</script>
+```
+
+### `handleRemoveTag(id: string)`
+
+Remove a specific tag by its ID.
+
+```vue
+<script setup>
+const tagsRef = ref()
+
+const removeTag = (tagId) => {
+  tagsRef.value?.handleRemoveTag(tagId)
+}
+</script>
 ```
 
 ## Callbacks
@@ -285,9 +324,10 @@ interface SmartTagzProps {
     tagTextColor: string
   }
   classNames?: {
-    container?: string
-    name?: string
-    closeButton?: string
+    wrapper?: string
+    tag_container?: string
+    tag_name?: string
+    tag_close_btn?: string
   }
   onChanged?: (tags: string[]) => void
 }

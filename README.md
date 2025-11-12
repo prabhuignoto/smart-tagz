@@ -132,7 +132,7 @@ Use it in your components:
 ```vue
 <template>
   <SmartTagz
-    :source="languages"
+    :sources="languages"
     :on-changed="handleChanged"
   />
 </template>
@@ -176,7 +176,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   <div>
     <SmartTagz ref="tagsRef" editable />
     <button @click="addTag">Add Tag</button>
-    <button @click="clearTags">Clear All</button>
   </div>
 </template>
 
@@ -184,7 +183,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 const tagsRef = ref()
 
 const addTag = () => tagsRef.value?.handleAddTag('new-tag')
-const clearTags = () => tagsRef.value?.clearAllTags()
 </script>
 ```
 
@@ -390,10 +388,10 @@ If you are looking for more control in terms of customizing the style of the tag
 <smart-tagz
   input-placeholder="Select Countries ..."
   :class-names="{
-    wrapper: 'tags_wrapper_custom',
-    tag_name: 'tag_name_custom',
-    tag_container: 'tag_container_custom',
-    tag_close_btn: 'tag_close_btn_custom',
+    wrapper: 'my-tags-wrapper',
+    tag_container: 'my-tag-container',
+    tag_name: 'my-tag-name',
+    tag_close_btn: 'my-close-btn',
   }"
   :default-tags="[
     'United Kingdom',
