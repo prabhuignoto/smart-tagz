@@ -1,5 +1,4 @@
 import * as XLSX from 'xlsx'
-import { writeFileSync } from 'fs'
 import { resolve } from 'path'
 
 interface BugTrackerEntry {
