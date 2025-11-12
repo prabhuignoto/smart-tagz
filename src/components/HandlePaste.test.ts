@@ -285,4 +285,110 @@ describe('HandlePaste', () => {
       })
     })
   })
+
+  describe('Bug Fixes - Set Serialization (#54, #27)', () => {
+    it('should return proper array, not Set object, when allow-duplicates=false', () => {
+      const result = HandlePaste(
+        mockTags,
+        'option1@gmail.com,option2@gmail.com,option3@gmail.com',
+        10,
+        1,
+        ',',
+        false
+      )
+
+      // Verify result is defined
+      expect(result).toBeDefined()
+      expect(result?.newData).toBeDefined()
+
+      // Verify newData is a proper array, not a Set
+      expect(Array.isArray(result?.newData)).toBe(true)
+
+      // Verify that JSON.stringify doesn't produce Set serialization
+      const stringified = JSON.stringify(result?.newData)
+      expect(stringified).not.toContain('Set(')
+      expect(stringified).not.toMatch(/"Set\(\d+\)"/)
+
+      // Verify each tag is a proper TagModel object
+      result?.newData.forEach((tag) => {
+        expect(tag).toHaveProperty('id')
+        expect(tag).toHaveProperty('name')
+        expect(tag).toHaveProperty('value')
+        expect(typeof tag.name).toBe('string')
+      })
+    })
+
+    it('should handle paste with duplicates within pasted items and produce array', () => {
+      const result = HandlePaste(
+        mockTags,
+        'tag1@example.com, tag2@example.com, tag1@example.com',
+        10,
+        1,
+        ',',
+        false
+      )
+
+      expect(result).toBeDefined()
+      expect(Array.isArray(result?.newData)).toBe(true)
+
+      // Should have 1 existing + 2 new (tag1, tag2) - duplicate tag1 removed
+      expect(result?.newData).toHaveLength(3)
+
+      // Verify no Set serialization in JSON output
+      const stringified = JSON.stringify(result?.newData)
+      expect(stringified).not.toContain('Set(')
+    })
+
+    it('should handle paste with existing tags and no Set in output', () => {
+      mockTags = [
+        { id: '1', name: 'option4@gmail.com', value: 'option4@gmail.com' },
+        { id: '2', name: 'option5@gmail.com', value: 'option5@gmail.com' },
+      ]
+
+      const result = HandlePaste(
+        mockTags,
+        'option4@gmail.com, option5@gmail.com, option6@gmail.com',
+        10,
+        2,
+        ',',
+        false
+      )
+
+      expect(result).toBeDefined()
+
+      // Only option6 should be added (option4 and option5 already exist)
+      expect(result?.newData).toHaveLength(3)
+
+      // Verify newData is actual array and serializes correctly
+      expect(Array.isArray(result?.newData)).toBe(true)
+      const json = JSON.stringify(result?.newData)
+      expect(json).not.toContain('Set(')
+      expect(json).toContain('option6@gmail.com')
+    })
+
+    it('should not expose internal Set object in any form', () => {
+      const result = HandlePaste(
+        mockTags,
+        'email1@test.com, email2@test.com, email1@test.com, email3@test.com',
+        10,
+        1,
+        ',',
+        false
+      )
+
+      expect(result).toBeDefined()
+
+      // Check that result doesn't contain Set in any property
+      const resultString = JSON.stringify(result)
+      expect(resultString).not.toMatch(/Set\(/)
+      expect(resultString).not.toMatch(/\[object Set\]/)
+
+      // Verify tagsCreated is a number, not an object
+      expect(typeof result?.tagsCreated).toBe('number')
+
+      // Verify newData can be mapped (array method)
+      const names = result?.newData.map((t) => t.name)
+      expect(Array.isArray(names)).toBe(true)
+    })
+  })
 })

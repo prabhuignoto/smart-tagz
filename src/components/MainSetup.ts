@@ -221,6 +221,11 @@ export default function ({
 
   // checks if a new tag can be added
   const canAddTag = (name: string) => {
+    // Validate that name is not empty or just whitespace
+    if (!name || name.trim().length === 0) {
+      return false
+    }
+
     const tester = new RegExp(`^${escapeStringRegexp(name)}$`, 'ig')
     const duplicatesCheck = !allowDuplicates
       ? !tagsData.value.some((tag) => tag.name === name || tester.test(tag.name))
@@ -249,6 +254,10 @@ export default function ({
       } else if (tagsCreated.value >= maxTags) {
         showError(`Maximum ${maxTags} tags allowed`)
       }
+      // Reset state before returning
+      input.value = ''
+      showSuggestions.value = false
+      selectedIndex.value = -1
       return
     }
 
@@ -266,14 +275,14 @@ export default function ({
         id: Math.random().toString(16).slice(2),
         value: newTag,
       })
+      // Increment counter only when tag is actually added
+      tagsCreated.value = +tagsCreated.value + 1
       // Announce tag addition to screen readers
-      const totalTags = tagsCreated.value + 1
-      announce(`${newTag} added. ${totalTags} of ${maxTags} tags`)
+      announce(`${newTag} added. ${tagsCreated.value} of ${maxTags} tags`)
     }
 
     input.value = ''
     showSuggestions.value = false
-    tagsCreated.value = +tagsCreated.value + 1
     selectedIndex.value = -1
 
     nextTick(() => focus())
@@ -288,6 +297,21 @@ export default function ({
     if (removedTag) {
       const remainingTags = tagsCreated.value
       announce(`${removedTag.name} removed. ${remainingTags} of ${maxTags} tags`)
+    }
+  }
+
+  // Programmatic API to clear all tags
+  const clearAllTags: () => void = () => {
+    const tagCount = tagsData.value.length
+    tagsData.value = []
+    tagsCreated.value = 0
+    selectAllRef.value = false
+    input.value = ''
+    showSuggestions.value = false
+    selectedIndex.value = -1
+    // Announce to screen readers
+    if (tagCount > 0) {
+      announce(`All ${tagCount} tags cleared`)
     }
   }
 
@@ -485,6 +509,7 @@ export default function ({
     handleTab,
     handleAddTag,
     handleRemoveTag,
+    clearAllTags,
     handleDelete,
     handleEscape,
     handlePaste,
