@@ -1,5 +1,4 @@
 import { defineNuxtModule, createResolver, addPlugin, addComponent } from '@nuxt/kit'
-import { fileURLToPath } from 'url'
 
 export interface ModuleOptions {
   /**
@@ -20,7 +19,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     global: true,
   },
-  async setup(options, nuxt) {
+  async setup(options: ModuleOptions) {
     const { resolve } = createResolver(import.meta.url)
 
     // Auto-import the plugin to register the component globally
