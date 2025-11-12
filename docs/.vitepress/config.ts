@@ -137,6 +137,13 @@ export default defineConfig({
   },
 
   vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler',
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': new URL('../../src', import.meta.url).pathname,
