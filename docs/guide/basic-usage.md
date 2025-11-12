@@ -6,6 +6,12 @@ Learn how to use Smart-Tagz in your Vue 3 applications.
 
 The simplest way to use Smart-Tagz:
 
+<div class="demo-container">
+  <SmartTagz input-placeholder="Enter tags..." />
+</div>
+
+**Code:**
+
 ```vue
 <template>
   <SmartTagz />
@@ -22,6 +28,15 @@ This creates a basic tag input without suggestions.
 ## With Suggestions
 
 Add a data source to enable tag suggestions:
+
+<div class="demo-container">
+  <SmartTagz
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Angular', 'Python', 'Go', 'Rust']"
+    input-placeholder="Select a technology..."
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>
@@ -52,6 +67,16 @@ const technologies = [
 
 Enable fuzzy search to filter suggestions as users type:
 
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Angular']"
+    input-placeholder="Start typing..."
+  />
+</div>
+
+**Code:**
+
 ```vue
 <template>
   <SmartTagz
@@ -78,6 +103,16 @@ const technologies = [
 ## Listen to Changes
 
 React to tag changes using the `onChanged` event:
+
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React']"
+    input-placeholder="Select technologies..."
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>
@@ -117,6 +152,17 @@ const handleTagsChanged = (tags) => {
 
 Use `maxTags` to limit how many tags can be added:
 
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Angular', 'Python']"
+    :max-tags="5"
+    input-placeholder="Max 5 tags"
+  />
+</div>
+
+**Code:**
+
 ```vue
 <SmartTagz
   autosuggest
@@ -130,6 +176,17 @@ Use `maxTags` to limit how many tags can be added:
 
 Use `allowDuplicates` to prevent adding the same tag twice:
 
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React']"
+    :allow-duplicates="false"
+    input-placeholder="No duplicates allowed"
+  />
+</div>
+
+**Code:**
+
 ```vue
 <SmartTagz
   autosuggest
@@ -142,6 +199,17 @@ Use `allowDuplicates` to prevent adding the same tag twice:
 ## Default Tags
 
 Pre-populate with default tags:
+
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React']"
+    :default-tags="['Vue.js', 'JavaScript']"
+    input-placeholder="Add more tags..."
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>
@@ -163,6 +231,16 @@ const technologies = ['JavaScript', 'TypeScript', 'Vue.js']
 ## Paste Support
 
 Allow users to paste multiple tags at once:
+
+<div class="demo-container">
+  <SmartTagz
+    :sources="['user1@example.com', 'user2@example.com', 'user3@example.com', 'user4@example.com']"
+    :allow-paste="{ delimiter: ',' }"
+    input-placeholder="Paste emails separated by comma..."
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>
@@ -195,6 +273,17 @@ Result: 3 tags added automatically
 
 Allow users to edit tags after creation:
 
+<div class="demo-container">
+  <SmartTagz
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React']"
+    :editable="true"
+    :default-tags="['Vue.js']"
+    input-placeholder="Double-click tags to edit..."
+  />
+</div>
+
+**Code:**
+
 ```vue
 <SmartTagz
   :sources="technologies"
@@ -212,6 +301,15 @@ Allow users to edit tags after creation:
 
 Display tags without allowing edits:
 
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['JavaScript', 'Vue.js', 'React']"
+    :read-only="true"
+  />
+</div>
+
+**Code:**
+
 ```vue
 <SmartTagz
   :default-tags="['JavaScript', 'Vue.js']"
@@ -222,6 +320,17 @@ Display tags without allowing edits:
 ## Custom Styling
 
 Customize the theme with color properties:
+
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React']"
+    :theme="{ primary: '#3b82f6', background: '#f3f4f6', tagTextColor: '#ffffff' }"
+    input-placeholder="Custom styled..."
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>
@@ -249,6 +358,22 @@ const technologies = ['JavaScript', 'TypeScript', 'Vue.js']
 ## Combination Example
 
 A complete example combining multiple features:
+
+<div class="demo-container">
+  <SmartTagz
+    autosuggest
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Angular', 'Python', 'Go', 'Rust']"
+    :default-tags="['Vue.js']"
+    :max-tags="5"
+    :allow-duplicates="false"
+    :allow-paste="{ delimiter: ',' }"
+    :editable="true"
+    input-placeholder="Type or paste technologies..."
+    :theme="{ primary: '#6366f1', background: '#f8f9fa', tagTextColor: '#ffffff' }"
+  />
+</div>
+
+**Code:**
 
 ```vue
 <template>

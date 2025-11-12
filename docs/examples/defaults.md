@@ -23,6 +23,12 @@ The `defaultTags` prop allows you to set initial tags when the component mounts.
 
 ## Basic Usage
 
+<div class="demo-container">
+  <SmartTagz :default-tags="['Vue.js', 'TypeScript', 'Tailwind']" input-placeholder="Add more tags..." />
+</div>
+
+<CodeBlockCollapsible>
+
 ```vue
 <template>
   <SmartTagz :default-tags="['Vue.js', 'TypeScript', 'Tailwind']" />
@@ -33,6 +39,8 @@ import SmartTagz from 'smart-tagz'
 import 'smart-tagz/dist/smart-tagz.css'
 </script>
 ```
+
+</CodeBlockCollapsible>
 
 ## Props
 
@@ -49,6 +57,17 @@ import 'smart-tagz/dist/smart-tagz.css'
 ## Practical Examples
 
 ### Example 1: Loading User Preferences
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['JavaScript', 'Vue.js', 'Web Development']"
+    :sources="['JavaScript', 'TypeScript', 'Python', 'Vue.js', 'React', 'Angular', 'Web Development', 'Machine Learning']"
+    autosuggest
+    input-placeholder="Manage your preferences..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -88,7 +107,21 @@ const updatePreferences = (tags) => {
 </script>
 ```
 
+</CodeBlockCollapsible>
+
 ### Example 2: Editing Existing Item
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['Frontend', 'Vue.js', 'Open Source']"
+    :sources="['Frontend', 'Backend', 'Vue.js', 'React', 'Open Source']"
+    :editable="true"
+    autosuggest
+    input-placeholder="Edit item tags..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -131,7 +164,21 @@ const saveItem = async () => {
 </script>
 ```
 
+</CodeBlockCollapsible>
+
 ### Example 3: Dynamic Tags from API
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['JavaScript', 'Vue.js']"
+    :sources="['JavaScript', 'TypeScript', 'Vue.js', 'React', 'Angular', 'Python', 'Go']"
+    :max-tags="10"
+    autosuggest
+    input-placeholder="Load and manage tags from API..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -168,9 +215,23 @@ const handleTagsChanged = (tags) => {
 </script>
 ```
 
+</CodeBlockCollapsible>
+
 ## Combining with Other Props
 
 ### With Constraints
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['Vue.js', 'React']"
+    :max-tags="5"
+    :allow-duplicates="false"
+    :editable="true"
+    input-placeholder="Max 5 tags with constraints..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -183,7 +244,20 @@ const handleTagsChanged = (tags) => {
 </template>
 ```
 
+</CodeBlockCollapsible>
+
 ### With Suggestions
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['JavaScript']"
+    :sources="['JavaScript', 'TypeScript', 'Python', 'Go', 'Rust', 'Java', 'C#', 'Swift']"
+    autosuggest
+    input-placeholder="Add more languages..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -209,7 +283,23 @@ const programmingLanguages = [
 </script>
 ```
 
+</CodeBlockCollapsible>
+
 ### With Custom Theming
+
+<div class="demo-container">
+  <SmartTagz
+    :default-tags="['Important', 'Urgent', 'Review']"
+    :theme="{
+      primary: '#ef4444',
+      background: '#fee2e2',
+      tagTextColor: '#ffffff'
+    }"
+    input-placeholder="Custom themed defaults..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -223,6 +313,8 @@ const programmingLanguages = [
   />
 </template>
 ```
+
+</CodeBlockCollapsible>
 
 ## Behavior Notes
 
@@ -253,6 +345,8 @@ Default tags are:
 
 ## TypeScript Support
 
+<CodeBlockCollapsible>
+
 ```typescript
 import SmartTagz from 'smart-tagz'
 
@@ -270,6 +364,8 @@ const props: TagProps = {
   editable: true
 }
 ```
+
+</CodeBlockCollapsible>
 
 ## See Also
 

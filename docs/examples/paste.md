@@ -8,7 +8,7 @@ Try pasting a comma-separated list (e.g., `JavaScript, TypeScript, Vue.js`):
 
 <div class="demo-container">
   <SmartTagz
-    :allow-paste="true"
+    :allow-paste="{ delimiter: ',' }"
     input-placeholder="Paste comma-separated tags here..."
   />
 </div>
@@ -77,6 +77,20 @@ import 'smart-tagz/dist/smart-tagz.css'
 
 ### Example 1: CSV Import
 
+<div class="demo-container">
+  <h3 style="margin-top: 0;">Import Emails</h3>
+  <p>Paste comma-separated emails below:</p>
+  <SmartTagz
+    :allow-paste="{ delimiter: ',' }"
+    input-placeholder="Paste emails here..."
+  />
+  <div style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+    Try pasting: <code>john@example.com, jane@example.com, bob@example.com</code>
+  </div>
+</div>
+
+<CodeBlockCollapsible>
+
 ```vue
 <template>
   <div>
@@ -111,10 +125,25 @@ const handleEmailsChanged = (newEmails) => {
 </style>
 ```
 
+</CodeBlockCollapsible>
+
 ### Example 2: Todo List Bulk Import
 
-<details>
-<summary>Click to view code</summary>
+<div class="demo-container">
+  <div style="background-color: #f3f4f6; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+    <p style="margin: 0 0 0.5rem 0;">Paste multiple todos (one per line):</p>
+    <code style="display: block; margin-top: 0.5rem; padding: 0.5rem; background-color: #fff; border-left: 3px solid #3b82f6; font-family: monospace; font-size: 0.875rem;">Buy groceries<br/>Complete project<br/>Call dentist<br/>Fix bugs</code>
+  </div>
+
+  <SmartTagz
+    :allow-paste="{ delimiter: '\n' }"
+    :max-tags="20"
+    :editable="true"
+    input-placeholder="Paste todos here..."
+  />
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -190,12 +219,22 @@ const updateTodos = (newTodos) => {
 </style>
 ```
 
-</details>
+</CodeBlockCollapsible>
 
 ### Example 3: With Validation
 
-<details>
-<summary>Click to view code</summary>
+<div class="demo-container">
+  <SmartTagz
+    :allow-paste="{ delimiter: ',' }"
+    :allow-duplicates="false"
+    input-placeholder="Paste URLs (comma-separated)..."
+  />
+  <div style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+    Try pasting valid URLs separated by commas
+  </div>
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -253,12 +292,37 @@ const validateUrls = (urls) => {
 </style>
 ```
 
-</details>
+</CodeBlockCollapsible>
 
 ### Example 4: Spreadsheet Import
 
-<details>
-<summary>Click to view code</summary>
+<div class="demo-container">
+  <div style="background-color: #eff6ff; padding: 1rem; border-radius: 0.375rem; margin-bottom: 1.5rem;">
+    <h3 style="margin-top: 0; color: #0369a1;">Import from Spreadsheet</h3>
+    <ol style="margin: 0.5rem 0 0 1.5rem;">
+      <li>Copy column A from your spreadsheet</li>
+      <li>Paste below (one item per line)</li>
+      <li>Duplicates will be automatically removed</li>
+    </ol>
+  </div>
+
+  <SmartTagz
+    :allow-paste="{ delimiter: '\n' }"
+    :allow-duplicates="false"
+    :max-tags="100"
+    :editable="true"
+    input-placeholder="Paste spreadsheet data..."
+  />
+
+  <div style="margin-top: 2rem; padding: 1rem; background-color: #ecfdf5; border-radius: 0.375rem;">
+    <h3 style="margin-top: 0; color: #047857;">Try pasting:</h3>
+    <code style="display: block; padding: 0.5rem; background-color: #fff; border-left: 3px solid #10b981; font-family: monospace; font-size: 0.875rem; color: #1f2937;">
+Apple<br/>Banana<br/>Orange<br/>Grape<br/>Mango
+    </code>
+  </div>
+</div>
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -378,7 +442,7 @@ const saveImport = async () => {
 </style>
 ```
 
-</details>
+</CodeBlockCollapsible>
 
 ## Combining with Other Props
 

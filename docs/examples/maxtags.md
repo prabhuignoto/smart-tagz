@@ -26,6 +26,8 @@ The `maxTags` prop limits the number of tags users can add. This is useful for:
 
 ## Basic Usage
 
+<CodeBlockCollapsible>
+
 ```vue
 <!-- Limit to 5 tags -->
 <template>
@@ -43,6 +45,8 @@ import 'smart-tagz/dist/smart-tagz.css'
 </script>
 ```
 
+</CodeBlockCollapsible>
+
 ## Props
 
 ### `maxTags`
@@ -51,9 +55,13 @@ import 'smart-tagz/dist/smart-tagz.css'
 - **Default:** `20`
 - **Description:** Maximum number of tags that can be added
 
+<CodeBlockCollapsible>
+
 ```vue
 <SmartTagz :max-tags="5" />
 ```
+
+</CodeBlockCollapsible>
 
 ## How It Works
 
@@ -76,6 +84,8 @@ import 'smart-tagz/dist/smart-tagz.css'
 ## Practical Examples
 
 ### Example 1: Survey with Tag Limit
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -148,7 +158,25 @@ const handleSkillsChange = (skills) => {
 </style>
 ```
 
+</CodeBlockCollapsible>
+
+**Live Demo - Try selecting up to 5 skills:**
+
+<div class="demo-container">
+  <h3 style="margin: 0 0 0.5rem 0;">What are your top skills?</h3>
+  <p style="margin: 0 0 1rem 0; color: #666;">Select up to 5 skills</p>
+
+  <SmartTagz
+    :max-tags="5"
+    :sources="['JavaScript', 'Python', 'Vue.js', 'React', 'TypeScript', 'Node.js', 'Docker', 'AWS', 'PostgreSQL', 'GraphQL']"
+    autosuggest
+    input-placeholder="Select skills..."
+  />
+</div>
+
 ### Example 2: Shopping Cart Tags (Wishlist)
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -239,7 +267,28 @@ button:disabled {
 </style>
 ```
 
+</CodeBlockCollapsible>
+
+**Live Demo - Build your wishlist (max 10 items):**
+
+<div class="demo-container">
+  <h3 style="margin: 0 0 1rem 0;">My Wishlist</h3>
+
+  <SmartTagz
+    :max-tags="10"
+    :editable="true"
+    :allow-duplicates="false"
+    input-placeholder="Add item to wishlist..."
+  />
+
+  <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+    Your wishlist can hold up to 10 items. Try adding items and editing them!
+  </p>
+</div>
+
 ### Example 3: Image Tagging with Limit
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -272,8 +321,8 @@ button:disabled {
 import { ref } from 'vue'
 import SmartTagz from 'smart-tagz'
 
-const imageUrl = 'https://via.placeholder.com/300'
-const imageName = 'Sample Image'
+const imageUrl = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop'
+const imageName = 'Mountain Landscape'
 
 const suggestedTags = [
   'Nature', 'Outdoor', 'Landscape', 'Sky', 'Mountains',
@@ -336,7 +385,30 @@ const saveTags = () => {
 </style>
 ```
 
+</CodeBlockCollapsible>
+
+**Live Demo - Tag an image (max 8 tags):**
+
+<div class="demo-container">
+  <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=400&fit=crop" alt="Mountain Landscape" style="width: 100%; border-radius: 0.5rem; margin-bottom: 1.5rem;" />
+
+  <h3 style="margin: 0 0 1rem 0;">Tag This Image</h3>
+  <SmartTagz
+    :max-tags="8"
+    :sources="['Nature', 'Outdoor', 'Landscape', 'Sky', 'Mountains', 'Beach', 'Forest', 'Water', 'Sunset', 'Wildlife']"
+    :allow-duplicates="false"
+    autosuggest
+    input-placeholder="Add tags..."
+  />
+
+  <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+    Add up to 8 tags to describe this image
+  </p>
+</div>
+
 ### Example 4: API Request with Tag Limits
+
+<CodeBlockCollapsible>
 
 ```vue
 <template>
@@ -358,10 +430,16 @@ const saveTags = () => {
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn-submit">Submit Request</button>
+      <button type="submit" class="btn-submit" :disabled="!canSubmit">
+        {{ isSubmitting ? 'Submitting...' : 'Submit Request' }}
+      </button>
       <span v-if="!canSubmit" class="error-note">
         Add at least 1 tag to submit
       </span>
+    </div>
+
+    <div v-if="submitMessage" :class="['submit-message', submitStatus]">
+      {{ submitMessage }}
     </div>
   </form>
 </template>
@@ -380,20 +458,47 @@ const formData = ref({
   description: ''
 })
 
+const isSubmitting = ref(false)
+const submitMessage = ref('')
+const submitStatus = ref('')
+
 const canSubmit = computed(() => {
   return formData.value.tags.length > 0 && formData.value.description.trim() !== ''
 })
 
-const submitRequest = async () => {
-  const response = await fetch('/api/requests', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData.value)
+// Fake API simulation
+const mockApiCall = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const success = Math.random() > 0.1 // 90% success rate
+      resolve(success)
+    }, 1500)
   })
+}
 
-  if (response.ok) {
-    alert('Request submitted successfully!')
-    formData.value = { tags: [], description: '' }
+const submitRequest = async () => {
+  isSubmitting.value = true
+  submitMessage.value = ''
+
+  try {
+    const success = await mockApiCall()
+
+    if (success) {
+      submitMessage.value = `✅ Request submitted with tags: ${formData.value.tags.join(', ')}`
+      submitStatus.value = 'success'
+      formData.value = { tags: [], description: '' }
+    } else {
+      submitMessage.value = '❌ Failed to submit request. Please try again.'
+      submitStatus.value = 'error'
+    }
+  } catch (error) {
+    submitMessage.value = '❌ Network error. Please try again.'
+    submitStatus.value = 'error'
+  } finally {
+    isSubmitting.value = false
+    setTimeout(() => {
+      submitMessage.value = ''
+    }, 4000)
   }
 }
 </script>
@@ -446,47 +551,35 @@ textarea {
   color: #dc2626;
   font-size: 0.875rem;
 }
+
+.submit-message {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.submit-message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.submit-message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
 </style>
 ```
 
-## Combining with Other Props
+</CodeBlockCollapsible>
 
-### With Default Tags
+**Live Demo - Submit a request with tags:**
 
-```vue
-<SmartTagz
-  :max-tags="10"
-  :default-tags="['Vue', 'React']"
-/>
-```
-
-### With Paste Import
-
-```vue
-<SmartTagz
-  :max-tags="5"
-  :allow-paste="{ delimiter: ',' }"
-/>
-```
-
-### With Duplicate Prevention
-
-```vue
-<SmartTagz
-  :max-tags="10"
-  :allow-duplicates="false"
-/>
-```
-
-### With Suggestions
-
-```vue
-<SmartTagz
-  :max-tags="8"
-  :sources="options"
-  autosuggest
-/>
-```
+<div class="demo-container">
+  <ApiRequestDemo />
+</div>
 
 ## Behavior Notes
 

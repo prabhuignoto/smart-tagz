@@ -6,6 +6,8 @@ import SmartTagz from '../../../src/components/Main.vue'
 import Tags from '../../../src/components/Tags.vue'
 import SuggestPane from '../../../src/components/SuggestPane.vue'
 import Tooltip from '../../../src/components/Tooltip.vue'
+import CodeBlockCollapsible from './CodeBlockCollapsible.vue'
+import ApiRequestDemo from './ApiRequestDemo.vue'
 import '../../../src/styles/index.scss'
 
 export default {
@@ -18,5 +20,7 @@ export default {
     app.component('SmartTags', Tags)
     app.component('SuggestPane', SuggestPane)
     app.component('SmartTooltip', Tooltip)
+    app.component('CodeBlockCollapsible', CodeBlockCollapsible)
+    app.component('ApiRequestDemo', ApiRequestDemo)
   },
 } satisfies Theme
