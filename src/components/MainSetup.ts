@@ -18,17 +18,17 @@ interface PropModel {
   onChanged?: (result: string[]) => void
 }
 
-export default function ({
-  autosuggest,
-  allowPaste = { delimiter: ',' },
-  allowDuplicates,
-  maxTags,
-  defaultTags = [],
-  sources,
-  quickDelete,
-  width,
-  onChanged,
-}: PropModel) {
+export default function (props: PropModel) {
+  const {
+    autosuggest,
+    allowPaste = { delimiter: ',' },
+    allowDuplicates,
+    maxTags,
+    defaultTags = [],
+    quickDelete,
+    width,
+    onChanged,
+  } = props
   const delTagRef = ref<{ id: string } | null>(null)
   // ref to store the tags data. init with default tags
   const tagsData = ref<TagModel[]>(
@@ -79,13 +79,16 @@ export default function ({
     width,
   }))
 
+  // Reactive reference to sources for autocomplete
+  const sourcesRef = computed(() => props.sources || [])
+
   const filteredItems = computed(() => {
     if (!input.value) {
       return []
     }
 
     // Use fuzzy matching with fuse.js instead of prefix-only matching
-    const fuse = new Fuse(sources, {
+    const fuse = new Fuse(sourcesRef.value, {
       threshold: 0.3, // Balance between accuracy and flexibility
       includeScore: false,
     })
@@ -218,6 +221,22 @@ export default function ({
       })
     )
   })
+
+  // Watch for changes to defaultTags prop to enable reactive updates
+  watch(
+    () => props.defaultTags,
+    (newDefaultTags) => {
+      if (newDefaultTags) {
+        tagsData.value = newDefaultTags.slice(0, maxTags).map((name) => ({
+          id: Math.random().toString(16).slice(2),
+          name,
+          value: name,
+        }))
+        tagsCreated.value = Math.min(newDefaultTags.length, maxTags)
+      }
+    },
+    { deep: true }
+  )
 
   // checks if a new tag can be added
   const canAddTag = (name: string) => {
