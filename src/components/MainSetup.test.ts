@@ -1092,4 +1092,177 @@ describe('MainSetup', () => {
       expect(setup.tagsData.value).toHaveLength(1)
     })
   })
+
+  describe('Bug Fixes - Empty Tag Counter Increment (#33)', () => {
+    it('should not add tag when empty string is passed', () => {
+      const initialLength = setup.tagsData.value.length
+
+      setup.handleAddTag('')
+
+      // No tag should be added
+      expect(setup.tagsData.value).toHaveLength(initialLength)
+    })
+
+    it('should not add tag when whitespace-only string is passed', () => {
+      const initialLength = setup.tagsData.value.length
+
+      setup.handleAddTag('   ')
+
+      // No tag should be added
+      expect(setup.tagsData.value).toHaveLength(initialLength)
+    })
+
+    it('should not add tag when tabs and spaces are passed', () => {
+      const initialLength = setup.tagsData.value.length
+
+      setup.handleAddTag('\t  \t  ')
+
+      // No tag should be added
+      expect(setup.tagsData.value).toHaveLength(initialLength)
+    })
+
+    it('should not add tag when newlines are passed', () => {
+      const initialLength = setup.tagsData.value.length
+
+      setup.handleAddTag('\n\n')
+
+      // No tag should be added
+      expect(setup.tagsData.value).toHaveLength(initialLength)
+    })
+
+    it('should add tag only when valid tag name is provided', () => {
+      const initialLength = setup.tagsData.value.length
+
+      setup.handleAddTag('validtag')
+
+      // One tag should be added
+      expect(setup.tagsData.value).toHaveLength(initialLength + 1)
+      expect(setup.tagsData.value[initialLength]!.name).toBe('validtag')
+    })
+
+    it('should maintain correct tag count after multiple empty attempts', () => {
+      setup.tagsData.value = []
+
+      // Try adding empty tags multiple times
+      setup.handleAddTag('')
+      setup.handleAddTag('  ')
+      setup.handleAddTag('\t')
+
+      // No tags should be added
+      expect(setup.tagsData.value).toHaveLength(0)
+
+      // Add a valid tag
+      setup.handleAddTag('tag1')
+
+      // Should have 1 tag
+      expect(setup.tagsData.value).toHaveLength(1)
+
+      // Try empty again
+      setup.handleAddTag('')
+
+      // Should still have only 1 tag
+      expect(setup.tagsData.value).toHaveLength(1)
+    })
+
+    it('should keep tag count in sync with actual tags', async () => {
+      setup.tagsData.value = []
+
+      // Add valid tags
+      setup.handleAddTag('tag1')
+      setup.handleAddTag('tag2')
+
+      expect(setup.tagsData.value).toHaveLength(2)
+
+      // Try empty tags in between
+      setup.handleAddTag('')
+      setup.handleAddTag('  ')
+
+      // Should still have 2 tags
+      expect(setup.tagsData.value).toHaveLength(2)
+
+      // Add another valid tag
+      setup.handleAddTag('tag3')
+
+      // Should now have 3 tags
+      expect(setup.tagsData.value).toHaveLength(3)
+      expect(setup.tagsData.value.map((t) => t.name)).toEqual(['tag1', 'tag2', 'tag3'])
+    })
+  })
+
+  describe('Feature #53 - Clear All Tags API', () => {
+    it('should provide clearAllTags function', () => {
+      expect(setup.clearAllTags).toBeDefined()
+      expect(typeof setup.clearAllTags).toBe('function')
+    })
+
+    it('should clear all tags when clearAllTags is called', () => {
+      setup.tagsData.value = [
+        { id: '1', name: 'tag1', value: 'tag1' },
+        { id: '2', name: 'tag2', value: 'tag2' },
+        { id: '3', name: 'tag3', value: 'tag3' },
+      ]
+
+      expect(setup.tagsData.value).toHaveLength(3)
+
+      setup.clearAllTags()
+
+      expect(setup.tagsData.value).toHaveLength(0)
+    })
+
+    it('should reset all state when clearAllTags is called', () => {
+      setup.tagsData.value = [
+        { id: '1', name: 'tag1', value: 'tag1' },
+        { id: '2', name: 'tag2', value: 'tag2' },
+      ]
+      setup.input.value = 'some input'
+      setup.showSuggestions.value = true
+      setup.selectedIndex.value = 1
+      setup.selectAllRef.value = true
+
+      setup.clearAllTags()
+
+      expect(setup.tagsData.value).toHaveLength(0)
+      expect(setup.input.value).toBe('')
+      expect(setup.showSuggestions.value).toBe(false)
+      expect(setup.selectedIndex.value).toBe(-1)
+      expect(setup.selectAllRef.value).toBe(false)
+    })
+
+    it('should handle clearAllTags when no tags exist', () => {
+      setup.tagsData.value = []
+
+      // Should not throw error
+      setup.clearAllTags()
+
+      expect(setup.tagsData.value).toHaveLength(0)
+    })
+
+    it('should announce to screen readers when tags are cleared', () => {
+      setup.tagsData.value = [
+        { id: '1', name: 'tag1', value: 'tag1' },
+        { id: '2', name: 'tag2', value: 'tag2' },
+      ]
+
+      setup.clearAllTags()
+
+      // Announcement should be set
+      expect(setup.announcement.value).toContain('cleared')
+    })
+
+    it('should allow adding tags after clearAllTags', () => {
+      setup.tagsData.value = [
+        { id: '1', name: 'tag1', value: 'tag1' },
+        { id: '2', name: 'tag2', value: 'tag2' },
+      ]
+
+      setup.clearAllTags()
+      expect(setup.tagsData.value).toHaveLength(0)
+
+      // Add new tag after clearing
+      setup.handleAddTag('new-tag')
+
+      expect(setup.tagsData.value).toHaveLength(1)
+      expect(setup.tagsData.value[0]!.name).toBe('new-tag')
+    })
+  })
 })

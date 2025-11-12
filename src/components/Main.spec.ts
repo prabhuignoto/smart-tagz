@@ -630,4 +630,112 @@ describe('Main.vue', () => {
       expect(wrapper.vm.tagsData[0]!.name).toBe('tag with spaces')
     })
   })
+
+  describe('Bug Fixes - Enter Key Replacement (#20)', () => {
+    it('should append tags on sequential Enter presses, not replace', async () => {
+      const wrapper = mount(Main, {
+        props: {
+          maxTags: 10,
+        },
+      })
+
+      const input = wrapper.find('input')
+
+      // Add first tag
+      await input.setValue('first-tag')
+      await input.trigger('keyup.enter')
+      await nextTick()
+
+      expect(wrapper.vm.tagsData).toHaveLength(1)
+      expect(wrapper.vm.tagsData[0]!.name).toBe('first-tag')
+
+      // Add second tag - should append, not replace
+      await input.setValue('second-tag')
+      await input.trigger('keyup.enter')
+      await nextTick()
+
+      expect(wrapper.vm.tagsData).toHaveLength(2)
+      expect(wrapper.vm.tagsData[0]!.name).toBe('first-tag')
+      expect(wrapper.vm.tagsData[1]!.name).toBe('second-tag')
+
+      // Add third tag - should continue appending
+      await input.setValue('third-tag')
+      await input.trigger('keyup.enter')
+      await nextTick()
+
+      expect(wrapper.vm.tagsData).toHaveLength(3)
+      expect(wrapper.vm.tagsData[0]!.name).toBe('first-tag')
+      expect(wrapper.vm.tagsData[1]!.name).toBe('second-tag')
+      expect(wrapper.vm.tagsData[2]!.name).toBe('third-tag')
+    })
+
+    it('should not throw focus error when adding tags', async () => {
+      const wrapper = mount(Main, {
+        props: {
+          maxTags: 5,
+        },
+      })
+
+      const input = wrapper.find('input')
+
+      // This should not throw any "Cannot read properties of null" errors
+      await input.setValue('test-tag')
+      await input.trigger('keyup.enter')
+      await nextTick()
+
+      expect(wrapper.vm.tagsData).toHaveLength(1)
+      expect(wrapper.vm.tagsData[0]!.name).toBe('test-tag')
+
+      // Verify input is cleared and focused (no errors)
+      expect((input.element as HTMLInputElement).value).toBe('')
+    })
+
+    it('should handle rapid Enter presses correctly', async () => {
+      const wrapper = mount(Main, {
+        props: {
+          maxTags: 10,
+        },
+      })
+
+      const input = wrapper.find('input')
+
+      // Rapidly add multiple tags
+      for (let i = 1; i <= 5; i++) {
+        await input.setValue(`tag-${i}`)
+        await input.trigger('keyup.enter')
+        await nextTick()
+      }
+
+      expect(wrapper.vm.tagsData).toHaveLength(5)
+      // Verify all tags are present and in order
+      for (let i = 0; i < 5; i++) {
+        expect(wrapper.vm.tagsData[i]!.name).toBe(`tag-${i + 1}`)
+      }
+    })
+
+    it('should preserve existing tags when adding new ones via Enter', async () => {
+      const wrapper = mount(Main, {
+        props: {
+          defaultTags: ['existing1', 'existing2'],
+          maxTags: 10,
+        },
+      })
+
+      const input = wrapper.find('input')
+
+      // Verify initial tags
+      expect(wrapper.vm.tagsData).toHaveLength(2)
+
+      // Add new tag
+      await input.setValue('new-tag')
+      await input.trigger('keyup.enter')
+      await nextTick()
+
+      // Should have 3 tags total, with existing ones preserved
+      expect(wrapper.vm.tagsData).toHaveLength(3)
+      expect(wrapper.vm.tagsData[0]!.name).toBe('existing1')
+      expect(wrapper.vm.tagsData[1]!.name).toBe('existing2')
+      expect(wrapper.vm.tagsData[2]!.name).toBe('new-tag')
+    })
+  })
 })
