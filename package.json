@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@nuxt/kit": "^4.2.1",
     "@types/nanoid": "^3.0.0",
     "@types/node": "^24.10.0",
     "@types/vue-feather-icons": "^5.0.4",
@@ -106,6 +107,11 @@
       "import": "./dist/smart-tagz.esm.js",
       "require": "./dist/smart-tagz.js"
     },
-    "./dist/smart-tagz.css": "./dist/smart-tagz.css"
+    "./dist/smart-tagz.css": "./dist/smart-tagz.css",
+    "./nuxt": {
+      "types": "./dist/nuxt/index.d.ts",
+      "import": "./dist/nuxt/index.mjs",
+      "require": "./dist/nuxt/index.cjs"
+    }
   }
 }

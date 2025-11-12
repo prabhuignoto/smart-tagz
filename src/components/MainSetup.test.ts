@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { nextTick } from 'vue'
+import { nextTick, reactive } from 'vue'
 import MainSetup from './MainSetup'
 
 describe('MainSetup', () => {
@@ -1090,6 +1090,382 @@ describe('MainSetup', () => {
 
       // Should not crash and should prevent duplicate
       expect(setup.tagsData.value).toHaveLength(1)
+    })
+  })
+
+  describe('Reactivity - defaultTags Prop', () => {
+    it('should update tagsData when defaultTags prop changes', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      // Verify initial state
+      expect(reactiveSetup.tagsData.value).toHaveLength(2)
+      expect(reactiveSetup.tagsData.value[0]!.name).toBe('tag1')
+      expect(reactiveSetup.tagsData.value[1]!.name).toBe('tag2')
+
+      // Update the defaultTags prop
+      props.defaultTags = ['newTag1', 'newTag2', 'newTag3']
+      await nextTick()
+
+      // Verify tags were updated
+      expect(reactiveSetup.tagsData.value).toHaveLength(3)
+      expect(reactiveSetup.tagsData.value[0]!.name).toBe('newTag1')
+      expect(reactiveSetup.tagsData.value[1]!.name).toBe('newTag2')
+      expect(reactiveSetup.tagsData.value[2]!.name).toBe('newTag3')
+    })
+
+    it('should respect maxTags limit when defaultTags prop changes', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 2,
+        defaultTags: ['tag1'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      expect(reactiveSetup.tagsData.value).toHaveLength(1)
+
+      // Update with more tags than maxTags allows
+      props.defaultTags = ['tag1', 'tag2', 'tag3', 'tag4']
+      await nextTick()
+
+      // Should only have maxTags number of tags
+      expect(reactiveSetup.tagsData.value).toHaveLength(2)
+      expect(reactiveSetup.tagsData.value[0]!.name).toBe('tag1')
+      expect(reactiveSetup.tagsData.value[1]!.name).toBe('tag2')
+    })
+
+    it('should handle defaultTags being cleared', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2', 'tag3'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      expect(reactiveSetup.tagsData.value).toHaveLength(3)
+
+      // Clear all default tags
+      props.defaultTags = []
+      await nextTick()
+
+      // Tags should be cleared
+      expect(reactiveSetup.tagsData.value).toHaveLength(0)
+    })
+
+    it('should update tagsCreated counter when defaultTags changes', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      // Initial count
+      expect(reactiveSetup.tagsData.value).toHaveLength(2)
+
+      // Update to 5 tags
+      props.defaultTags = ['a', 'b', 'c', 'd', 'e']
+      await nextTick()
+
+      // Counter should update
+      expect(reactiveSetup.tagsData.value).toHaveLength(5)
+    })
+
+    it('should handle adding items to defaultTags array', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      expect(reactiveSetup.tagsData.value).toHaveLength(1)
+
+      // Add more items by pushing (simulating user action)
+      props.defaultTags.push('tag2')
+      props.defaultTags.push('tag3')
+      await nextTick()
+
+      // Should reflect the additions
+      expect(reactiveSetup.tagsData.value).toHaveLength(3)
+      expect(reactiveSetup.tagsData.value[2]!.name).toBe('tag3')
+    })
+
+    it('should generate unique IDs when defaultTags changes', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1', 'tag2'],
+        sources: [],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      const initialIds = reactiveSetup.tagsData.value.map((t) => t.id)
+
+      // Update defaultTags
+      props.defaultTags = ['tag1', 'tag2']
+      await nextTick()
+
+      const newIds = reactiveSetup.tagsData.value.map((t) => t.id)
+
+      // IDs should be regenerated (different from initial)
+      expect(newIds[0]).not.toBe(initialIds[0])
+      expect(newIds[1]).not.toBe(initialIds[1])
+    })
+  })
+
+  describe('Reactivity - sources Prop', () => {
+    it('should update filteredItems when sources prop changes', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['JavaScript', 'Vue.js', 'TypeScript'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      // Set input to trigger filtering
+      reactiveSetup.input.value = 'Java'
+      await nextTick()
+
+      // Should find JavaScript
+      expect(reactiveSetup.filteredItems.value).toContain('JavaScript')
+      expect(reactiveSetup.filteredItems.value).not.toContain('Python')
+
+      // Update sources prop
+      props.sources = ['Python', 'Ruby', 'Go']
+      await nextTick()
+
+      // Should now find Python, not JavaScript
+      expect(reactiveSetup.filteredItems.value).not.toContain('JavaScript')
+
+      // Change input to match new sources
+      reactiveSetup.input.value = 'Py'
+      await nextTick()
+
+      expect(reactiveSetup.filteredItems.value).toContain('Python')
+    })
+
+    it('should handle sources being cleared', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['JavaScript', 'Vue.js', 'TypeScript'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      reactiveSetup.input.value = 'Java'
+      await nextTick()
+
+      expect(reactiveSetup.filteredItems.value.length).toBeGreaterThan(0)
+
+      // Clear sources
+      props.sources = []
+      await nextTick()
+
+      // Should have no filtered items
+      expect(reactiveSetup.filteredItems.value).toHaveLength(0)
+    })
+
+    it('should handle adding items to sources array', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['JavaScript'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      reactiveSetup.input.value = 'T'
+      await nextTick()
+
+      // TypeScript not in sources yet
+      expect(reactiveSetup.filteredItems.value).not.toContain('TypeScript')
+
+      // Add TypeScript to sources
+      props.sources.push('TypeScript')
+      await nextTick()
+
+      // Should now find TypeScript
+      expect(reactiveSetup.filteredItems.value).toContain('TypeScript')
+    })
+
+    it('should reactively update autocomplete suggestions', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['Apple', 'Apricot', 'Banana'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      reactiveSetup.input.value = 'Ap'
+      await nextTick()
+
+      const initialResults = reactiveSetup.filteredItems.value
+      expect(initialResults.length).toBeGreaterThan(0)
+      expect(initialResults.some((item) => item.startsWith('Ap'))).toBe(true)
+
+      // Replace sources completely
+      props.sources = ['Application', 'Append', 'Cherry']
+      await nextTick()
+
+      const newResults = reactiveSetup.filteredItems.value
+      expect(newResults).toContain('Application')
+      expect(newResults).toContain('Append')
+      expect(newResults).not.toContain('Apple')
+    })
+
+    it('should handle sources being replaced with empty array', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['Item1', 'Item2', 'Item3'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      reactiveSetup.input.value = 'Item'
+      await nextTick()
+
+      expect(reactiveSetup.filteredItems.value.length).toBeGreaterThan(0)
+
+      // Replace with empty sources
+      props.sources = []
+      await nextTick()
+
+      expect(reactiveSetup.filteredItems.value).toHaveLength(0)
+    })
+
+    it('should maintain fuzzy matching with reactive sources', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: [],
+        sources: ['JavaScript', 'TypeScript', 'CoffeeScript'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      reactiveSetup.input.value = 'Script'
+      await nextTick()
+
+      // Should match items ending with "Script"
+      expect(reactiveSetup.filteredItems.value.length).toBeGreaterThan(0)
+
+      // Update sources to different items
+      props.sources = ['Python', 'Ruby', 'Scala']
+      await nextTick()
+
+      // Should not match "Script" anymore
+      const newResults = reactiveSetup.filteredItems.value
+      expect(newResults.every((item) => !item.includes('Script'))).toBe(true)
+    })
+  })
+
+  describe('Reactivity - Combined Props', () => {
+    it('should handle both defaultTags and sources changing simultaneously', async () => {
+      const props = reactive({
+        autosuggest: true,
+        allowPaste: { delimiter: ',' },
+        allowDuplicates: false,
+        maxTags: 10,
+        defaultTags: ['tag1'],
+        sources: ['JavaScript'],
+        quickDelete: true,
+        width: '100%',
+      })
+
+      const reactiveSetup = MainSetup(props)
+
+      // Verify initial state
+      expect(reactiveSetup.tagsData.value).toHaveLength(1)
+      reactiveSetup.input.value = 'Java'
+      await nextTick()
+      expect(reactiveSetup.filteredItems.value).toContain('JavaScript')
+
+      // Update both props
+      props.defaultTags = ['newTag1', 'newTag2']
+      props.sources = ['Python', 'Ruby']
+      await nextTick()
+
+      // Both should be updated
+      expect(reactiveSetup.tagsData.value).toHaveLength(2)
+      expect(reactiveSetup.tagsData.value[0]!.name).toBe('newTag1')
+
+      reactiveSetup.input.value = 'Py'
+      await nextTick()
+      expect(reactiveSetup.filteredItems.value).toContain('Python')
+      expect(reactiveSetup.filteredItems.value).not.toContain('JavaScript')
     })
   })
 })

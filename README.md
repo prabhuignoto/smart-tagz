@@ -39,6 +39,7 @@
 
 - [⚡ Installation](#-installation)
 - [🚀 Getting Started](#-getting-started)
+- [🎯 Nuxt 3 Support](#-nuxt-3-support)
 - [🍬 Demos](#-demos)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Accessibility](#accessibility)
@@ -103,6 +104,103 @@ export default defineComponent({
 });
 </script>
 ```
+
+## 🎯 Nuxt 3 Support
+
+Smart-Tagz works seamlessly with **Nuxt 3**! We provide an official Nuxt 3 module for easy integration.
+
+### Quick Setup
+
+#### Option 1: Using the Nuxt Module (Recommended)
+
+```bash
+npm install smart-tagz
+```
+
+Add to `nuxt.config.ts`:
+
+```typescript
+export default defineNuxtConfig({
+  modules: [
+    'smart-tagz/nuxt'
+  ]
+})
+```
+
+Use it in your components:
+
+```vue
+<template>
+  <SmartTagz
+    :source="languages"
+    :on-changed="handleChanged"
+  />
+</template>
+
+<script setup>
+const languages = ref(['JavaScript', 'TypeScript', 'Python'])
+
+const handleChanged = (tags) => {
+  console.log('Tags:', tags)
+}
+</script>
+```
+
+#### Option 2: Manual Plugin Setup
+
+Create a plugin file `plugins/smart-tagz.ts`:
+
+```typescript
+import { defineNuxtPlugin } from '#app'
+import SmartTagz from 'smart-tagz'
+
+export default defineNuxtPlugin((nuxtApp) => {
+  nuxtApp.vueApp.component('SmartTagz', SmartTagz)
+})
+```
+
+### Key Features in Nuxt 3
+
+- ✅ Full SSR/SSG support
+- ✅ Auto-imported components (via Nuxt module)
+- ✅ TypeScript support
+- ✅ Reactive source updates
+- ✅ Programmatic control via refs
+- ✅ All Vue 3 Composition API features supported
+
+### Common Patterns
+
+**Programmatic Tag Control**:
+```vue
+<template>
+  <div>
+    <SmartTagz ref="tagsRef" editable />
+    <button @click="addTag">Add Tag</button>
+    <button @click="clearTags">Clear All</button>
+  </div>
+</template>
+
+<script setup>
+const tagsRef = ref()
+
+const addTag = () => tagsRef.value?.handleAddTag('new-tag')
+const clearTags = () => tagsRef.value?.clearAllTags()
+</script>
+```
+
+**Async Data Loading**:
+```vue
+<script setup>
+const tags = ref([])
+
+onMounted(async () => {
+  const response = await $fetch('/api/tags')
+  tags.value = response
+})
+</script>
+```
+
+For complete Nuxt 3 documentation, see the [Nuxt 3 Guide](https://smart-tagz.vercel.app/guide/nuxt3) or check the [docs](./docs/guide/nuxt3.md).
 
 ## 🍬 Demos
 

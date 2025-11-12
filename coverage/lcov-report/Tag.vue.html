@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/33</span>
+                <span class='fraction'>34/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/35</span>
+                <span class='fraction'>37/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>17/17</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">96.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>31/32</span>
             </div>
         
             
@@ -312,7 +312,16 @@
 <a name='L247'></a><a href='#L247'>247</a>
 <a name='L248'></a><a href='#L248'>248</a>
 <a name='L249'></a><a href='#L249'>249</a>
-<a name='L250'></a><a href='#L250'>250</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,12 +354,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,7 +366,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,11 +416,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">250x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -552,15 +565,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;template&gt;
   &lt;div
     class="tag-container"
@@ -572,6 +576,13 @@
     :style="style"
     :aria-label="highlight ? `${name} - Press Delete again to remove` : name"
   &gt;
+    &lt;Tooltip
+      :show="!!highlight &amp;&amp; !isSelectAll"
+      message="Press Delete to remove"
+      variant="error"
+      closeable
+      @close="handleClearHighlight"
+    /&gt;
     &lt;input
       v-if="canShowInputbox"
       ref="inputTextRef"
@@ -588,12 +599,6 @@
       @dblclick="handleDoubleClick"
     &gt;
       {{ name }}
-      &lt;span
-        v-if="highlight"
-        class="tag-name__delete-hint"
-      &gt;
-        (Press Delete to remove)
-      &lt;/span&gt;
     &lt;/span&gt;
     &lt;button
       v-if="canShowRemoveBtn"
@@ -610,12 +615,14 @@
 &lt;script lang="ts"&gt;
 import { defineComponent, PropType, ref, nextTick, computed, toRef } from 'vue'
 import CloseIcon from './CloseIcon.vue'
+import Tooltip from './Tooltip.vue'
 import { TagClass } from '../models'
 &nbsp;
 export default defineComponent({
   name: 'SmartTag',
   components: {
     CloseIcon,
+    Tooltip,
   },
   props: {
     name: {
@@ -658,14 +665,22 @@ export default defineComponent({
         backgroundColor: '',
       }),
     },
+    isSelectAll: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  emits: {
+    'clear-highlight': <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >t</span>rue,</span>
+  },
+  setup(props, { emit }) {
     const editMode = ref(false)
     const input = ref(props.name)
     const inputTextRef = ref&lt;HTMLInputElement&gt;()
     const tagHighlight = toRef(props, 'highlight')
 &nbsp;
     const handleRemove = (id: string) =&gt; props.onRemove(id)
+    const handleClearHighlight = <span class="fstat-no" title="function not covered" >() =&gt; <span class="cstat-no" title="statement not covered" >e</span>mit('clear-highlight')</span>
     const handleDoubleClick = () =&gt; {
       if (!props.editable || props.readOnly) {
         return
@@ -692,7 +707,7 @@ export default defineComponent({
 &nbsp;
     const style = computed(() =&gt; {
       return {
-        background: tagHighlight.value ? '#b20000' : props.tagStyle.backgroundColor,
+        background: tagHighlight.value ? '#b50000' : props.tagStyle.backgroundColor,
         color: props.tagStyle.foreColor,
       }
     })
@@ -702,6 +717,7 @@ export default defineComponent({
       handleDoubleClick,
       handleSaveEdit,
       handleEscape,
+      handleClearHighlight,
       editMode,
       input,
       inputTextRef,
@@ -720,6 +736,7 @@ export default defineComponent({
   @include flex-center;
   @include drop-shadow(var(--shadow-tag));
 &nbsp;
+  position: relative; // For tooltip positioning
   border-radius: var(--border-radius-sm);
   margin: var(--spacing-md) var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-2xs) var(--spacing-md) var(--spacing-md);
@@ -731,24 +748,13 @@ export default defineComponent({
   }
 &nbsp;
   &amp;--highlight {
-    border: 2px solid rgb(255 255 255 / 60%);
+    // border: 1px solid rgb(255 255 255 / 60%);
     box-shadow: 0 0 0 2px rgb(255 255 255 / 30%);
   }
 }
 &nbsp;
 .tag-name {
   font-size: var(--font-size-base);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-sm);
-&nbsp;
-  &amp;__delete-hint {
-    font-size: 0.75rem;
-    font-weight: 600;
-    opacity: 0.9;
-    font-style: italic;
-  }
 }
 &nbsp;
 .tag-edit-input {
@@ -769,9 +775,9 @@ export default defineComponent({
 .tag-container__button {
   @include flex-center;
 &nbsp;
-  width: 24px;
-  height: 24px;
-  padding: 10px; // Creates 44px touch target: 24px + (10px * 2)
+  width: 20px;
+  height: 20px;
+  padding: 12px; // Creates 44px touch target: 20px + (12px * 2)
   margin-right: var(--spacing-xs);
   margin-left: var(--spacing-base);
   background: var(--color-white);
@@ -798,15 +804,15 @@ export default defineComponent({
   }
 &nbsp;
   @media (width &lt;= 768px) {
-    width: 28px;
-    height: 28px;
-    padding: 8px; // Creates 44px touch target: 28px + (8px * 2)
+    width: 24px;
+    height: 24px;
+    padding: 10px; // Creates 44px touch target: 24px + (10px * 2)
   }
 &nbsp;
   /* Scale the icon inside to maintain visual consistency */
   :deep(svg) {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 &lt;/style&gt;
@@ -817,7 +823,7 @@ export default defineComponent({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-11-10T17:42:54.379Z
+                at 2025-11-12T10:38:32.012Z
             </div>
         <script src="prettify.js"></script>
         <script>
