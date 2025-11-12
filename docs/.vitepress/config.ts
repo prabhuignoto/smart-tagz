@@ -31,6 +31,7 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Examples', link: '/examples/basic' },
       { text: 'API', link: '/api/props' },
+      { text: 'Nuxt 3', link: '/guide/nuxt3' },
       {
         text: 'Links',
         items: [
@@ -56,6 +57,10 @@ export default defineConfig({
             { text: 'Accessibility', link: '/guide/accessibility' },
             { text: 'Migration Guide', link: '/guide/migration' },
           ],
+        },
+        {
+          text: 'Framework Integration',
+          items: [{ text: 'Nuxt 3 Guide', link: '/guide/nuxt3' }],
         },
       ],
       '/examples/': [
