@@ -50,7 +50,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import SmartTagz from '../../../src/components/Main.vue'
 
 const tagCategories = [
